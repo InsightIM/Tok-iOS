@@ -1,0 +1,543 @@
+
+/* No comment provided by engineer. */
+"%ld Tok all rights reserved" = "%ld Tok 版权所有";
+
+/* No comment provided by engineer. */
+"About" = "关于";
+
+/* No comment provided by engineer. */
+"About Tok" = "关于 Tok";
+
+/* No comment provided by engineer. */
+"Accept" = "接受请求";
+
+/* No comment provided by engineer. */
+"Add Bot" = "添加机器人";
+
+/* No comment provided by engineer. */
+"Add Contacts" = "添加联系人";
+
+/* No comment provided by engineer. */
+"Add Contact" = "添加联系人";
+
+/* No comment provided by engineer. */
+"Album" = "相册";
+
+/* No comment provided by engineer. */
+"Alias" = "昵称";
+
+/* No comment provided by engineer. */
+"All files (image, audio and other files) will be deleted forever!\n(Except account profile & database)" = "全部聊天文件将被删除!\n(除了账户文件和数据库)";
+
+/* No comment provided by engineer. */
+"All Members" = "全部成员";
+
+/* No comment provided by engineer. */
+"Away" = "离开";
+
+/* No comment provided by engineer. */
+"Busy" = "繁忙";
+
+/* No comment provided by engineer. */
+"Call ended" = "呼叫结束";
+
+/* No comment provided by engineer. */
+"Camera" = "相机";
+
+/* No comment provided by engineer.-已修改 */
+"Avatar setting failed" = "设置头像失败";
+
+/* No comment provided by engineer. */
+"Cancel" = "取消";
+
+/* No comment provided by engineer. */
+"Change Password" = "修改密码";
+
+/* No comment provided by engineer. */
+"Chats" = "对话";
+
+/* No comment provided by engineer. */
+"Choose Photo" = "选择图片";
+
+/* No comment provided by engineer. */
+"Choose photo" = "选择图片";
+
+/* No comment provided by engineer. */
+"Close" = "关闭";
+
+/* No comment provided by engineer. */
+"Confirm" = "确认";
+
+/* No comment provided by engineer. */
+"Confirm to send friend request" = "确认发送好友请求";
+
+/* No comment provided by engineer. */
+"Connecting" = "连接中";
+
+/* No comment provided by engineer. */
+"Contact us" = "联系我们";
+
+/* No comment provided by engineer. */
+"Contacts" = "联系人";
+
+/* No comment provided by engineer. */
+"Copy" = "复制";
+
+/* No comment provided by engineer. */
+"Create Account" = "创建账号";
+
+/* No comment provided by engineer. */
+"Create account failed" = "创建账号失败";
+
+/* No comment provided by engineer. */
+"Create Group" = "创建群组";
+
+/* No comment provided by engineer. */
+"Create group failed" = "创建群组失败";
+
+/* No comment provided by engineer. */
+"Current version" = "当前版本";
+
+/* No comment provided by engineer. */
+"Decline" = "拒绝";
+
+/* No comment provided by engineer. */
+"Delete" = "删除";
+
+/* No comment provided by engineer. */
+"Delete Profile" = "销毁账号";
+
+/* No comment provided by engineer. */
+"Delete this chat and message history?" = "删除聊天及历史信息?";
+
+/* No comment provided by engineer. */
+"Delete this contact?\nYour chat history will be lost." = "删除这个联系人\n你和他的聊天记录将全部丢失.";
+
+/* No comment provided by engineer. */
+"Deleted contact" = "删除联系人";
+
+/* No comment provided by engineer. */
+"Done" = "完成";
+
+/* No comment provided by engineer. */
+"Draft" = "草稿";
+
+/* No comment provided by engineer. */
+"Duration:" = "时长:";
+
+/* No comment provided by engineer. */
+"Edit" = "编辑";
+
+/* No comment provided by engineer. */
+"Enter new password" = "输入密码";
+
+/* No comment provided by engineer. */
+"Enter new password again" = "再次输入密码";
+
+/* No comment provided by engineer. */
+"Enter original password" = "输入旧密码";
+
+/* No comment provided by engineer. */
+"Export Profile" = "导出账号";
+
+/* No comment provided by engineer. */
+"Tok" = "Tok";
+
+/* No comment provided by engineer. */
+"Tok will not store your password, so we can't help you to retrieve the password if you forgot it, please remember diligently." = "Tok 不会保存你的密码，我们也无法接收你重置密码的请求，密码一旦丢失，将永远无法找回，请务必牢记您的密码.";
+
+/* No comment provided by engineer. */
+"File" = "文件";
+
+/* No comment provided by engineer. */
+"Forward" = "转发";
+
+/* No comment provided by engineer. */
+"Group" = "群组";
+
+/* No comment provided by engineer. */
+"Group Chat" = "群聊";
+
+/* No comment provided by engineer. */
+"Group Members" = "群成员";
+
+/* No comment provided by engineer. */
+"Group Name" = "群名称";
+
+/* No comment provided by engineer. */
+"Group name change failed" = "修改群名称失败";
+
+/* No comment provided by engineer. */
+"Group name is required" = "请输入群名称";
+
+/* No comment provided by engineer. */
+"Hey there! I'm using Tok." = "你好，我们在 Tok 聊天吧.";
+
+/* No comment provided by engineer. */
+"Hi, i'm %@" = "你好, 我是 %@";
+
+/* No comment provided by engineer. */
+"Hold to Talk" = "按住说话";
+
+/* No comment provided by engineer. */
+"Import Account" = "导入账户";
+
+/* No comment provided by engineer. */
+"Import Profile" = "导入文件";
+
+/* No comment provided by engineer. */
+"Password strength is critical for the security of your Tok profile and data." = "密码强度，对于Tok配置文件和数据的安全性至关重要。";
+
+/* No comment provided by engineer. */
+"Incoming call" = "来电";
+
+/* No comment provided by engineer. */
+"Invite Friend" = "邀请好友";
+
+/* No comment provided by engineer. */
+"is calling" = "正在通话中";
+
+/* No comment provided by engineer. */
+"Latest Chats" = "最近聊天";
+
+/* No comment provided by engineer. */
+"Log Out" = "退出";
+
+/* No comment provided by engineer. */
+"Login" = "登录";
+
+/* No comment provided by engineer. */
+"Make the world connect freely!" = "让世界自由连通";
+
+/* No comment provided by engineer. */
+"Mark as Read" = "标记为已读";
+
+/* No comment provided by engineer. */
+"Me" = "我";
+
+/* No comment provided by engineer. */
+"Members" = "成员";
+
+/* No comment provided by engineer. */
+"Messages" = "消息";
+
+/* No comment provided by engineer. */
+"Missed call" = "未接来电";
+
+/* No comment provided by engineer. */
+"Modify Group Name" = "修改群名称";
+
+/* No comment provided by engineer. */
+"Mute Notifications" = "静音";
+
+/* No comment provided by engineer. */
+"My Tok ID" = "我的 Tok ID";
+
+/* No comment provided by engineer. */
+"My Profile" = "我的文件";
+
+/* No comment provided by engineer. */
+"Name" = "用户名";
+
+/* No comment provided by engineer. */
+"New About" = "新签名";
+
+/* No comment provided by engineer. */
+"New Chat" = "新对话";
+
+/* No comment provided by engineer. */
+"New Friend Request" = "新朋友请求";
+
+/* No comment provided by engineer. */
+"New Friends" = "新朋友";
+
+/* No comment provided by engineer. */
+"New Line" = "换行";
+
+/* No comment provided by engineer. */
+"New message" = "新信息";
+
+/* No comment provided by engineer. */
+"New Name" = "新名称";
+
+/* No comment provided by engineer. */
+"New password" = "新密码";
+
+/* No comment provided by engineer. */
+"New password is empty" = "新密码为空";
+
+/* No comment provided by engineer. */
+"Next" = "下一步";
+
+/* No comment provided by engineer. */
+"Nickname" = "昵称";
+
+/* No comment provided by engineer. */
+"No prompt for other members and no group messages after you quit this group" = "当你退群之后，你将不再收到任何群消息";
+
+/* No comment provided by engineer. */
+"Notice" = "通知";
+
+/* No comment provided by engineer. */
+"Offline" = "离线";
+
+/* No comment provided by engineer. */
+"OK" = "好";
+
+/* No comment provided by engineer. */
+"Online" = "在线";
+
+/* No comment provided by engineer. */
+"Original password" = "旧密码";
+
+/* No comment provided by engineer. */
+"Original password is empty" = "旧密码为空";
+
+/* No comment provided by engineer. */
+"Participants" = "成员";
+
+/* No comment provided by engineer. */
+"Password" = "密码";
+
+/* No comment provided by engineer. */
+"Password don't match" = "密码不匹配";
+
+/* No comment provided by engineer. */
+"Password is wrong or User name already exists" = "密码错误或者用户名已存在";
+
+/* No comment provided by engineer. */
+"Passwords is not match" = "密码不匹配";
+
+/* No comment provided by engineer. */
+"Photo" = "图片";
+
+/* No comment provided by engineer. */
+"Please ensure camera permissions are granted for Tok. You can check by going to \"Settings -> Privacy -> Camera\"" = "请确认相机是否被Tok允许使用,请前去检查设置 \"设置 -> 隐私 -> 相机\"";
+
+/* No comment provided by engineer. */
+"Please ensure photo permissions are granted for Tok. You can check by going to \"Settings -> Privacy -> Photos\"" = "请确认相册是否被Tok允许使用,请前去检查设置 \"设置 -> 隐私 -> 相册\"";
+
+/* No comment provided by engineer. */
+"Please enter group name" = "请输入群名称";
+
+/* No comment provided by engineer. */
+"Please fill out the information completely" = "请完整填写信息";
+
+/* No comment provided by engineer. */
+"Please make sure you remember the \"User Name\" and \"Password\"" = "请务必牢记你的用户名和密码";
+
+/* No comment provided by engineer. */
+"Profile" = "个人信息";
+
+/* No comment provided by engineer. */
+"Profile does not exist" = "文件不存在";
+
+/* No comment provided by engineer. */
+"Username" = "用户名";
+
+/* No comment provided by engineer. */
+"Avatar" = "头像";
+
+/* No comment provided by engineer. */
+"Public Key" = "公钥";
+
+/* No comment provided by engineer. */
+"QR Code" = "二维码";
+
+/* No comment provided by engineer. */
+"Reaching..." = "正在拨号中";
+
+/* No comment provided by engineer. */
+"Release to Cancel" = "松手取消";
+
+/* No comment provided by engineer. */
+"Release to Send" = "松手发送";
+
+/* No comment provided by engineer. */
+"Remark" = "备注";
+
+/* No comment provided by engineer. -已修改*/
+"Delete and Leave" = "删除并退群";
+
+/* No comment provided by engineer. */
+"Repeat password" = "再次输入密码";
+
+/* No comment provided by engineer. */
+"Repeat password is empty" = "再次输入密码为空";
+
+/* No comment provided by engineer. */
+"Resend" = "重新发送";
+
+/* No comment provided by engineer. */
+"Scan" = "扫一扫";
+
+/* No comment provided by engineer. */
+"Search" = "搜索";
+
+/* No comment provided by engineer. */
+"Security & Privacy" = "安全和隐私";
+
+/* No comment provided by engineer. */
+"Select a Chat" = "选一个聊天";
+
+/* No comment provided by engineer. */
+"Select a Friend" = "选一个好友";
+
+/* No comment provided by engineer. */
+"Send" = "发送";
+
+/* No comment provided by engineer. */
+"Set Password" = "设置密码";
+
+/* No comment provided by engineer. */
+"Set Password Failed" = "设置密码失败";
+
+/* No comment provided by engineer. */
+"Settings" = "设置";
+
+/* No comment provided by engineer. */
+"Slide up to Cancel" = "向上滑动以取消";
+
+/* No comment provided by engineer. */
+"Start Chatting!" = "开始聊天!";
+
+/* No comment provided by engineer. */
+"Storage Usage" = "存储空间";
+
+/* No comment provided by engineer. */
+"Take a picture" = "拍照";
+
+/* No comment provided by engineer. */
+"This is not a tox profile" = "这不是一个 Tox 文件";
+
+/* No comment provided by engineer. */
+"Unanswered call" = "对方无应答";
+
+/* No comment provided by engineer. */
+"Welcome" = "欢迎";
+
+/* No comment provided by engineer. */
+"Wrong ID. It should contain Tok ID" = "错误的ID。它必须包含Tok/Tox ID";
+
+/* No comment provided by engineer. */
+"Your ID has been copied to the clipboard" = "你的ID 已经复制到剪贴板";
+
+/* No comment provided by engineer. -已修改*/
+"Hello，I'm %@\nI'm in Tok，peer-to-peer encrypted chat!" = "你好，我是 %@\n我在Tok，快来点对点加密聊天吧！";
+
+/* No comment provided by engineer. */
+"Serious warning: if you delete this file, you will always delete all informations about the current account from this device. consider carefully please !!" = "严重警告：此操作将永远从本机删除当前账户所有信息，请谨慎考虑！！";
+
+/* No comment provided by engineer. */
+"Peer-to-peer communication, end-to-end encryption, click for more information >" = "点对点通信，端到端加密，点击了解更多 >";
+
+/* No comment provided by engineer. */
+"Secure chat, No third party listen in" = "这里可以和朋友更加安全聊天";
+
+/* No comment provided by engineer. */
+"Messages to this chat and calls are now secured with peer-to-peer communication, end-to-end encryption.\nTap for more info >" = "此对话中的信息和通话已使用点对点加密通信。\n点击获取更多信息 >";
+
+/* No comment provided by engineer. */
+"privacy_text" = "<body class=\"page layout\"><div id=\"layout-container\"><div class=\"container\"><header class=\"header\"><h1 class=\"title\">Tok 的隐私性和安全性</h1></header><section class=\"content\"><p>Tok 从创立第一天开始，我们的使命就是用科技让沟通更简单。我们知道您会使用 Tok 分享一些私人或者特别的时刻，所以我们在应用程序中采用了点对点通信、端到端加密技术。在点对点通信（没有任何中心服务器转发消息）、端到端加密后，您的任何信息、照片、语音、文档、通话内容就绝不可能落入他人手中。</p><h2>无需任何手机生成账号</h2><p>Tok 不需要任何手机或者邮箱地址，确保任何人无法通过实名制手机或者邮件追踪您的任何私人信息。</p><h2>隐藏所有的 IP 通信地址</h2><p>Tok 采用洋葱路由加密技术，确保您与好友通信的同时，双方都经由多重路由转接，双方都无法得知对方的 IP 地址，确保通信隐私安全。</p><h2>信息自动加密</h2><p>当您和朋友使用 Tok 的时候，您的消息就会自动进行端到端加密。许多通信应用只能加密您与他们之间的信息，但 Tok 的端到端加密技术会确保只有您和信息接收人之间可以读取信息，端到端加密技术会将信息以特别的安全锁锁上，只有您跟信息的接收人才会有安全秘钥可以将信息解锁和读取内容。所有的信息都自动进行端到端加密，无需任何特殊设置，确保信息的安全性，全世界畅通无阻。</p><h2>个人信息的私有</h2><p>Tok 认为您的信息就是属于您的，所以 Tok 的点对点通信没有任何中心服务器，不可能存储任何您的信息，信息端到端加密后，任何第三方、包括 Tok 工程师都完全无法读取信息内容，唯有您自己才是您的信息所有者，所有权的唯一认证是您的秘钥。请一定妥善保管您的秘钥，切勿将其给任何其他人。</p></section></div></div></body>";
+
+/* No comment provided by engineer. */
+"Please paste your friend's Tok ID" = "请粘贴好友的Tok/Tox ID";
+
+/* No comment provided by engineer. */
+"Tok, Make the world connect freely!" = "Tok, Make the world connect freely!";
+
+/* No comment provided by engineer. */
+"Long press this picture a minute, extract the QR code, download the app\n Open Tok and scan this QR code, add me as a friend" = "长按图片，识别二维码下载软件\n打开Tok软件扫描当前图片即可加我为好友";
+
+/* No comment provided by engineer. */
+"Peer-to-peer encrypted chat, I’m in Tok, click %@, free download Tok app. If you installed it, please copy this text $%@$, open Tok can add me as friends." = "点对点加密聊天，我在 Tok。\n点击 %@，免费下载 Tok。\n如果你已经安装，请拷贝这段文字 $%@$，打开 Tok 即可加我为好友。";
+
+/* No comment provided by engineer. */
+"Scan the QR code to add me on Tok" = "扫一扫上面的二维码图案，加我Tok";
+
+/* No comment provided by engineer. */
+"Share by Image" = "分享图片";
+
+/* No comment provided by engineer. */
+"Share by Text" = "分享文字";
+
+/* No comment provided by engineer. */
+"The text has been copied to the clipboard" = "文字已复制到粘贴板";
+
+/* No comment provided by engineer. */
+"New Friend's Tok ID is %@" = "新好友的 Tok ID 是 %@";
+
+/* No comment provided by engineer. */
+"Paste" = "粘贴";
+
+/* No comment provided by engineer. */
+"This is your Tok ID" = "这是你的 Tok ID";
+
+/* No comment provided by engineer. */
+"You're already friends" = "你们已经是好友了";
+
+/* No comment provided by engineer. */
+"Automatically generate random super-long ID, does not associate any real-name information" = "自动生成随机超长ID， 不关联任何实名信息";
+
+/* No comment provided by engineer. */
+"Automatically generates super-long key, it takes 9.9 billions years to violently crack-copy version" = "自动生成超长密钥，需要 9.9 亿亿亿年方能暴力破解";
+
+/* No comment provided by engineer. */
+"Do not require Phone number" = "无需手机号";
+
+/* No comment provided by engineer. */
+"Hidden IP address by onion routing, unable to track your location" = "使用洋葱路由，无法追踪你的位置";
+
+/* No comment provided by engineer. */
+"Invisible IP" = "隐藏 IP 地址";
+
+/* No comment provided by engineer. */
+"Peer-to-Peer encrypted message" = "点对点加密通信";
+
+/* No comment provided by engineer. */
+"Import your tox profile" = "导入Tox文件";
+
+/* No comment provided by engineer. */
+"Password is required to encrypt your data" = "密码用于加密你的数据";
+
+/* No comment provided by engineer. */
+"Choose an Account" = "选择账号";
+
+/* No comment provided by engineer. */
+"To import your Tox profile:\n1.Click directly on your file;\n2.Use \"Open In\" menu for the file;\n3.Select \"Copy to Tok\"." = "导入Tox文件:\n1.直接点击你的文件;\n2.选择\"用其他应用程序打开此文件\";\n3.选择\"Tok\".";
+
+/* No comment provided by engineer. */
+"Please ensure camera permissions are granted for Tok. You can check by going to \"Settings -> Tok -> Camera\"" = "请确保 Tok 可以访问相机。你可以通过 \"设置 -> Tok -> 相机\" 来检查。";
+
+/* No comment provided by engineer. */
+"Please ensure photo permissions are granted for Tok. You can check by going to \"Settings -> Tok -> Photos\"" = "请确保 Tok 可以访问相册。你可以通过 \"设置 -> Tok -> 相册\" 来检查。";
+
+/* No comment provided by engineer. */
+"Bio" = "简介";
+
+/* No comment provided by engineer. */
+"FindFriendBot" = "添加朋友机器人";
+
+/* No comment provided by engineer. */
+"What can I do? FindFriendBot can help you find more friends. Click or Type /help for a list of commands." = "我可以做什么？添加朋友机器人可以帮你寻找更多的朋友。添加我为好友，点击或输入 /help 获取指令列表。";
+
+/* No comment provided by engineer. */
+"Autodownload Files" = "自动下载文件";
+
+/* No comment provided by engineer. */
+"Remove Photo" = "删除图片";
+
+/* No comment provided by engineer. */
+"Reset" = "重置";
+
+/* No comment provided by engineer. */
+"Reset Tok ID" = "重置 Tok ID";
+
+/* No comment provided by engineer. */
+"Reseting your Tok ID changes your ID permanently. You will keep your current contacts list, but other people won't be able to add you using your old ID." = "重置你的Tok ID（PK不变，重置随机码），你的Tok ID将永久被改变，请确认！重置ID后，你能够保留当前所有的好友列表，但是其他人不能再通过你的旧ID加你为好友.";
+
+/* Alert message when something goes wrong during capture session configuration */
+"Unable to capture media" = "不能捕获图像";
+
+/* No comment provided by engineer. */
+"Your new Tok ID is" = "你的新 Tok ID 是";

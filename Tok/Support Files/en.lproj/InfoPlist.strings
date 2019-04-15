@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  Tok
+
+  Created by Bryce on 2019/1/28.
+  Copyright © 2019 Insight. All rights reserved.
+*/
+
+NSCameraUsageDescription = "Tok uses the camera to set profile photo, and send photo to your contact in chat.";
+NSPhotoLibraryUsageDescription = "Tok uses the photo library to set profile photo, and send photo to your contact in chat.";
+NSPhotoLibraryAddUsageDescription = "Tok uses the photo library to save photo to your phone.";
+NSMicrophoneUsageDescription = "Tok uses microphones to record voice messages to send to your contact in chat.";

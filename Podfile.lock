@@ -1,0 +1,135 @@
+PODS:
+  - Action (3.10.0):
+    - RxCocoa (~> 4.3)
+    - RxSwift (~> 4.3)
+  - CocoaDebug (0.5.9)
+  - Device (3.1.2)
+  - HXPhotoPicker (2.2.8):
+    - SDWebImage
+    - YYWebImage
+  - libopus-patched-config (1.1):
+    - libopus-patched-config/float (= 1.1)
+  - libopus-patched-config/float (1.1)
+  - libsodium (1.0.12)
+  - lottie-ios (2.5.2)
+  - MBProgressHUD (1.1.0)
+  - Protobuf (3.6.1)
+  - Realm (3.13.1):
+    - Realm/Headers (= 3.13.1)
+  - Realm/Headers (3.13.1)
+  - Reusable (4.0.5):
+    - Reusable/Storyboard (= 4.0.5)
+    - Reusable/View (= 4.0.5)
+  - Reusable/Storyboard (4.0.5)
+  - Reusable/View (4.0.5)
+  - RSKImageCropper (2.2.1)
+  - RxAtomic (4.4.1)
+  - RxCocoa (4.4.1):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.4.1):
+    - RxAtomic (~> 4.4)
+  - SDWebImage (4.4.6):
+    - SDWebImage/Core (= 4.4.6)
+  - SDWebImage/Core (4.4.6)
+  - SnapKit (4.0.1)
+  - SwiftDate (5.0.13)
+  - SwiftMessages (6.0.2):
+    - SwiftMessages/App (= 6.0.2)
+  - SwiftMessages/App (6.0.2)
+  - SwiftyCam (4.0.0)
+  - TextFieldEffects (1.5.1)
+  - TPCircularBuffer (1.6.1)
+  - YBImageBrowser (2.1.5):
+    - SDWebImage
+    - YYImage
+  - YYCache (1.0.4)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYWebImage (1.0.5):
+    - YYCache
+    - YYImage
+
+DEPENDENCIES:
+  - Action
+  - CocoaDebug
+  - Device
+  - HXPhotoPicker (~> 2.2.8)
+  - libopus-patched-config
+  - libsodium
+  - lottie-ios
+  - MBProgressHUD
+  - Protobuf
+  - Realm (~> 3.13.1)
+  - Reusable
+  - RSKImageCropper (~> 2.2.1)
+  - RxCocoa
+  - RxSwift
+  - SnapKit (~> 4.0.1)
+  - SwiftDate (~> 5.0.10)
+  - SwiftMessages
+  - SwiftyCam
+  - TextFieldEffects
+  - TPCircularBuffer
+  - YBImageBrowser
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Action
+    - CocoaDebug
+    - Device
+    - HXPhotoPicker
+    - libopus-patched-config
+    - libsodium
+    - lottie-ios
+    - MBProgressHUD
+    - Protobuf
+    - Realm
+    - Reusable
+    - RSKImageCropper
+    - RxAtomic
+    - RxCocoa
+    - RxSwift
+    - SDWebImage
+    - SnapKit
+    - SwiftDate
+    - SwiftMessages
+    - SwiftyCam
+    - TextFieldEffects
+    - TPCircularBuffer
+    - YBImageBrowser
+    - YYCache
+    - YYImage
+    - YYWebImage
+
+SPEC CHECKSUMS:
+  Action: 24de4abf6efecd239fa7d8e923df010a12f153d9
+  CocoaDebug: a9340ab62aff3d42937fe789f810552a14751d52
+  Device: 62242076214c30fb5760174b3601cefafa70a481
+  HXPhotoPicker: c8d59a00c93e248aa6ce7b5852a4e4394649ce5f
+  libopus-patched-config: 12321105eb4b96e869b7957f3122345fd67928c3
+  libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
+  lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
+  Reusable: 188be1a54ac0691bc66e5bb24ec6eb91971b315b
+  RSKImageCropper: 98296ad26b41753f796b6898d015509598f13d97
+  RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
+  RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
+  RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
+  SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
+  SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
+  SwiftyCam: 6e57914771d972fbe508e759dc9d0150a44a93fd
+  TextFieldEffects: 7d372f58aeaf9acd9626bbf962680aef926b085d
+  TPCircularBuffer: c13243556527551c4d320709c7b14a6d20cdc30a
+  YBImageBrowser: 549bc0f8bc7df723381e1516db240d827ded3673
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
+
+PODFILE CHECKSUM: d6e13eb328a57e7f1a738e3c1d03ff32bf5131fe
+
+COCOAPODS: 1.5.3

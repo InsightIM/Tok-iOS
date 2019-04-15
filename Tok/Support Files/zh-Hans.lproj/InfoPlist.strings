@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  Tok
+
+  Created by Bryce on 2019/1/28.
+  Copyright © 2019 Insight. All rights reserved.
+*/
+
+NSCameraUsageDescription = "Tok 使用相机来设置头像、添加好友以及发送图片消息。";
+NSPhotoLibraryUsageDescription = "Tok 使用相册来设置头像、添加好友以及发送图片消息。";
+NSPhotoLibraryAddUsageDescription = "Tok 用于保存聊天图片";
+NSMicrophoneUsageDescription = "Tok 使用麦克风来录制语音信息，以发送给好友。";

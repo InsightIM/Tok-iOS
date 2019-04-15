@@ -1,0 +1,543 @@
+
+/* No comment provided by engineer. */
+"%ld Tok all rights reserved" = "%ld Tok all rights reserved";
+
+/* No comment provided by engineer. */
+"About" = "Bio";
+
+/* No comment provided by engineer. */
+"About Tok" = "About Tok";
+
+/* No comment provided by engineer. */
+"Accept" = "Accept";
+
+/* No comment provided by engineer. */
+"Add Bot" = "Add Bot";
+
+/* No comment provided by engineer. */
+"Add Contacts" = "Add Contacts";
+
+/* No comment provided by engineer. */
+"Add Contact" = "Add Contact";
+
+/* No comment provided by engineer. */
+"Album" = "Album";
+
+/* No comment provided by engineer. */
+"Alias" = "Alias";
+
+/* No comment provided by engineer. */
+"All files (image, audio and other files) will be deleted forever!\n(Except account profile & database)" = "All files (image, audio and other files) will be deleted forever!\n(Except account profile & database)";
+
+/* No comment provided by engineer. */
+"All Members" = "All Members";
+
+/* No comment provided by engineer. */
+"Away" = "Away";
+
+/* No comment provided by engineer. */
+"Busy" = "Busy";
+
+/* No comment provided by engineer. */
+"Call ended" = "Call ended";
+
+/* No comment provided by engineer. */
+"Camera" = "Camera";
+
+/* No comment provided by engineer. */
+"Cancel" = "Cancel";
+
+/* No comment provided by engineer. */
+"Change Password" = "Change Password";
+
+/* No comment provided by engineer. */
+"Chats" = "Chats";
+
+/* No comment provided by engineer. */
+"Choose Photo" = "Choose Photo";
+
+/* No comment provided by engineer. */
+"Choose photo" = "Choose photo";
+
+/* No comment provided by engineer. */
+"Close" = "Close";
+
+/* No comment provided by engineer. */
+"Confirm" = "Confirm";
+
+/* No comment provided by engineer. */
+"Confirm to send friend request" = "Confirm to send friend request";
+
+/* No comment provided by engineer. */
+"Connecting" = "Connecting";
+
+/* No comment provided by engineer. */
+"Contact us" = "Contact us";
+
+/* No comment provided by engineer. */
+"Contacts" = "Contacts";
+
+/* No comment provided by engineer. */
+"Copy" = "Copy";
+
+/* No comment provided by engineer. */
+"Create Account" = "Create Account";
+
+/* No comment provided by engineer. */
+"Create account failed" = "Create account failed";
+
+/* No comment provided by engineer. */
+"Create Group" = "Create Group";
+
+/* No comment provided by engineer. */
+"Create group failed" = "Create group failed";
+
+/* No comment provided by engineer. */
+"Current version" = "Current version";
+
+/* No comment provided by engineer. */
+"Decline" = "Decline";
+
+/* No comment provided by engineer. */
+"Delete" = "Delete";
+
+/* No comment provided by engineer. */
+"Delete Profile" = "Delete Profile";
+
+/* No comment provided by engineer. */
+"Delete this chat and message history?" = "Delete this chat and message history?";
+
+/* No comment provided by engineer. */
+"Delete this contact?\nYour chat history will be lost." = "Delete this contact?\nYour chat history will be lost.";
+
+/* No comment provided by engineer. */
+"Deleted contact" = "Deleted contact";
+
+/* No comment provided by engineer. */
+"Done" = "Done";
+
+/* No comment provided by engineer. */
+"Draft" = "Draft";
+
+/* No comment provided by engineer. */
+"Duration:" = "Duration:";
+
+/* No comment provided by engineer. */
+"Edit" = "Edit";
+
+/* No comment provided by engineer. */
+"Enter new password" = "Enter new password";
+
+/* No comment provided by engineer. */
+"Enter new password again" = "Enter new password again";
+
+/* No comment provided by engineer. */
+"Enter original password" = "Enter original password";
+
+/* No comment provided by engineer. */
+"Export Profile" = "Export Profile";
+
+/* No comment provided by engineer. */
+"Tok" = "Tok";
+
+/* No comment provided by engineer. */
+"Tok will not store your password, so we can't help you to retrieve the password if you forgot it, please remember diligently." = "Tok will not store your password, so we can't help you to retrieve the password if you forgot it, please remember diligently.";
+
+/* No comment provided by engineer. */
+"File" = "File";
+
+/* No comment provided by engineer. */
+"Forward" = "Forward";
+
+/* No comment provided by engineer. */
+"Group" = "Group";
+
+/* No comment provided by engineer. */
+"Group Chat" = "Group Chat";
+
+/* No comment provided by engineer. */
+"Group Members" = "Group Members";
+
+/* No comment provided by engineer. */
+"Group Name" = "Group Name";
+
+/* No comment provided by engineer. */
+"Group name change failed" = "Group name change failed";
+
+/* No comment provided by engineer. */
+"Group name is required" = "Group name is required";
+
+/* No comment provided by engineer. */
+"Hey there! I'm using Tok." = "Hey there! I'm using Tok.";
+
+/* No comment provided by engineer. */
+"Hi, i'm %@" = "Hi, i'm %@";
+
+/* No comment provided by engineer. */
+"Hold to Talk" = "Hold to Talk";
+
+/* No comment provided by engineer. */
+"Import Account" = "Import Account";
+
+/* No comment provided by engineer. */
+"Import Profile" = "Import Profile";
+
+/* No comment provided by engineer. */
+"Incoming call" = "Incoming call";
+
+/* No comment provided by engineer. */
+"Invite Friend" = "Invite Friend";
+
+/* No comment provided by engineer. */
+"is calling" = "is calling";
+
+/* No comment provided by engineer. */
+"Latest Chats" = "Latest Chats";
+
+/* No comment provided by engineer. */
+"Log Out" = "Log Out";
+
+/* No comment provided by engineer. */
+"Login" = "Login";
+
+/* No comment provided by engineer. */
+"Make the world connect freely!" = "Make the world connect freely!";
+
+/* No comment provided by engineer. */
+"Mark as Read" = "Mark as Read";
+
+/* No comment provided by engineer. */
+"Me" = "Me";
+
+/* No comment provided by engineer. */
+"Members" = "Members";
+
+/* No comment provided by engineer. */
+"Messages" = "Messages";
+
+/* No comment provided by engineer. */
+"Missed call" = "Missed call";
+
+/* No comment provided by engineer. */
+"Modify Group Name" = "Modify Group Name";
+
+/* No comment provided by engineer. */
+"Mute Notifications" = "Mute Notifications";
+
+/* No comment provided by engineer. */
+"My Tok ID" = "My Tok ID";
+
+/* No comment provided by engineer. */
+"My Profile" = "My Profile";
+
+/* No comment provided by engineer. */
+"Name" = "Name";
+
+/* No comment provided by engineer. */
+"New About" = "New Bio";
+
+/* No comment provided by engineer. */
+"New Chat" = "New Chat";
+
+/* No comment provided by engineer. */
+"New Friend Request" = "New Friend Request";
+
+/* No comment provided by engineer. */
+"New Friends" = "New Friends";
+
+/* No comment provided by engineer. */
+"New Line" = "New Line";
+
+/* No comment provided by engineer. */
+"New message" = "New message";
+
+/* No comment provided by engineer. */
+"New Name" = "New Name";
+
+/* No comment provided by engineer. */
+"New password" = "New password";
+
+/* No comment provided by engineer. */
+"New password is empty" = "New password is empty";
+
+/* No comment provided by engineer. */
+"Next" = "Next";
+
+/* No comment provided by engineer. */
+"Nickname" = "Nickname";
+
+/* No comment provided by engineer. */
+"No prompt for other members and no group messages after you quit this group" = "No prompt for other members and no group messages after you quit this group";
+
+/* No comment provided by engineer. */
+"Notice" = "Notice";
+
+/* No comment provided by engineer. */
+"Offline" = "Offline";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Online" = "Online";
+
+/* No comment provided by engineer. */
+"Original password" = "Original password";
+
+/* No comment provided by engineer. */
+"Original password is empty" = "Original password is empty";
+
+/* No comment provided by engineer. */
+"Participants" = "Participants";
+
+/* No comment provided by engineer. */
+"Password" = "Password";
+
+/* No comment provided by engineer. */
+"Password don't match" = "Password don't match";
+
+/* No comment provided by engineer. */
+"Password is wrong or User name already exists" = "Password is wrong or User name already exists";
+
+/* No comment provided by engineer. */
+"Passwords is not match" = "Passwords is not match";
+
+/* No comment provided by engineer. */
+"Photo" = "Photo";
+
+/* No comment provided by engineer. */
+"Please ensure camera permissions are granted for Tok. You can check by going to \"Settings -> Privacy -> Camera\"" = "Please ensure camera permissions are granted for Tok. You can check by going to \"Settings -> Privacy -> Camera\"";
+
+/* No comment provided by engineer. */
+"Please ensure photo permissions are granted for Tok. You can check by going to \"Settings -> Privacy -> Photos\"" = "Please ensure photo permissions are granted for Tok. You can check by going to \"Settings -> Privacy -> Photos\"";
+
+/* No comment provided by engineer. */
+"Please enter group name" = "Please enter group name";
+
+/* No comment provided by engineer. */
+"Please fill out the information completely" = "Please fill out the information completely";
+
+/* No comment provided by engineer. */
+"Please make sure you remember the \"User Name\" and \"Password\"" = "Please make sure you remember the \"User Name\" and \"Password\"";
+
+/* No comment provided by engineer. */
+"Profile" = "Profile";
+
+/* No comment provided by engineer. */
+"Profile does not exist" = "Profile does not exist";
+
+/* No comment provided by engineer. */
+"Username" = "Username";
+
+/* No comment provided by engineer. */
+"Avatar" = "Avatar";
+
+/* No comment provided by engineer. */
+"Public Key" = "Public Key";
+
+/* No comment provided by engineer. */
+"QR Code" = "QR Code";
+
+/* No comment provided by engineer. */
+"Reaching..." = "Reaching...";
+
+/* No comment provided by engineer. */
+"Release to Cancel" = "Release to Cancel";
+
+/* No comment provided by engineer. */
+"Release to Send" = "Release to Send";
+
+/* No comment provided by engineer. */
+"Remark" = "Remark";
+
+/* No comment provided by engineer. */
+"Repeat password" = "Repeat password";
+
+/* No comment provided by engineer. */
+"Repeat password is empty" = "Repeat password is empty";
+
+/* No comment provided by engineer. */
+"Resend" = "Resend";
+
+/* No comment provided by engineer. */
+"Scan" = "Scan";
+
+/* No comment provided by engineer. */
+"Search" = "Search";
+
+/* No comment provided by engineer. */
+"Security & Privacy" = "Security & Privacy";
+
+/* No comment provided by engineer. */
+"Select a Chat" = "Select a Chat";
+
+/* No comment provided by engineer. */
+"Select a Friend" = "Select a Friend";
+
+/* No comment provided by engineer. */
+"Send" = "Send";
+
+/* No comment provided by engineer. */
+"Set Password" = "Set Password";
+
+/* No comment provided by engineer. */
+"Set Password Failed" = "Set Password Failed";
+
+/* No comment provided by engineer. */
+"Settings" = "Settings";
+
+/* No comment provided by engineer. */
+"Slide up to Cancel" = "Slide up to Cancel";
+
+/* No comment provided by engineer. */
+"Start Chatting!" = "Start Chatting!";
+
+/* No comment provided by engineer. */
+"Storage Usage" = "Storage Usage";
+
+/* No comment provided by engineer. */
+"Take a picture" = "Take a picture";
+
+/* No comment provided by engineer. */
+"This is not a tox profile" = "This is not a tox profile";
+
+/* No comment provided by engineer. */
+"Unanswered call" = "Unanswered call";
+
+/* No comment provided by engineer. */
+"Welcome" = "Welcome";
+
+/* No comment provided by engineer. */
+"Wrong ID. It should contain Tok ID" = "Wrong ID. It should contain Tok/Tox ID";
+
+/* No comment provided by engineer. */
+"Your ID has been copied to the clipboard" = "Your ID has been copied to the clipboard";
+
+/* No comment provided by engineer. */
+"Delete and Leave" = "Delete and Leave";
+
+/* No comment provided by engineer. */
+"Hello，I'm %@\nI'm in Tok，peer-to-peer encrypted chat!" = "Hello，I'm %@\nI'm in Tok，peer-to-peer encrypted chat!";
+
+/* No comment provided by engineer. */
+"Avatar setting failed" = "Avatar setting failed";
+
+/* No comment provided by engineer. */
+"Serious warning: if you delete this file, you will always delete all informations about the current account from this device. consider carefully please !!" = "Serious warning: if you delete this file, you will always delete all informations about the current account from this device. consider carefully please !!";
+
+/* No comment provided by engineer. */
+"Password strength is critical for the security of your Tok profile and data." = "Password strength is critical for the security of your Tok profile and data.";
+
+/* No comment provided by engineer. */
+"Peer-to-peer communication, end-to-end encryption, click for more information >" = "Peer-to-peer communication, end-to-end encryption, click for more information >";
+
+/* No comment provided by engineer. */
+"Secure chat, No third party listen in" = "Secure chat, No third party listen in";
+
+/* No comment provided by engineer. */
+"Messages to this chat and calls are now secured with peer-to-peer communication, end-to-end encryption.\nTap for more info >" = "Messages to this chat and calls are now secured with peer-to-peer communication, end-to-end encryption.\nTap for more information >";
+
+/* No comment provided by engineer. */
+"privacy_text" = "<body class=\"page layout\"><div id=\"layout-container\"><div class=\"container\"><header class=\"header\"><h1 class=\"title\">Privacy and security of Tok</h1></header><section class=\"content\"><p>Tok was born with the sole mission of making our communication easier via modern technology. We assume that you would use Tok to share personal or special moments with extreme privacy, so we adopt peer-to-peer communication, end-to-end encryption in our application，which ensure your information with absolute privacy.</p><h2>Do not require any Phone number</h2><p>Phone number and Email address is not required to generate a Tok account, making sure that  your personal information is not traceable through a real-name phone or email.</p><h2>Invisible IP</h2><p>Tok hides all IP addresses through onion routing encryption technology thus you will communicate with your friends via multiple routes so that no one except youself has access to your IP address, ensuring the privacy of the communication.</p><h2>Automatic message encryption</h2><p>Your message is automaticly end-to-end encrypted when you send it to your friend via Tok. Many communication apps can only encrypt information, but Tok's end-to-end encryption technology ensures that only you and the recipient can read the information. End-to-end encryption technology locks information with special security keys, and only you and the recipient of the information will have the security keys to unlock and read the information. All information is automatically end-to-end encrypted, any more special setting to ensure the security of the information is unnecessary, and the world is free to communicate.</p><h2>Private ownership of personal information</h2><p>Tok insist that your information only belongs to you, so Tok’s peer-to-peer communication has no central server and thus can not store any of your information, After end-to-end encryption, any third party, including the Tok’s engineers, can't read the content of the information at all. Only you are the owner of your information, and the only authentication of ownership is your secret key. Please be sure to keep your key yourself and do not give it to anyone else. </p></section></div></div></body>";
+
+/* No comment provided by engineer. */
+"Please paste your friend's Tok ID" = "Please paste your friend's Tok/Tox ID";
+
+/* No comment provided by engineer. */
+"Tok, Make the world connect freely!" = "Tok, Make the world connect freely!";
+
+/* No comment provided by engineer. */
+"Long press this picture a minute, extract the QR code, download the app\n Open Tok and scan this QR code, add me as a friend" = "Long press this picture a minute, extract the QR code, download the app\n Open Tok and scan this QR code, add me as a friend";
+
+/* No comment provided by engineer. */
+"Scan the QR code to add me on Tok" = "Scan the QR code to add me on Tok";
+
+/* No comment provided by engineer. */
+"Share by Image" = "Share by Image";
+
+/* No comment provided by engineer. */
+"Share by Text" = "Share by Text";
+
+/* No comment provided by engineer. */
+"The text has been copied to the clipboard" = "The text has been copied to the clipboard";
+
+/* No comment provided by engineer. */
+"New Friend's Tok ID is %@" = "New Friend's Tok ID is %@";
+
+/* No comment provided by engineer. */
+"Paste" = "Paste";
+
+/* No comment provided by engineer. */
+"Peer-to-peer encrypted chat, I’m in Tok, click %@, free download Tok app. If you installed it, please copy this text $%@$, open Tok can add me as friends." = "Peer-to-peer encrypted chat, I’m in Tok, click %1$@, free download Tok app. If you installed it, please copy this text $%2$@$, open Tok can add me as friends.";
+
+/* No comment provided by engineer. */
+"This is your Tok ID" = "This is your Tok ID";
+
+/* No comment provided by engineer. */
+"You're already friends" = "You're already friends";
+
+/* No comment provided by engineer. */
+"Automatically generate random super-long ID, does not associate any real-name information" = "Automatically generate random super-long ID, does not associate any real-name information";
+
+/* No comment provided by engineer. */
+"Automatically generates super-long key, it takes 9.9 billions years to violently crack-copy version" = "Automatically generates super-long key, it takes 9.9 billions years to violently crack-copy version";
+
+/* No comment provided by engineer. */
+"Do not require Phone number" = "Do not require Phone number";
+
+/* No comment provided by engineer. */
+"Hidden IP address by onion routing, unable to track your location" = "Hidden IP address by onion routing, unable to track your location";
+
+/* No comment provided by engineer. */
+"Invisible IP" = "Invisible IP";
+
+/* No comment provided by engineer. */
+"Peer-to-Peer encrypted message" = "Peer-to-Peer encrypted message";
+
+/* No comment provided by engineer. */
+"Import your tox profile" = "Import your tox profile";
+
+/* No comment provided by engineer. */
+"Password is required to encrypt your data" = "Password is required to encrypt your data";
+
+/* No comment provided by engineer. */
+"Choose an Account" = "Choose an Account";
+
+/* No comment provided by engineer. */
+"To import your Tox profile:\n1.Click directly on your file;\n2.Use \"Open In\" menu for the file;\n3.Select \"Copy to Tok\"." = "To import your Tox profile:\n1.Click directly on your file;\n2.Use \"Open In\" menu for the file;\n3.Select \"Copy to Tok\".";
+
+/* No comment provided by engineer. */
+"Please ensure camera permissions are granted for Tok. You can check by going to \"Settings -> Tok -> Camera\"" = "Please ensure camera permissions are granted for Tok. You can check by going to \"Settings -> Tok -> Camera\"";
+
+/* No comment provided by engineer. */
+"Please ensure photo permissions are granted for Tok. You can check by going to \"Settings -> Tok -> Photos\"" = "Please ensure photo permissions are granted for Tok. You can check by going to \"Settings -> Tok -> Photos\"";
+
+/* No comment provided by engineer. */
+"Bio" = "Bio";
+
+/* No comment provided by engineer. */
+"FindFriendBot" = "FindFriendBot";
+
+/* No comment provided by engineer. */
+"What can I do? FindFriendBot can help you find more friends. Click or Type /help for a list of commands." = "What can I do? FindFriendBot can help you find more friends. Click or Type /help for a list of commands.";
+
+/* No comment provided by engineer. */
+"Autodownload Files" = "Autodownload Files";
+
+/* No comment provided by engineer. */
+"Remove Photo" = "Remove Photo";
+
+/* No comment provided by engineer. */
+"Reset" = "Reset";
+
+/* No comment provided by engineer. */
+"Reset Tok ID" = "Reset Tok ID";
+
+/* No comment provided by engineer. */
+"Reseting your Tok ID changes your ID permanently. You will keep your current contacts list, but other people won't be able to add you using your old ID." = "Reseting your Tok ID changes your ID permanently. You will keep your current contacts list, but other people won't be able to add you using your old ID.";
+
+/* Alert message when something goes wrong during capture session configuration */
+"Unable to capture media" = "Unable to capture media";
+
+/* No comment provided by engineer. */
+"Your new Tok ID is" = "Your new Tok ID is";
