@@ -17,8 +17,16 @@ class BotPortraitCell: UITableViewCell {
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         label.textColor = UIColor.tokBlack
+        return label
+    }()
+    
+    lazy var descLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = UIColor.tokDarkGray
+        label.text = NSLocalizedString("Provided by TOK", comment: "")
         return label
     }()
     
@@ -40,8 +48,14 @@ class BotPortraitCell: UITableViewCell {
         nameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(avatarImageView.snp.right).offset(10)
             make.right.equalTo(-10)
-            make.centerY.equalTo(avatarImageView)
-            make.height.equalTo(24)
+            make.centerY.equalTo(avatarImageView).offset(-10)
+        }
+        
+        contentView.addSubview(descLabel)
+        descLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(avatarImageView.snp.right).offset(10)
+            make.right.equalTo(-10)
+            make.top.equalTo(nameLabel.snp.bottom).offset(4)
         }
     }
     
