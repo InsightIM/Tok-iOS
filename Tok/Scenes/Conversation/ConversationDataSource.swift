@@ -159,7 +159,7 @@ class ConversationDataSource {
         guard let friend = chat.friends?.firstObject() as? OCTFriend else {
             return false
         }
-        return friend.publicKey == botService.publicKey
+        return friend.publicKey == botService.findFriendBot.publicKey
     }
     
     // MARK: - Private Methods
@@ -326,7 +326,7 @@ extension ConversationDataSource {
     func addTextMessage(_ text: String) {
         var string = text
         
-        if isFindFriendBot(), text.lowercased() == BotService.Command.start.rawValue {
+        if isFindFriendBot(), text.lowercased() == FindFriendBotModel.Command.start.rawValue {
             string = text + " " + UserService.shared.toxMananger!.user.userAddress
         }
         

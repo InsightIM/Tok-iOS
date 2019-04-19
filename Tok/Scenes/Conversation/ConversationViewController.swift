@@ -548,7 +548,7 @@ extension ConversationViewController: MessageCellDelegate {
                 return
             }
             if dataSource.isFindFriendBot() {
-                let vc = BotInfoViewController()
+                let vc = BotInfoViewController(bot: BotService().findFriendBot)
                 navigationController?.pushViewController(vc, animated: true)
             } else {
                 let vc = FriendViewController(friend: friend)
@@ -734,7 +734,7 @@ extension ConversationViewController: YBImageBrowserDataSource {
 extension ConversationViewController: MessageLabelDelegate {
     func didSelectCommand(_ commandString: String) {
         let command = commandString.lowercased()
-        guard command != BotService.Command.set.rawValue else {
+        guard command != FindFriendBotModel.Command.set.rawValue else {
             chatActionBarView.inputTextView.text = command + " " + (UserService.shared.toxMananger!.user.userStatusMessage() ?? "")
             return
         }

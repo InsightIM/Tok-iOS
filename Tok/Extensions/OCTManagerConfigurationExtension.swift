@@ -99,6 +99,16 @@ class UserDefaultsManager {
         }
     }
     
+    var showOfflineMessageBotTip: Bool {
+        get {
+            return boolForKey(Keys.ShowOfflineMessageBotTip, defaultValue: true)
+        }
+        set {
+            setBool(newValue, forKey: Keys.ShowOfflineMessageBotTip)
+            NotificationCenter.default.post(name: NSNotification.Name.OfflineMessageBotTipChanged, object: newValue)
+        }
+    }
+    
     var showOnboarding: Bool {
         get {
             return boolForKey(Keys.ShowOnboarding, defaultValue: true)
@@ -115,6 +125,7 @@ class UserDefaultsManager {
 
 extension NSNotification.Name {
     static let FindFriendBotTipChanged = NSNotification.Name("FindFriendBotTipChanged")
+    static let OfflineMessageBotTipChanged = NSNotification.Name("OfflineMessageBotTipChanged")
 }
 
 private extension UserDefaultsManager {
@@ -125,6 +136,7 @@ private extension UserDefaultsManager {
         static let AutodownloadImages = "user-info/autodownload-images"
         static let AutodownloadFiles = "user-info/autodownload-files"
         static let ShowFindFriendBotTip = "user-info/show-find-friend-tip"
+        static let ShowOfflineMessageBotTip = "user-info/show-offline-bot-tip"
         static let ShowOnboarding = "user-info/show-onboarding"
     }
     

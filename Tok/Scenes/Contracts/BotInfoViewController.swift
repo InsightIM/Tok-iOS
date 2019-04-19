@@ -11,9 +11,10 @@ import RxSwift
 
 class BotInfoViewController: BaseViewController {
 
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
-    var friend: OCTFriend
+    private var bot: BotModelProtocol
+    private var friend: OCTFriend
     
     let titles: [String] = [
         "",
@@ -54,11 +55,9 @@ class BotInfoViewController: BaseViewController {
         return tableView
     }()
     
-    private var botService: BotService
-    
-    override init() {
-        botService = BotService()
-        friend = botService.bot
+    init(bot: BotModelProtocol) {
+        self.bot = bot
+        friend = bot.getBot() ?? bot.defaultBot
         
         super.init()
         
@@ -71,14 +70,22 @@ class BotInfoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = NSLocalizedString("FindFriendBot", comment: "")
+        title = friend.nickname
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
         
-        if botService.beAdded {
+        setupButton()
+    }
+    
+    func setupButton() {
+        footerView.subviews.forEach { subview in
+            subview.removeFromSuperview()
+        }
+        
+        if bot.beAdded {
             footerView.addSubview(messagesButton)
             messagesButton.snp.makeConstraints({ (make) in
                 make.top.equalTo(20).priority(.high)
@@ -105,10 +112,14 @@ class BotInfoViewController: BaseViewController {
             })
             
             addButton.rx.tap
-                .subscribe(onNext: { [unowned self] _ in
-                    let vc = AddFriendViewController()
-                    vc.textView.text = self.botService.address
-                    self.navigationController?.pushViewController(vc, animated: true)
+                .flatMap { [unowned self] _ -> Observable<Void> in
+                    let address = self.bot.address
+                    return FriendService.sendRequest(address: address, message: "add bot")
+                }
+                .subscribe(onNext: { [weak self] _ in
+                    self?.setupButton()
+                    }, onError: { [weak self] error in
+                        ProgressHUD.showTextHUD(withText: error.localizedDescription, in: self?.view)
                 })
                 .disposed(by: disposeBag)
         }

@@ -163,25 +163,24 @@ static const NSUInteger kNodesPerIteration = 4;
     NSArray *selectedNodes = [self selectedNodesForIteration];
 
     if (! selectedNodes.count) {
-        OCTLogInfo(@"trying to bootstrap... no nodes left, exiting");
+        NSLog(@"trying to bootstrap... no nodes left, exiting");
         [self finishBootstrapping];
         return;
     }
 
-    OCTLogInfo(@"trying to bootstrap... picked %lu nodes", (unsigned long)selectedNodes.count);
-
-    for (OCTNode *node in selectedNodes) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    NSLog(@"trying to bootstrap... picked %lu nodes", (unsigned long)selectedNodes.count);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (OCTNode *node in selectedNodes) {
             [self safeBootstrapFromHost:node.ipv4Host port:node.udpPort publicKey:node.publicKey];
             [self safeBootstrapFromHost:node.ipv6Host port:node.udpPort publicKey:node.publicKey];
-
+            
             for (NSNumber *tcpPort in node.tcpPorts) {
                 [self safeAddTcpRelayWithHost:node.ipv4Host port:tcpPort.intValue publicKey:node.publicKey];
                 [self safeAddTcpRelayWithHost:node.ipv6Host port:tcpPort.intValue publicKey:node.publicKey];
             }
-        });
-    }
-
+        }
+    });
+    
     [self tryToBootstrapAfter:self.iterationTime];
 }
 
@@ -194,7 +193,7 @@ static const NSUInteger kNodesPerIteration = 4;
     NSError *error;
 
     if (! [[self.dataSource managerGetTox] bootstrapFromHost:host port:port publicKey:publicKey error:&error]) {
-        OCTLogWarn(@"trying to bootstrap... bootstrap failed with address %@, error %@", host, error);
+        NSLog(@"trying to bootstrap... bootstrap failed with address %@, error %@", host, error);
     }
 }
 

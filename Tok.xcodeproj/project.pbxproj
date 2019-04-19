@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02E18C8D2269A6D400B9F571 /* BotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E18C8C2269A6D400B9F571 /* BotModel.swift */; };
 		4E294C552254BEFB009DC146 /* UICircularRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E294C4C2254BEFB009DC146 /* UICircularRing.swift */; };
 		4E294C562254BEFB009DC146 /* UICircularRingLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E294C4D2254BEFB009DC146 /* UICircularRingLayer.swift */; };
 		4E294C572254BEFB009DC146 /* UICircularRingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E294C4E2254BEFB009DC146 /* UICircularRingStyle.swift */; };
@@ -375,6 +376,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02E18C8C2269A6D400B9F571 /* BotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotModel.swift; sourceTree = "<group>"; };
 		4E294C4C2254BEFB009DC146 /* UICircularRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICircularRing.swift; sourceTree = "<group>"; };
 		4E294C4D2254BEFB009DC146 /* UICircularRingLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICircularRingLayer.swift; sourceTree = "<group>"; };
 		4E294C4E2254BEFB009DC146 /* UICircularRingStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICircularRingStyle.swift; sourceTree = "<group>"; };
@@ -925,6 +927,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02E18C8B2269A6BA00B9F571 /* Bot */ = {
+			isa = PBXGroup;
+			children = (
+				02E18C8C2269A6D400B9F571 /* BotModel.swift */,
+			);
+			path = Bot;
+			sourceTree = "<group>";
+		};
 		4E294C4A2254BEA5009DC146 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -1963,6 +1973,7 @@
 		4EAC4A64222E3056003D591C /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				02E18C8B2269A6BA00B9F571 /* Bot */,
 				4EAC4A65222E3056003D591C /* ImagePickerManager.swift */,
 				4EAC4A66222E3056003D591C /* CallManager.swift */,
 				4EAC4A67222E3056003D591C /* FPSMonitor.swift */,
@@ -2715,6 +2726,7 @@
 				4EAC4BAD222E3057003D591C /* UIImageExtension.swift in Sources */,
 				4EAC4B1E222E3057003D591C /* Blurry.swift in Sources */,
 				4EAC4B77222E3057003D591C /* MessagesLayoutDelegate.swift in Sources */,
+				02E18C8D2269A6D400B9F571 /* BotModel.swift in Sources */,
 				4E71C35C2244DBE40056DAF3 /* MessageOperationManager.m in Sources */,
 				4EDCF7BF2238E00000B8B068 /* FileMessageSizeCalculator.swift in Sources */,
 				4EAC4B5A222E3057003D591C /* MessageKitError.swift in Sources */,

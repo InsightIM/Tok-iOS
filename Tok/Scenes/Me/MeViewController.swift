@@ -13,7 +13,8 @@ class MeViewController: BaseViewController {
     
     let titles: [[(String, String, String, Bool)]] = [
         [("Me", "", "", false)],
-        [(NSLocalizedString("My Tok ID", comment: ""), "MyID", "QRCode", false), (NSLocalizedString("FindFriendBot", comment: ""), "Bot", "", true)],
+        [(NSLocalizedString("My Tok ID", comment: ""), "MyID", "QRCode", false), (NSLocalizedString("FindFriendBot", comment: ""), "Bot", "", true),
+         (NSLocalizedString("OfflineMessageBot", comment: ""), "Bot", "", true)],
         [(NSLocalizedString("Security & Privacy", comment: ""), "SecurityAndPrivacy", "", false), (NSLocalizedString("About Tok", comment: ""), "About", "", false)],
         [(NSLocalizedString("Settings", comment: ""), "Settings", "", false)]
     ]
@@ -82,7 +83,10 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.rightImageView.image = UIImage(named: rightImageName)
             }
             if checkBotTip {
-                cell.badgeView.isHidden = !userDefaultsManager.showFindFriendBotTip
+                let isHidden = indexPath.row == 1
+                    ? !userDefaultsManager.showFindFriendBotTip
+                    : !userDefaultsManager.showOfflineMessageBotTip
+                cell.badgeView.isHidden = isHidden
                 cell.badgeView.text = "New"
             }
             return cell
@@ -106,7 +110,9 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
                 let vc = QRViewerController(text: UserService.shared.toxMananger!.user.userAddress)
                 navigationController?.pushViewController(vc, animated: true)
             } else { // bot
-                let vc = BotInfoViewController()
+                let service = BotService()
+                let bot: BotModelProtocol = indexPath.row == 1 ? service.findFriendBot : service.offlineMessageBot
+                let vc = BotInfoViewController(bot: bot)
                 navigationController?.pushViewController(vc, animated: true)
             }
         case 2:

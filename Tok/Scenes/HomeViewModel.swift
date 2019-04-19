@@ -26,7 +26,7 @@ class HomeViewModel: NSObject {
     private let manager: OCTManager
     fileprivate var messagesToken: RLMNotificationToken?
     
-    private let userDefaultsManager = UserDefaultsManager()
+    private let userDefaultsManager: UserDefaultsManager
     
     init(toxMananger: OCTManager) {
         manager = toxMananger
@@ -37,7 +37,10 @@ class HomeViewModel: NSObject {
         chatsCount = notificationManager.chatsCountChanged.map { $0 > 0 ? "\($0)" : nil }.asDriver(onErrorJustReturn: nil)
         requestsCount = notificationManager.requestsCountChanged.map { $0 > 0 ? "\($0)" : nil }.asDriver(onErrorJustReturn: nil)
         
-        hasNewFeature = BehaviorRelay(value: userDefaultsManager.showFindFriendBotTip ? "New" : nil)
+        let userDefaultsManager = UserDefaultsManager()
+        let showNewFeature = (userDefaultsManager.showFindFriendBotTip || userDefaultsManager.showOfflineMessageBotTip)
+        hasNewFeature = BehaviorRelay(value: showNewFeature ? "New" : nil)
+        self.userDefaultsManager = userDefaultsManager
         
         notificationManager.register()
         notificationManager.updateBadges()
@@ -46,8 +49,14 @@ class HomeViewModel: NSObject {
         
         manager.user.delegate = self
         
-        NotificationCenter.default.rx.notification(.FindFriendBotTipChanged)
-            .map { ($0.object as? Bool ?? false) ? "New" : nil }
+        Observable.merge(NotificationCenter.default.rx.notification(.FindFriendBotTipChanged),
+                         NotificationCenter.default.rx.notification(.OfflineMessageBotTipChanged))
+            .map { [weak self] _ -> String? in
+                guard let self = self else { return nil }
+                return (self.userDefaultsManager.showFindFriendBotTip
+                    || self.userDefaultsManager.showOfflineMessageBotTip)
+                    ? "New" : nil
+            }
             .bind(to: hasNewFeature)
             .disposed(by: disposeBag)
     }
