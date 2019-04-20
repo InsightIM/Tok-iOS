@@ -30,6 +30,7 @@ class IntroductionCell: UITableViewCell {
         let button = UIButton()
         button.fcStyle(title: NSLocalizedString("More", comment: ""), color: UIColor("#DEDEDE"), titleColor: UIColor("#333333"), cornerRadius: 12, titleFontSize: 14)
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        button.isUserInteractionEnabled = false
         return button
     }()
     
