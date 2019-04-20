@@ -12,7 +12,15 @@ import WebKit
 class IntroductionViewController: BaseViewController {
     
     lazy var webView: WKWebView = {
-        let webView = WKWebView()
+        let preferences = WKPreferences()
+        preferences.javaScriptEnabled = true
+        
+        let configuration = WKWebViewConfiguration()
+        configuration.preferences = preferences
+        configuration.userContentController = WKUserContentController()
+        configuration.userContentController.add(self, name: "Tok")
+
+        let webView = WKWebView(frame: .zero, configuration: configuration)
         return webView
     }()
     
@@ -78,6 +86,13 @@ img {
 </style>
     
 """
+    let script = """
+<script type="text/javascript">
+function copyLink(arg) {
+    window.webkit.messageHandlers.Tok.postMessage(arg);
+}
+</script>
+"""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,8 +107,18 @@ img {
         let introText = NSLocalizedString("offlinebot_intro", comment: "")
         let imgBase64 = UIImage(named: "OfflinebotIntro")?.jpegData(compressionQuality: 1.0)?.base64EncodedString() ?? ""
         let body = introText.replacingOccurrences(of: "$image$", with: imgBase64)
-        let html = "<html><meta name=\"viewport\" content=\"width=device-width\">\(css)\(body)</html>"
+        let html = "<html><meta name=\"viewport\" content=\"width=device-width\">\(css)\(script)\(body)</html>"
         webView.loadHTMLString(html, baseURL: nil)
         
+    }
+}
+
+extension IntroductionViewController: WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let link = message.body as? String else {
+            return
+        }
+        UIPasteboard.general.string = link
+        ProgressHUD.showTextHUD(withText: NSLocalizedString("The link has been copied to the clipboard", comment: ""), in: self.view)
     }
 }
