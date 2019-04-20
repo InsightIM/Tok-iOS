@@ -26,8 +26,14 @@ class BotPortraitCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = UIColor.tokDarkGray
-        label.text = NSLocalizedString("Provided by TOK", comment: "")
+        label.text = NSLocalizedString("Powered by TOK", comment: "")
         return label
+    }()
+    
+    lazy var addButton: UIButton = {
+        let button = UIButton()
+        
+        return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

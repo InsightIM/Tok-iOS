@@ -70,7 +70,7 @@ class BotInfoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = friend.nickname
+        titleString = friend.nickname
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in

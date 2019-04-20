@@ -156,7 +156,7 @@ extension AppDelegate {
             
             let nav: UINavigationController = self.window?.rootViewController as! UINavigationController
             let vc = RegisterViewController()
-            vc.title = NSLocalizedString("Import Account", comment: "")
+            vc.titleString = NSLocalizedString("Import Account", comment: "")
             vc.copyURL = url
             nav.pushViewController(vc, animated: false)
         }

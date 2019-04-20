@@ -24,6 +24,18 @@ class BaseViewController: UIViewController {
         }
     }
     
+    var titleString: String? = nil {
+        didSet {
+            title = ""
+            
+            let titleLabel = UILabel()
+            titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            titleLabel.textColor = .tokBlack
+            titleLabel.text = titleString
+            navigationItem.titleView = titleLabel
+        }
+    }
+    
     init() {
         super.init(nibName: nil, bundle: nil)
         edgesForExtendedLayout = UIRectEdge()

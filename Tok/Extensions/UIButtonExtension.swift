@@ -10,11 +10,11 @@ import UIKit
 
 extension UIButton {
     
-    func fcStyle(title: String?, color: UIColor = .tokBlue, titleColor: UIColor = .white, cornerRadius: CGFloat = 4.0) {
+    func fcStyle(title: String?, color: UIColor = .tokBlue, titleColor: UIColor = .white, cornerRadius: CGFloat = 4.0, titleFontSize: CGFloat = 17) {
         if let title = title {
             self.setTitle(title, for: .normal)
         }
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: titleFontSize)
         self.setTitleColor(titleColor, for: .normal)
         self.setBackgroundImage(color.createImage(), for: .normal)
         self.setBackgroundImage(color.withAlphaComponent(0.6).createImage(), for: .highlighted)

@@ -110,10 +110,14 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
                 let vc = QRViewerController(text: UserService.shared.toxMananger!.user.userAddress)
                 navigationController?.pushViewController(vc, animated: true)
             } else { // bot
-                let service = BotService()
-                let bot: BotModelProtocol = indexPath.row == 1 ? service.findFriendBot : service.offlineMessageBot
-                let vc = BotInfoViewController(bot: bot)
-                navigationController?.pushViewController(vc, animated: true)
+                if indexPath.row == 1 {
+                    let vc = BotInfoViewController(bot: FindFriendBotModel())
+                    navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    let vc = BotIntroViewController()
+                    vc.hidesBottomBarWhenPushed = true
+                    navigationController?.pushViewController(vc, animated: true)
+                }
             }
         case 2:
             if indexPath.row == 0 {
