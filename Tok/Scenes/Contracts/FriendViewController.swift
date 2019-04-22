@@ -23,23 +23,22 @@ class FriendViewController: BaseViewController {
     
     lazy var messagesButton: UIButton = {
         let button = UIButton()
-        button.fcStyle(title: NSLocalizedString("Messages", comment: ""))
+        button.fcStyle(title: NSLocalizedString("Messages", comment: ""), cornerRadius: 25)
         return button
     }()
     
     lazy var footerView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 70))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100))
         return view
     }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         tableView.separatorColor = .tokLine
         tableView.sectionHeaderHeight = 20
         tableView.sectionFooterHeight = 0.01
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 15))
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = footerView
@@ -146,6 +145,13 @@ extension FriendViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         return 44
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
+        return tableView.sectionHeaderHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -1,15 +1,15 @@
 //
-//  PortraitCell.swift
+//  LargePortraitCell.swift
 //  Tok
 //
-//  Created by Bryce on 2018/7/8.
-//  Copyright © 2018 Insight. All rights reserved.
+//  Created by Bryce on 2019/4/22.
+//  Copyright © 2019 Insight. All rights reserved.
 //
 
 import UIKit
 
-class PortraitCell: UITableViewCell {
-    
+class LargePortraitCell: UITableViewCell {
+
     lazy var avatarImageView: AvatarImageView = {
         let imageView = AvatarImageView()
         return imageView
@@ -17,21 +17,21 @@ class PortraitCell: UITableViewCell {
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textColor = UIColor.tokBlack
         return label
     }()
     
     lazy var userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor.tokDarkGray
         return label
     }()
     
     lazy var detailLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor.tokDarkGray
         return label
     }()
@@ -54,24 +54,23 @@ class PortraitCell: UITableViewCell {
         nameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(avatarImageView.snp.right).offset(10)
             make.right.equalTo(-10)
-            make.top.equalTo(avatarImageView)
-            make.height.equalTo(24)
+            make.top.equalTo(avatarImageView).offset(14)
+            make.height.equalTo(22)
         }
         
         contentView.addSubview(userNameLabel)
         userNameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(avatarImageView.snp.right).offset(10)
             make.right.equalTo(-10)
-            make.top.equalTo(nameLabel.snp.bottom).offset(5)
+            make.top.equalTo(nameLabel.snp.bottom).offset(12)
         }
         
         contentView.addSubview(detailLabel)
         detailLabel.snp.makeConstraints { (make) in
             make.left.equalTo(avatarImageView.snp.right).offset(10)
             make.right.equalTo(-10)
-            make.top.equalTo(userNameLabel.snp.bottom).offset(3)
+            make.top.equalTo(userNameLabel.snp.bottom).offset(5)
         }
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,8 +79,8 @@ class PortraitCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }

@@ -24,28 +24,29 @@ class BotInfoViewController: BaseViewController {
     
     lazy var messagesButton: UIButton = {
         let button = UIButton()
-        button.fcStyle(title: NSLocalizedString("Messages", comment: ""))
+        button.fcStyle(title: NSLocalizedString("Messages", comment: ""), cornerRadius: 25)
         return button
     }()
     
     lazy var addButton: UIButton = {
         let button = UIButton()
-        button.fcStyle(title: NSLocalizedString("Add Bot", comment: ""))
+        button.fcStyle(title: NSLocalizedString("Add Bot", comment: ""), cornerRadius: 25)
         return button
     }()
     
     lazy var footerView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 70))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100))
+        view.backgroundColor = .clear
         return view
     }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         tableView.separatorColor = .tokLine
         tableView.estimatedRowHeight = 60
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 15))
+        tableView.sectionHeaderHeight = 40
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = footerView
@@ -158,6 +159,13 @@ extension BotInfoViewController: UITableViewDataSource, UITableViewDelegate {
             cell.textLabel?.copyable = true
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
+        return tableView.sectionHeaderHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -20,17 +20,16 @@ class MeViewController: BaseViewController {
     ]
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         tableView.separatorColor = .tokLine
         tableView.sectionHeaderHeight = 20
         tableView.sectionFooterHeight = 0.01
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 15))
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.register(cellType: PortraitCell.self)
+        tableView.register(cellType: LargePortraitCell.self)
         tableView.register(cellType: SingleLineCell.self)
         
         return tableView
@@ -68,7 +67,7 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell: PortraitCell = tableView.dequeueReusableCell(for: indexPath)
+            let cell: LargePortraitCell = tableView.dequeueReusableCell(for: indexPath)
             cell.avatarImageView.setImage(with: UserService.shared.toxMananger!.user.userAvatar(), identityNumber: 0, name: UserService.shared.nickName)
             cell.nameLabel.text = UserService.shared.nickName
             cell.userNameLabel.text = NSLocalizedString("Username", comment: "") + ": " + (UserDefaultsManager().lastActiveProfile ?? "")
@@ -94,7 +93,14 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 88 : 44
+        return indexPath.section == 0 ? 144 : 44
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
+        return tableView.sectionHeaderHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -14,8 +14,8 @@ class BotIntroViewController: BaseViewController {
 
     private let disposeBag = DisposeBag()
     
-    private let titles: [String] = [
-        "",
+    private let foots: [String?] = [
+        nil,
         NSLocalizedString("Add this bot to send offline messages with friends", comment: ""),
     ]
     
@@ -24,8 +24,9 @@ class BotIntroViewController: BaseViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         tableView.separatorColor = .tokLine
-        tableView.estimatedRowHeight = 60
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 15))
+        tableView.sectionHeaderHeight = 20
+        tableView.sectionFooterHeight = 30
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(cellType: BotPortraitCell.self)
@@ -85,15 +86,29 @@ class BotIntroViewController: BaseViewController {
 
 extension BotIntroViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return titles.count
+        return foots.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return titles[section]
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return foots[section]
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return CGFloat.leastNormalMagnitude
+        }
+        return tableView.sectionHeaderHeight
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return CGFloat.leastNormalMagnitude
+        }
+        return tableView.sectionFooterHeight
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -129,4 +144,3 @@ extension BotIntroViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
-

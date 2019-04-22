@@ -124,7 +124,7 @@ extension AppDelegate {
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.tokBlack
         
-        let shadowImage = UIColor("#DBDBE6").creatImageWithSize(size: CGSize(width: UIScreen.main.bounds.width, height: 1.0 / UIScreen.main.scale))
+        let shadowImage = UIColor.clear.creatImageWithSize(size: CGSize(width: UIScreen.main.bounds.width, height: 1.0 / UIScreen.main.scale))
         UINavigationBar.appearance().shadowImage = shadowImage
     }
 }

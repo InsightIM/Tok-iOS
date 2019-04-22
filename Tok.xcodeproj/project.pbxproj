@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		023E29A2226D9CF0004F292D /* LargePortraitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023E29A1226D9CF0004F292D /* LargePortraitCell.swift */; };
 		0282A38C226AFB320093480E /* BotIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38B226AFB320093480E /* BotIntroViewController.swift */; };
 		0282A38E226AFF380093480E /* IntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38D226AFF380093480E /* IntroductionCell.swift */; };
 		0282A390226B08570093480E /* IntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38F226B08570093480E /* IntroductionViewController.swift */; };
@@ -378,6 +379,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		023E29A1226D9CF0004F292D /* LargePortraitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePortraitCell.swift; sourceTree = "<group>"; };
 		0282A38B226AFB320093480E /* BotIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotIntroViewController.swift; sourceTree = "<group>"; };
 		0282A38D226AFF380093480E /* IntroductionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionCell.swift; sourceTree = "<group>"; };
 		0282A38F226B08570093480E /* IntroductionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionViewController.swift; sourceTree = "<group>"; };
@@ -1458,6 +1460,7 @@
 				4EAC4971222E3055003D591C /* InputCell.swift */,
 				4EAC4972222E3055003D591C /* ImageScrollView.swift */,
 				4EFCEB7B224E0AF600AF6B8C /* BotPortraitCell.swift */,
+				023E29A1226D9CF0004F292D /* LargePortraitCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2766,6 +2769,7 @@
 				4EAC4B9B222E3057003D591C /* FCOggOpusError.m in Sources */,
 				4EAC4B35222E3057003D591C /* Dollar.swift in Sources */,
 				4EAC4B31222E3057003D591C /* ChatButton+UI.swift in Sources */,
+				023E29A2226D9CF0004F292D /* LargePortraitCell.swift in Sources */,
 				4EAC4ADA222E3056003D591C /* OCTSubmanagerFilesImpl.m in Sources */,
 				4EAC4AE4222E3056003D591C /* RegisterViewController.swift in Sources */,
 				4EAC4B8D222E3057003D591C /* ForwardMessageViewModel.swift in Sources */,
