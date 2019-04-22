@@ -31,16 +31,21 @@ class BotPortraitCell: UITableViewCell {
     }()
     
     lazy var addButton: UIButton = {
-        let button = UIButton()
-        
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        button.setImage(UIImage(named: "BlueAdd"), for: .normal)
         return button
     }()
+    
+    var added: Bool = true {
+        didSet {
+            accessoryView = added ? nil : addButton
+            accessoryType = added ? .disclosureIndicator : .none
+        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         translatesAutoresizingMaskIntoConstraints = false
-        
-        accessoryType = .disclosureIndicator
         
         contentView.addSubview(avatarImageView)
         avatarImageView.snp.makeConstraints { (make) in

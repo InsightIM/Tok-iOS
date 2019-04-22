@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import RxSwift
+import Action
 
 class BotIntroViewController: BaseViewController {
 
-    let titles: [String] = [
+    private let disposeBag = DisposeBag()
+    
+    private let titles: [String] = [
         "",
         NSLocalizedString("Add this bot to send offline messages with friends", comment: ""),
     ]
@@ -36,6 +40,10 @@ class BotIntroViewController: BaseViewController {
         return friend
     }()
     
+    let addBotAction = Action<String, Void> { address in
+        return FriendService.sendRequest(address: address, message: "add bot")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,6 +53,33 @@ class BotIntroViewController: BaseViewController {
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        addBotAction.elements
+            .subscribe(onNext: { [weak self] _ in
+                self?.tableView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        addBotAction.executing
+            .subscribe(onNext: { [weak self] executing in
+                if executing {
+                    ProgressHUD.showLoadingHUD(in: self?.view)
+                } else {
+                    ProgressHUD.hideLoadingHUD(in: self?.view)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        addBotAction.errors
+            .subscribe(onNext: { [weak self] error in
+                switch error {
+                case .notEnabled:
+                    print("")
+                case .underlyingError(let error):
+                    ProgressHUD.showTextHUD(withText: error.localizedDescription, in: self?.view)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -69,13 +104,14 @@ extension BotIntroViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell: BotPortraitCell = tableView.dequeueReusableCell(for: indexPath)
-            cell.accessoryType = .none
-            
             
             let avatar = friend.avatar
             let nickname = friend.nickname
             cell.avatarImageView.image = avatar
             cell.nameLabel.text = nickname
+            cell.added = bot.beAdded
+            
+            cell.addButton.rx.bind(to: addBotAction, input: bot.address)
             return cell
         }
     }
