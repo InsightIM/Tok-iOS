@@ -39,7 +39,7 @@
 #include "group.h"
 #include "logger.h"
 #include "mono_time.h"
-#include "timeout_list.h"
+#include "timer.h"
 #include "util.h"
 
 #include "../toxencryptsave/defines.h"
@@ -81,7 +81,7 @@
 struct Tox {
     Messenger *m;
     Mono_Time *mono_time;
-	BS_List timeout_list;
+	BS_List timer;
 
     tox_self_connection_status_cb *self_connection_status_callback;
     tox_friend_name_cb *friend_name_callback;
@@ -96,8 +96,9 @@ struct Tox {
     tox_echo_message_cb *echo_message_callback;
     tox_assist_message_cb *assist_message_callback;
     tox_assist_message_echo_cb *assist_message_echo_callback;
-    tox_event_timeout_cb *event_timeout_callback;
     tox_confirm_message_cb *confirm_message_callback;
+    tox_friend_message_offline_cb *friend_message_offline_callback;
+	tox_event_timer_cb *event_timer_callback;
     tox_file_recv_control_cb *file_recv_control_callback;
     tox_file_chunk_request_cb *file_chunk_request_callback;
     tox_file_recv_cb *file_recv_callback;
@@ -265,6 +266,17 @@ static void tox_confirm_message_handler(Messenger *m, uint32_t friend_number, un
 
     if (tox_data->tox->confirm_message_callback != nullptr) {
         tox_data->tox->confirm_message_callback(tox_data->tox, friend_number, (Tox_Message_Type)type,time, message, length,
+                                               tox_data->user_data);
+    }
+}
+
+static void tox_friend_message_offline_handler(Messenger *m, uint32_t friend_number, unsigned int cmd, const uint8_t *message,
+                                       size_t length, void *user_data)
+{
+    struct Tox_Userdata *tox_data = (struct Tox_Userdata *)user_data;
+
+    if (tox_data->tox->friend_message_offline_callback != nullptr) {
+        tox_data->tox->friend_message_offline_callback(tox_data->tox, friend_number, (TOX_MESSAGE_OFFLINE_CMD)cmd, message, length,
                                                tox_data->user_data);
     }
 }
@@ -530,6 +542,9 @@ Tox *tox_new(const struct Tox_Options *options, Tox_Err_New *error)
 
     tox->mono_time = mono_time_new();
 
+	bs_list_init(&tox->timer, sizeof(Event_Node), 2);
+	srand((unsigned)time(nullptr)); 
+
     if (tox->mono_time == nullptr) {
         SET_ERROR_PARAMETER(error, TOX_ERR_NEW_MALLOC);
         tox_options_free(default_options);
@@ -537,7 +552,7 @@ Tox *tox_new(const struct Tox_Options *options, Tox_Err_New *error)
         return nullptr;
     }
 
-	bs_list_init(&tox->timeout_list, sizeof(Event_Node), 2);
+	bs_list_init(&tox->timer, sizeof(Event_Node), 2);
 	srand((unsigned)time(nullptr)); 
 
     unsigned int m_error;
@@ -557,8 +572,9 @@ Tox *tox_new(const struct Tox_Options *options, Tox_Err_New *error)
             SET_ERROR_PARAMETER(error, TOX_ERR_NEW_MALLOC);
         }
 
+		bs_list_free(&tox->timer);
         mono_time_free(tox->mono_time);
-		bs_list_free(&tox->timeout_list);
+		bs_list_free(&tox->timer);
         tox_options_free(default_options);
         free(tox);
         return nullptr;
@@ -587,6 +603,7 @@ Tox *tox_new(const struct Tox_Options *options, Tox_Err_New *error)
     m_callback_echomessage(m, tox_echo_message_handler);
     m_callback_confirmmessage(m, tox_confirm_message_handler);
     m_callback_assistmessage(m, tox_assist_message_handler);
+    m_callback_friendmessageoffline(m, tox_friend_message_offline_handler);
     callback_file_control(m, tox_file_recv_control_handler);
     callback_file_reqchunk(m, tox_file_chunk_request_handler);
     callback_file_sendrequest(m, tox_file_recv_handler);
@@ -759,7 +776,7 @@ void tox_iterate(Tox *tox, void *user_data)
     struct Tox_Userdata tox_data = { tox, user_data };
     do_messenger(m, &tox_data);
     do_groupchats(m->conferences_object, &tox_data);
-	event_loop(tox, &tox->timeout_list);
+	event_loop(tox, &tox->timer);
 }
 
 void tox_self_get_address(const Tox *tox, uint8_t *address)
@@ -1426,6 +1443,30 @@ int tox_set_group_title(Tox *tox, int32_t groupnumber, const uint8_t *title, TOX
     return message_id;
 }
 
+uint32_t tox_friend_send_message_offline(Tox *tox, uint32_t friend_number, TOX_MESSAGE_OFFLINE_CMD cmd, const uint8_t *message,
+                                 size_t length, TOX_ERR_FRIEND_SEND_MESSAGE *error) {
+	uint32_t message_id = 0;
+	uint32_t head_len = sizeof(uint8_t); 
+	size_t buf_len = head_len + length;
+	uint8_t * buf = (uint8_t *)malloc(buf_len);
+	if (buf) {
+		memset(buf, 0, buf_len);
+		memcpy(buf, &cmd, head_len);
+		memcpy(buf + head_len, message, length);
+		message_id = tox_friend_send_message(tox, friend_number, TOX_MESSAGE_TYPE_OFFILNE, buf, buf_len, error);
+		free(buf);
+	}
+	return message_id;
+}
+
+uint32_t tox_encrypt_offline_message(Tox *tox, uint32_t friend_number, const uint8_t *message, size_t length, 
+								uint8_t *encrypted_message) {
+	Messenger *m = tox->m;
+	int message_len = m_encrypt_offline_message(m, friend_number, message, length, encrypted_message);
+	return  message_len;
+}
+
+
 void tox_callback_friend_read_receipt(Tox *tox, tox_friend_read_receipt_cb *callback)
 {
     tox->friend_read_receipt_callback = callback;
@@ -1436,9 +1477,9 @@ void tox_callback_friend_request(Tox *tox, tox_friend_request_cb *callback)
     tox->friend_request_callback = callback;
 }
 
-void tox_callback_event_timeout(Tox *tox, tox_event_timeout_cb *callback)
+void tox_callback_event_timer(Tox *tox, tox_event_timer_cb *callback)
 {
-    tox->event_timeout_callback = callback;
+    tox->event_timer_callback = callback;
 }
 
 void tox_callback_echo_message(Tox *tox, tox_echo_message_cb *callback)
@@ -1564,6 +1605,11 @@ void tox_callback_friend_message_pull_res(Tox *tox, tox_friend_message_pull_res_
 void tox_callback_group_message_pull_res(Tox *tox, tox_group_message_pull_res_cb *callback)
 {
     tox->group_message_pull_res_callback = callback;
+}
+
+void tox_callback_friend_message_offline(Tox *tox, tox_friend_message_offline_cb *callback)
+{
+    tox->friend_message_offline_callback = callback;
 }
 
 bool tox_hash(uint8_t *hash, const uint8_t *data, size_t length)
@@ -2329,12 +2375,6 @@ uint16_t tox_self_get_tcp_port(const Tox *tox, Tox_Err_Get_Port *error)
     return 0;
 }
 
-uint32_t tox_encrypt_offline_message(Tox *tox, uint32_t friend_number, const uint8_t *message, size_t length, uint8_t *encrypted_message){
-    Messenger *m = tox->m;
-    int message_len = m_encrypt_offline_message(m, friend_number, message, length, encrypted_message);
-    return  message_len;
-}
-
 void normal_message_cb(Tox *tox, uint32_t friend_number, TOX_MESSAGE_TYPE type, uint32_t time, const uint8_t *message,
                                    size_t length,  void *user_data) {
 	if(!tox) {
@@ -2536,8 +2576,8 @@ void assist_message_cb(Tox *tox, uint32_t friend_number, TOX_MESSAGE_TYPE type, 
 	}
 	
 }
-void tox_add_timeout_event(Tox *tox, uint32_t event_type, uint8_t* public_key, uint32_t interval, void* user_data, tox_event_timeout_cb* cb) {
-	add_event(&tox->timeout_list, event_type, public_key, interval, user_data, cb);				
+void tox_add_timer_event(Tox *tox, uint32_t event_type, uint32_t friend_number, uint32_t interval, void* user_data, tox_event_timer_cb* cb) {
+	add_event(&tox->timer, event_type, friend_number, interval, user_data, cb);				
 }
 
 int64_t tox_local_msg_id() {

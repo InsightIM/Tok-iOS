@@ -51,6 +51,7 @@ typedef enum Message_Type {
     MESSAGE_BOT,
     MESSAGE_FORWARD,
     MESSAGE_GROUP,
+	MESSAGE_OFFLINE = 6,
     MESSAGE_ECHO = 36,
     MESSAGE_CONFIRM,
 	MESSAGE_ASSIST,
@@ -201,6 +202,8 @@ typedef void m_confirm_message_cb(Messenger *m, uint32_t friend_number, unsigned
                                  const uint8_t *message, size_t length, uint32_t time, void *user_data);
 typedef void m_assist_message_cb(Messenger *m, uint32_t friend_number, unsigned int message_type,
                                  const uint8_t *message, size_t length, uint32_t time, void *user_data);
+typedef void m_friend_message_offline_cb(Messenger *m, uint32_t friend_number, unsigned int message_cmd,
+                                 const uint8_t *message, size_t length, void *user_data);
 typedef void m_file_recv_control_cb(Messenger *m, uint32_t friend_number, uint32_t file_number, unsigned int control,
                                     void *user_data);
 typedef void m_friend_request_cb(Messenger *m, const uint8_t *public_key, const uint8_t *message, size_t length,
@@ -305,6 +308,7 @@ struct Messenger {
     m_echo_message_cb *echo_message;
     m_confirm_message_cb *confirm_message;
     m_assist_message_cb *assist_message;
+    m_friend_message_offline_cb *friend_message_offline;
     m_friend_name_cb *friend_namechange;
     m_friend_status_message_cb *friend_statusmessagechange;
     m_friend_status_cb *friend_userstatuschange;
@@ -569,6 +573,10 @@ void m_callback_confirmmessage(Messenger *m, m_confirm_message_cb *function);
  *  Function format is: function(uint32_t friendnumber, unsigned int type, uint8_t * message, uint32_t length)
  */
 void m_callback_assistmessage(Messenger *m, m_assist_message_cb *function);
+/* Set the function that will be executed when a offline message from a friend is received.
+ *  Function format is: function(uint32_t friendnumber, unsigned int type, uint8_t * message, uint32_t length)
+ */
+void m_callback_friendmessageoffline(Messenger *m, m_friend_message_offline_cb *function);
 
 /* Set the callback for name changes.
  *  Function(uint32_t friendnumber, uint8_t *newname, size_t length)
@@ -860,6 +868,9 @@ uint32_t count_friendlist(const Messenger *m);
  * of out_list will be truncated to list_size. */
 uint32_t copy_friendlist(const Messenger *m, uint32_t *out_list, uint32_t list_size);
 
+/**
+ * encrypt offline message
+ */
 int m_encrypt_offline_message(Messenger *m, const uint32_t friendnumber, const uint8_t *message, const int length , uint8_t *encrypt_message);
 
 #endif

@@ -11,7 +11,7 @@ typedef struct Tox Tox;
 /**
  * decare callback function
  */
-typedef void tox_timeout_cb (Tox* tox, void* user_data);
+typedef void tox_timeout_cb (Tox* tox, uint32_t friend_number, uint32_t event_type, void* user_data);
 /**
  * timer info
  * public_key who' event to be triggered
@@ -21,7 +21,7 @@ typedef struct Event_Node {
 	uint32_t interval;
 	time_t lastdump;	
 	Mono_Time* mono_time; 	
-	uint8_t public_key[CRYPTO_PUBLIC_KEY_SIZE];
+	uint32_t friend_number;
 	// timeout callback functions
 	tox_timeout_cb* cb;
 	void* user_data;
@@ -31,7 +31,7 @@ typedef struct Event_Node {
 /**
  * add a event node to list
  */
-void add_event(BS_List* event_list, uint32_t event_type, uint8_t* public_key, uint32_t interval, void* user_data, tox_timeout_cb* cb);
+void add_event(BS_List* event_list, uint32_t event_type, uint32_t friend_number, uint32_t interval, void* user_data, tox_timeout_cb* cb);
 
 /**
  * del event node from list

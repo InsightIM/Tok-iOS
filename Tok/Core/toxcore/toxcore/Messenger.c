@@ -1062,6 +1062,11 @@ void m_callback_confirmmessage(Messenger *m, m_confirm_message_cb *function)
 {
     m->confirm_message = function;
 }
+/* Set the function that will be executed when a offline message from a friend is received. */
+void m_callback_friendmessageoffline(Messenger *m, m_friend_message_offline_cb *function)
+{
+    m->friend_message_offline = function;
+}
 
 void m_callback_namechange(Messenger *m, m_friend_name_cb *function)
 {
@@ -2610,7 +2615,6 @@ static int m_handle_packet(void *object, int i, const uint8_t *temp, uint16_t le
             }
             const uint8_t *message = data;
             uint16_t message_length = data_length;
-
             /* Make sure the NULL terminator is present. */
             VLA(uint8_t, message_terminated, message_length + 1);
             memcpy(message_terminated, message, message_length);
@@ -2623,6 +2627,25 @@ static int m_handle_packet(void *object, int i, const uint8_t *temp, uint16_t le
             }
             break;
 		}
+		case PACKET_ID_MESSAGE_OFFLINE: {
+			uint32_t head_len = sizeof(uint8_t);
+            if (data_length == 0 || data_length < head_len) {
+                break;
+            }
+			uint8_t cmd = 0;
+			memcpy(&cmd, data, head_len);
+            const uint8_t *message = data + head_len;
+            uint16_t message_length = data_length - head_len;
+            /* Make sure the NULL terminator is present. */
+            VLA(uint8_t, message_terminated, message_length + 1);
+            memcpy(message_terminated, message, message_length);
+            message_terminated[message_length] = 0;
+            if (m->friend_message_offline) {
+                (*m->friend_message_offline)(m, i, cmd, message_terminated, message_length, userdata);
+            }
+			break; 
+		}
+
         case PACKET_ID_INVITE_CONFERENCE: {
             if (data_length == 0) {
                 break;

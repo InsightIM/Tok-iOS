@@ -57,6 +57,9 @@ uint64_t get_unixtime();
  */
 int64_t local_msg_id();
 
+uint64_t get_unixtime();
+
+int64_t local_msg_id();
 #ifdef __cplusplus
 }  // extern "C"
 #endif

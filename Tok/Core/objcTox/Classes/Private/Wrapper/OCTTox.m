@@ -980,6 +980,8 @@ void (*_tox_self_get_public_key)(const Tox *tox, uint8_t *public_key);
             return OCTToxMessageTypeAssist;
         case TOX_MESSAGE_TYPE_END:
             return OCTToxMessageTypeEnd;
+        case TOX_MESSAGE_TYPE_OFFILNE:
+            return OCTToxMessageTypeOffline;
     }
 }
 

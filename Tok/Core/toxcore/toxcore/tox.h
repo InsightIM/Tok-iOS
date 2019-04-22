@@ -440,6 +440,12 @@ typedef enum TOX_MESSAGE_TYPE {
     TOX_MESSAGE_TYPE_GROUP,
 
 	/**
+	 * A message send when peer is offline
+	 */
+	TOX_MESSAGE_TYPE_OFFILNE = 6,
+
+
+	/**
 	 * A message describing a echo action. 
 	 */
 	TOX_MESSAGE_TYPE_ECHO = 36,
@@ -456,6 +462,7 @@ typedef enum TOX_MESSAGE_TYPE {
 	 * message end
 	 */
 	TOX_MESSAGE_TYPE_END = 99,
+
 
 } TOX_MESSAGE_TYPE;
 
@@ -527,6 +534,20 @@ typedef enum TOX_GROUP_CMDS {
     TOX_GROUP_CMD_MSG_PULL_RES
 
 } TOX_GROUP_CMDS;
+
+/**
+ * Message offline type
+ */
+typedef enum TOX_MESSAGE_OFFLINE_CMD {
+	TOX_MESSAGE_OFFLINE_QUERY_FRIEND_REQUEST,	
+	TOX_MESSAGE_OFFLINE_QUERY_FRIEND_RESPONSE,	
+	TOX_MESSAGE_OFFLINE_SEND_REQUEST,
+	TOX_MESSAGE_OFFLINE_READ_NOTICE,
+	TOX_MESSAGE_OFFLINE_PULL_REQUEST,
+	TOX_MESSAGE_OFFLINE_PULL_RESPONSE,
+	TOX_MESSAGE_OFFLINE_DEL_REQUEST
+
+} TOX_MESSAGE_OFFLINE_CMD;
 
 /*******************************************************************************
  *
@@ -1910,6 +1931,10 @@ uint32_t tox_friend_send_message_req(Tox *tox, uint32_t friend_number, const uin
                                  size_t length, TOX_ERR_FRIEND_SEND_MESSAGE *error);
 /**
  * send message response,
+ * Send a text chat message to an friend, but friend is offline, sending a message offline bot instead.
+ * Call tox_friend_send_message actually, and add a cmd to the message head.
+ *
+ * @param cmd Offline Message cmd (req, res, notice ...)
  * @param friend_number The friend number of the friend to send the message to.
  * @param message A non-NULL pointer to the first element of a byte array
  *   containing the message text.
@@ -1920,6 +1945,12 @@ uint32_t tox_friend_send_message_res(Tox *tox, uint32_t friend_number, const uin
                                  size_t length, TOX_ERR_FRIEND_SEND_MESSAGE *error);
 /**
  * send message request,
+ */
+uint32_t tox_friend_send_message_offline(Tox *tox, uint32_t friend_number, TOX_MESSAGE_OFFLINE_CMD cmd, const uint8_t *message,
+                                 size_t length, TOX_ERR_FRIEND_SEND_MESSAGE *error);
+
+/**
+ * encrypt offline message
  * @param friend_number The friend number of the friend to send the message to.
  * @param message A non-NULL pointer to the first element of a byte array
  *   containing the message text.
@@ -1928,6 +1959,9 @@ uint32_t tox_friend_send_message_res(Tox *tox, uint32_t friend_number, const uin
  */
 uint32_t tox_friend_send_message_cfm(Tox *tox, uint32_t friend_number, const uint8_t *message,
                                  size_t length, TOX_ERR_FRIEND_SEND_MESSAGE *error);
+
+uint32_t tox_encrypt_offline_message(Tox *tox, uint32_t friend_number, const uint8_t *message, size_t length, 
+								uint8_t *encrypted_message);
 
 /**
  * send message store request,
@@ -2119,6 +2153,18 @@ void tox_callback_friend_message_store_cfm(Tox *tox, tox_friend_message_store_cf
  */
 typedef void tox_friend_message_to_read_req_cb(Tox *tox, uint32_t friend_number, uint32_t time, const uint8_t *message,
 								   size_t length,  void *user_data);
+
+typedef void tox_friend_message_offline_cb(Tox *tox, uint32_t friend_number, TOX_MESSAGE_OFFLINE_CMD cmd, const uint8_t *message,
+                                   size_t length, void *user_data);
+
+
+/**
+ * Set the callback for the `friend_message_offline` event. Pass NULL to unset.
+ *
+ * This event is triggered when a message from a friend is received.
+ */
+void tox_callback_friend_message_offline(Tox *tox, tox_friend_message_offline_cb *callback);
+
 
 /**
  * tox_friend_message_to_read_req_cb call function declare.
@@ -3745,7 +3791,7 @@ typedef enum TOX_ERR_CONFERENCE_BY_UID {
  * @return the conference number on success, an unspecified value on failure.
  * @deprecated use tox_conference_by_id instead (exactly the same function, just renamed).
  */
-uint32_t tox_conference_by_uid(const Tox *tox, const uint8_t *uid, TOX_ERR_CONFERENCE_BY_UID *error) __attribute__((deprecated));
+uint32_t tox_conference_by_uid(const Tox *tox, const uint8_t *uid, TOX_ERR_CONFERENCE_BY_UID *error);
 
 
 /*******************************************************************************
@@ -3924,38 +3970,37 @@ uint16_t tox_self_get_udp_port(const Tox *tox, TOX_ERR_GET_PORT *error);
 uint16_t tox_self_get_tcp_port(const Tox *tox, TOX_ERR_GET_PORT *error);
 
 /**
- * declare timeout callback function
+ * declare timer callback function
  */
-typedef void tox_event_timeout_cb(Tox *tox, void* user_data);
+typedef void tox_event_timer_cb(Tox *tox, uint32_t friend_number, uint32_t event_type, void* user_data);
 
 /**
- * tox_event_timeout_cb call function declare.
+ * tox_event_timer_cb call function declare.
  */
-void event_timeout_cb(Tox *tox, void* user_data);
+void event_timer_cb(Tox *tox, uint32_t friend_number, uint32_t event_type, void* user_data);
 
 /**
- * Set the callback for the `tox_event_timeout_cb` event. Pass NULL to unset.
+ * Set the callback for the `tox_event_timer_cb` event. Pass NULL to unset.
  *
- * This event is triggered when a timeout event triggered.
+ * This event is triggered when a timer event triggered.
  */
-void tox_callback_event_timeout(Tox *tox, tox_event_timeout_cb *callback);
+void tox_callback_event_timer(Tox *tox, tox_event_timer_cb *callback);
 
 /**
- * add a event to timeout list
+ * add a event to timer list
  */
-void tox_add_timeout_event(Tox *tox, uint32_t event_type, uint8_t* public_key, uint32_t interval, void* user_data, tox_event_timeout_cb* cb);
+void tox_add_timer_event(Tox *tox, uint32_t event_type, uint32_t friend_number, uint32_t interval, void* user_data, tox_event_timer_cb* cb);
 
 /**
  * generate local msg id: 41 bit unixtime(millisecond) + 13 rand numnber + 10 sequence number
  * 00000000000000000000000000000000000000000				0000000000000		0000000000 
  */
-int64_t tox_local_msg_id(void);
+int64_t tox_local_msg_id();
 
 /**
  * return millisecond
  */
-int64_t tox_unixtime(void);
-
+int64_t tox_unixtime();
 
 #ifdef __cplusplus
 }

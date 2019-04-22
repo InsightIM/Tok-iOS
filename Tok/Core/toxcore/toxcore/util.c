@@ -39,7 +39,8 @@
 #include <string.h>
 #include <sys/time.h>
 #include <time.h>
-
+#include <sys/time.h>
+#include <time.h>
 
 /* id functions */
 bool id_equal(const uint8_t *dest, const uint8_t *src)
@@ -134,5 +135,3 @@ int64_t local_msg_id() {
 	seq_num += 1;
 	return uuid;
 }
-
-

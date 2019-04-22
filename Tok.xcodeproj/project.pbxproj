@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		023E29A2226D9CF0004F292D /* LargePortraitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023E29A1226D9CF0004F292D /* LargePortraitCell.swift */; };
+		023E29A7226DB5B8004F292D /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 023E29A6226DB5B8004F292D /* timer.c */; };
 		0282A38C226AFB320093480E /* BotIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38B226AFB320093480E /* BotIntroViewController.swift */; };
 		0282A38E226AFF380093480E /* IntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38D226AFF380093480E /* IntroductionCell.swift */; };
 		0282A390226B08570093480E /* IntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38F226B08570093480E /* IntroductionViewController.swift */; };
@@ -23,7 +24,6 @@
 		4E294C5E2254BF3F009DC146 /* SwiftyRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E294C5D2254BF3F009DC146 /* SwiftyRecordButton.swift */; };
 		4E294C602254C1F3009DC146 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E294C5F2254C1F3009DC146 /* CameraViewController.swift */; };
 		4E71C352224388880056DAF3 /* VideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E71C351224388880056DAF3 /* VideoMessageCell.swift */; };
-		4E71C3552244C7010056DAF3 /* timeout_list.c in Sources */ = {isa = PBXBuildFile; fileRef = 4E71C3532244C7000056DAF3 /* timeout_list.c */; };
 		4E71C35C2244DBE40056DAF3 /* MessageOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E71C35B2244DBE40056DAF3 /* MessageOperationManager.m */; };
 		4E71C35F2244E8A50056DAF3 /* OperationWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E71C35E2244E8A50056DAF3 /* OperationWorker.m */; };
 		4E88591B2251FFD900017C3D /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88591A2251FFD900017C3D /* FriendService.swift */; };
@@ -380,6 +380,8 @@
 
 /* Begin PBXFileReference section */
 		023E29A1226D9CF0004F292D /* LargePortraitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePortraitCell.swift; sourceTree = "<group>"; };
+		023E29A5226DB5B7004F292D /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
+		023E29A6226DB5B8004F292D /* timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timer.c; sourceTree = "<group>"; };
 		0282A38B226AFB320093480E /* BotIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotIntroViewController.swift; sourceTree = "<group>"; };
 		0282A38D226AFF380093480E /* IntroductionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionCell.swift; sourceTree = "<group>"; };
 		0282A38F226B08570093480E /* IntroductionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionViewController.swift; sourceTree = "<group>"; };
@@ -395,8 +397,6 @@
 		4E294C5D2254BF3F009DC146 /* SwiftyRecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyRecordButton.swift; sourceTree = "<group>"; };
 		4E294C5F2254C1F3009DC146 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4E71C351224388880056DAF3 /* VideoMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessageCell.swift; sourceTree = "<group>"; };
-		4E71C3532244C7000056DAF3 /* timeout_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timeout_list.c; sourceTree = "<group>"; };
-		4E71C3542244C7000056DAF3 /* timeout_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timeout_list.h; sourceTree = "<group>"; };
 		4E71C35A2244DBE40056DAF3 /* MessageOperationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageOperationManager.h; sourceTree = "<group>"; };
 		4E71C35B2244DBE40056DAF3 /* MessageOperationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageOperationManager.m; sourceTree = "<group>"; };
 		4E71C35D2244E8A50056DAF3 /* OperationWorker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperationWorker.h; sourceTree = "<group>"; };
@@ -2048,8 +2048,8 @@
 		4EDCF66C222FB7FF00B8B068 /* toxcore */ = {
 			isa = PBXGroup;
 			children = (
-				4E71C3542244C7000056DAF3 /* timeout_list.h */,
-				4E71C3532244C7000056DAF3 /* timeout_list.c */,
+				023E29A6226DB5B8004F292D /* timer.c */,
+				023E29A5226DB5B7004F292D /* timer.h */,
 				4EDCF671222FB7FF00B8B068 /* tox.h */,
 				4EDCF693222FB7FF00B8B068 /* tox.c */,
 				4EDCF6A6222FB7FF00B8B068 /* Messenger.h */,
@@ -2459,7 +2459,6 @@
 				4EAC4AE3222E3056003D591C /* LoginViewController.swift in Sources */,
 				4EAC4B8A222E3057003D591C /* ConversationViewController.swift in Sources */,
 				4EAC4BC5222E3057003D591C /* UserService.swift in Sources */,
-				4E71C3552244C7010056DAF3 /* timeout_list.c in Sources */,
 				4EAC4AB0222E3056003D591C /* OCTTox.m in Sources */,
 				4EAC4AF2222E3057003D591C /* ChooseFriendViewController.swift in Sources */,
 				4EDCF7C32238E75800B8B068 /* FileMessageModel.swift in Sources */,
@@ -2481,6 +2480,7 @@
 				4EAC4B82222E3057003D591C /* OrderedArray.swift in Sources */,
 				4EAC4BB5222E3057003D591C /* HomeCoordinator.swift in Sources */,
 				4EAC4BC6222E3057003D591C /* NotificationManager.swift in Sources */,
+				023E29A7226DB5B8004F292D /* timer.c in Sources */,
 				4EAC4B71222E3057003D591C /* MessageContainerView.swift in Sources */,
 				4EAC4ADF222E3056003D591C /* BaseViewController.swift in Sources */,
 				4EAC4B4B222E3057003D591C /* ConversationCollectionViewFlowLayout.swift in Sources */,

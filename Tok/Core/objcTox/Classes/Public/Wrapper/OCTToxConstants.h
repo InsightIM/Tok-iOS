@@ -101,6 +101,7 @@ typedef NS_ENUM(NSInteger, OCTToxMessageType) {
     OCTToxMessageTypeBot,
     OCTToxMessageTypeForward,
     OCTToxMessageTypeGroup,
+    OCTToxMessageTypeOffline,
     OCTToxMessageTypeEcho,
     OCTToxMessageTypeConfirm,
     OCTToxMessageTypeAssist,
