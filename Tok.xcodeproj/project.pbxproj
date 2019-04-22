@@ -362,7 +362,6 @@
 		4EDCF7C52238EA7400B8B068 /* MediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDCF7C42238EA7400B8B068 /* MediaModel.swift */; };
 		4EFCEB66224C7C5D00AF6B8C /* AssistWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEB65224C7C5D00AF6B8C /* AssistWorker.m */; };
 		4EFCEB78224DF95F00AF6B8C /* BotInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEB77224DF95F00AF6B8C /* BotInfoViewController.swift */; };
-		4EFCEB7A224DFAD000AF6B8C /* BotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEB79224DFAD000AF6B8C /* BotService.swift */; };
 		4EFCEB7C224E0AF600AF6B8C /* BotPortraitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEB7B224E0AF600AF6B8C /* BotPortraitCell.swift */; };
 		9CB50844E42E0DBD6AD8BA36 /* Pods_Tok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DAE224F4A16DC943208614 /* Pods_Tok.framework */; };
 		A38EACEC1E0FCFD063C80967 /* Pods_TokTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56931120879B06ADF152813A /* Pods_TokTests.framework */; };
@@ -900,7 +899,6 @@
 		4EFCEB64224C7C5D00AF6B8C /* AssistWorker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssistWorker.h; sourceTree = "<group>"; };
 		4EFCEB65224C7C5D00AF6B8C /* AssistWorker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssistWorker.m; sourceTree = "<group>"; };
 		4EFCEB77224DF95F00AF6B8C /* BotInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotInfoViewController.swift; sourceTree = "<group>"; };
-		4EFCEB79224DFAD000AF6B8C /* BotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotService.swift; sourceTree = "<group>"; };
 		4EFCEB7B224E0AF600AF6B8C /* BotPortraitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotPortraitCell.swift; sourceTree = "<group>"; };
 		56931120879B06ADF152813A /* Pods_TokTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TokTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE137E53E7F49D7D7CA04F0 /* Pods-TokTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TokTests/Pods-TokTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1990,7 +1988,6 @@
 				4EAC4A69222E3056003D591C /* NotificationManager.swift */,
 				4EAC4A6B222E3056003D591C /* AlertAudioPlayer.swift */,
 				4EAC4A6C222E3056003D591C /* AvatarManager.swift */,
-				4EFCEB79224DFAD000AF6B8C /* BotService.swift */,
 				4E88591A2251FFD900017C3D /* FriendService.swift */,
 			);
 			path = Services;
@@ -2556,7 +2553,6 @@
 				4EDCF6E5222FB7FF00B8B068 /* tox.c in Sources */,
 				4EAC4BC9222E3057003D591C /* AvatarManager.swift in Sources */,
 				4EAC4B51222E3057003D591C /* TextMessageSizeCalculator.swift in Sources */,
-				4EFCEB7A224DFAD000AF6B8C /* BotService.swift in Sources */,
 				4EAC4AFA222E3057003D591C /* QRViewerController.swift in Sources */,
 				4EAC4B43222E3057003D591C /* StatusTextMessageCell.swift in Sources */,
 				4EAC4B4F222E3057003D591C /* MessagesCollectionViewFlowLayout.swift in Sources */,

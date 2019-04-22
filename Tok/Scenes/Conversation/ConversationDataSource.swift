@@ -28,7 +28,7 @@ class ConversationDataSource {
     
     let hasMore = BehaviorRelay(value: true)
     
-    private lazy var botService = BotService()
+    let findFriendBot = FindFriendBotModel()
     
     private let friendOnline = BehaviorRelay(value: false)
     
@@ -159,7 +159,7 @@ class ConversationDataSource {
         guard let friend = chat.friends?.firstObject() as? OCTFriend else {
             return false
         }
-        return friend.publicKey == botService.findFriendBot.publicKey
+        return friend.publicKey == findFriendBot.publicKey
     }
     
     // MARK: - Private Methods

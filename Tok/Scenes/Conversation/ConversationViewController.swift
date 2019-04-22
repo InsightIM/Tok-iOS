@@ -548,7 +548,7 @@ extension ConversationViewController: MessageCellDelegate {
                 return
             }
             if dataSource.isFindFriendBot() {
-                let vc = BotInfoViewController(bot: BotService().findFriendBot)
+                let vc = BotInfoViewController(bot: dataSource.findFriendBot)
                 navigationController?.pushViewController(vc, animated: true)
             } else {
                 let vc = FriendViewController(friend: friend)

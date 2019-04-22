@@ -31,11 +31,12 @@ struct FriendService {
                 return Observable.error(SendRequestError.yourID)
             }
             
-            let botService = BotService()
+            let findFriendBot = FindFriendBotModel()
+            let offlineMessageBot = OfflineBotModel()
             let userDefaultsManager = UserDefaultsManager()
-            if pk == botService.findFriendBot.publicKey {
+            if pk == findFriendBot.publicKey {
                 userDefaultsManager.showFindFriendBotTip = false
-            } else if pk == botService.offlineMessageBot.publicKey {
+            } else if pk == offlineMessageBot.publicKey {
                 userDefaultsManager.showOfflineMessageBotTip = false
             }
             
