@@ -107,18 +107,42 @@ class ContactsViewController: BaseViewController {
     fileprivate var sectionTitles = [String]()
     fileprivate var models = [String: [ContactItemModel]]()
     
-    private lazy var topMenus =
-        [
-         ContactItemModel(image: UIImage(named: "MenuFriendRequest"), title: NSLocalizedString("New Friend Request", comment: ""), caption: nil, friend: nil, action: Action { [unowned self] _ -> Observable<Void> in
-            let vc = InvitationsViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
-            return .empty()
-         }),
-         ContactItemModel(image: UIImage(named: "MenuInvitations"), title: NSLocalizedString("Invite Friend", comment: ""), caption: nil, friend: nil, action: Action { [unowned self] _  -> Observable<Void> in
-            self.presentInvite()
-            return .empty()
-         })
-    ]
+    private func setupTopMenus() -> [ContactItemModel] {
+        var menus = [
+            ContactItemModel(image: UIImage(named: "MenuFriendRequest"), title: NSLocalizedString("New Friend Request", comment: ""), caption: nil, friend: nil, action: Action { [unowned self] _ -> Observable<Void> in
+                let vc = InvitationsViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+                return .empty()
+            }),
+            ContactItemModel(image: UIImage(named: "MenuInvitations"), title: NSLocalizedString("Invite Friend", comment: ""), caption: nil, friend: nil, action: Action { [unowned self] _  -> Observable<Void> in
+                self.presentInvite()
+                return .empty()
+            })
+        ]
+        
+        let findFriendBot = FindFriendBotModel()
+        if findFriendBot.beAdded == false {
+            let item = ContactItemModel(image: UIImage(named: "MenuFriendRequest"), title: NSLocalizedString("FindFriendBot", comment: ""), caption: nil, friend: nil, action: Action { [unowned self] _ -> Observable<Void> in
+                let vc = BotInfoViewController(bot: findFriendBot)
+                self.navigationController?.pushViewController(vc, animated: true)
+                return .empty()
+            })
+            
+            menus.append(item)
+        }
+        
+        if OfflineBotModel().beAdded == false {
+            let item = ContactItemModel(image: UIImage(named: "MenuFriendRequest"), title: NSLocalizedString("OfflineMessageBot", comment: ""), caption: nil, friend: nil, action: Action { [unowned self] _ -> Observable<Void> in
+                let vc = BotIntroViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+                return .empty()
+            })
+            
+            menus.append(item)
+        }
+        
+        return menus
+    }
     
     private func bindData() {
         let items: [OCTFriend] = friends.toList()
@@ -152,6 +176,7 @@ class ContactsViewController: BaseViewController {
         
         sectionTitles = titles
         
+        let topMenus = setupTopMenus()
         models[""] = topMenus
         sectionTitles.insert("", at: 0)
     }
