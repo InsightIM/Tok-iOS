@@ -7,4 +7,6 @@
 
 @interface OCTSubmanagerChatsImpl : NSObject <OCTSubmanagerChats, OCTSubmanagerProtocol>
 
+@property (nonatomic, strong, readonly) NSOperationQueue *sendMessageQueue;
+
 @end

@@ -90,4 +90,6 @@
 
 - (void)markChatMessagesAsRead:(OCTChat *)chat;
 
+- (void)queryFriendIsSupportOfflineMessage:(OCTFriend *)friend;
+
 @end

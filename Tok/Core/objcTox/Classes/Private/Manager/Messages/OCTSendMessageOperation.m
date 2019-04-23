@@ -11,7 +11,6 @@
 @property (weak, nonatomic, readonly) OCTTox *tox;
 
 @property (assign, nonatomic, readonly) OCTToxFriendNumber friendNumber;
-@property (assign, nonatomic, readonly) OCTToxFriendNumber botFriendNumber;
 @property (assign, nonatomic, readonly) OCTToxMessageType messageType;
 @property (copy, nonatomic, readonly) NSString *message;
 @property (assign, nonatomic, readonly) OCTToxMessageId messageId;
@@ -23,26 +22,6 @@
 @end
 
 @implementation OCTSendMessageOperation
-
-- (instancetype)initOfflineWithTox:(OCTTox *)tox
-                         messageId:(OCTToxMessageId)messageId
-                      friendNumber:(OCTToxFriendNumber)friendNumber
-                   botFriendNumber:(OCTToxFriendNumber)botFriendNumber
-                           message:(NSString *)message
-                      successBlock:(nullable OCTSendMessageOperationSuccessBlock)successBlock
-                      failureBlock:(nullable OCTSendMessageOperationFailureBlock)failureBlock
-{
-    _botFriendNumber = botFriendNumber;
-    return [self initWithTox:tox
-                   messageId:messageId
-                friendNumber:friendNumber
-                 messageType:OCTToxMessageTypeOffline
-                     message:message
-               confirmStatus:NO
-                     version:0
-                successBlock:successBlock
-                failureBlock:failureBlock];
-}
 
 - (instancetype)initWithTox:(OCTTox *)tox
                   messageId:(OCTToxMessageId)messageId
@@ -85,7 +64,6 @@
 }
 
 - (instancetype)initWithTox:(OCTTox *)tox
-                  messageId:(OCTToxMessageId)messageId
                friendNumber:(OCTToxFriendNumber)friendNumber
                 messageType:(OCTToxMessageType)messageType
                     version:(NSUInteger)version
@@ -93,7 +71,7 @@
                failureBlock:(nullable OCTSendMessageOperationFailureBlock)failureBlock
 {
     return [self initWithTox:tox
-                   messageId:messageId
+                   messageId:0
                 friendNumber:friendNumber
                  messageType:messageType
                      message:nil
@@ -164,18 +142,7 @@
             messageData = [model data];
             break;
         }
-        case OCTToxMessageTypeOffline: {
-            realFriendNumber = _botFriendNumber;
-            NSData *cryptoMessage = [self.tox encryptOfflineMessage:_friendNumber message:_message];
-            
-            OfflineMessageReq *model = [OfflineMessageReq new];
-            model.localMsgId = _messageId;
-            model.toPk = [[self.tox publicKeyFromFriendNumber:_friendNumber error:nil] dataUsingEncoding:NSUTF8StringEncoding];
-            model.cryptoMessage = cryptoMessage;
-            
-            messageData = [model data];
-            break;
-        }
+        case OCTToxMessageTypeOffline:
         case OCTToxMessageTypeAction:
         case OCTToxMessageTypeForward:
         case OCTToxMessageTypeAssist:
@@ -187,12 +154,7 @@
     }
     
     NSError *error;
-    if (self.messageType == OCTToxMessageTypeOffline) {
-        [self.tox sendOfflineMessageWithBotFriendNumber:realFriendNumber
-                                              messageId:_messageId
-                                                message:messageData
-                                                  error:&error];
-    } else if (_version == 0) {
+    if (_version == 0) {
         NSData *messageData = [self.message dataUsingEncoding:NSUTF8StringEncoding];
         _messageId = [self.tox sendMessageUsingOldVersionWithFriendNumber:realFriendNumber
                                                         type:_messageType

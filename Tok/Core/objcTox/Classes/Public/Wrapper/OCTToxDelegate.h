@@ -209,4 +209,12 @@ friendNumber:(OCTToxFriendNumber)friendNumber
     version:(uint32_t)version
 friendNumber:(OCTToxFriendNumber)friendNumber;
 
+/* Offline Callback */
+
+- (void)tox:(OCTTox *)tox
+friendNumber:(OCTToxFriendNumber)friendNumber
+ offlineCmd:(OCTToxMessageOfflineCmd)offlineCmd
+messageData:(NSData *)messageData
+     length:(NSInteger)length;
+
 @end

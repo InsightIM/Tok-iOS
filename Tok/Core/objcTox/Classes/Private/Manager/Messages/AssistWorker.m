@@ -54,7 +54,6 @@ static const NSTimeInterval kMaxRetryCount = 3;
 - (void)start
 {
     _operation = [[OCTSendMessageOperation alloc] initWithTox:_tox
-                                                messageId:0
                                              friendNumber:_friendNumber
                                               messageType:OCTToxMessageTypeAssist
                                                   version:[OCTTox clientVersion]

@@ -16,7 +16,7 @@
 #import "OCTSettingsStorageObject.h"
 #import "OCTLogging.h"
 
-static const uint64_t kCurrentSchemeVersion = 3;
+static const uint64_t kCurrentSchemeVersion = 4;
 static NSString *kSettingsStorageObjectPrimaryKey = @"kSettingsStorageObjectPrimaryKey";
 
 @interface OCTRealmManager ()
@@ -568,6 +568,9 @@ static NSString *kSettingsStorageObjectPrimaryKey = @"kSettingsStorageObjectPrim
         if (oldSchemaVersion < 3) {
             [self doMigrationVersion2:migration];
         }
+        if (oldSchemaVersion < 4) {
+            [self doMigrationVersion3:migration];
+        }
     };
 }
 
@@ -582,6 +585,13 @@ static NSString *kSettingsStorageObjectPrimaryKey = @"kSettingsStorageObjectPrim
 {
     [migration enumerateObjects:OCTMessageFile.className block:^(RLMObject *oldObject, RLMObject *newObject) {
         newObject[@"duration"] = nil;
+    }];
+}
+
++ (void)doMigrationVersion3:(RLMMigration *)migration
+{
+    [migration enumerateObjects:OCTFriend.className block:^(RLMObject *oldObject, RLMObject *newObject) {
+        newObject[@"supportOfflineMessage"] = @(NO);
     }];
 }
 

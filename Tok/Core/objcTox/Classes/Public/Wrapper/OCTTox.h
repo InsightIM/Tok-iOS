@@ -296,6 +296,11 @@
                                                  message:(NSData *)message
                                                    error:(NSError **)error;
 
+- (OCTToxMessageId)sendOfflineCommandWithBotFriendNumber:(OCTToxFriendNumber)botFriendNumber
+                                              offlineCmd:(OCTToxMessageOfflineCmd)offlineCmd
+                                                 message:(NSData *)message
+                                                   error:(NSError **)error;
+
 /**
  * Send a text chat message to an online friend.
  *

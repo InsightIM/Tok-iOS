@@ -137,6 +137,7 @@
             NSDate *dateOffline = [tox friendGetLastOnlineWithFriendNumber:number error:nil];
             theFriend.lastSeenOnlineInterval = [dateOffline timeIntervalSince1970];
             theFriend.clientVersion = 0;
+            theFriend.supportOfflineMessage = NO;
         }];
     }
 

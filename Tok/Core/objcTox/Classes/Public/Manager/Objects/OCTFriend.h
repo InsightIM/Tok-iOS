@@ -88,6 +88,11 @@
 @property NSInteger clientVersion;
 
 /**
+ * Whether friend is added offline message bot. the bot from Tok.
+ */
+@property BOOL supportOfflineMessage;
+
+/**
  * The date when friend was last seen online.
  * Contains actual information in case if friend has connectionStatus offline.
  */

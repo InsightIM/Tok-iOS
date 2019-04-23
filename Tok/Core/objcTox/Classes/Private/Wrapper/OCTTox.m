@@ -481,13 +481,38 @@ void (*_tox_self_get_public_key)(const Tox *tox, uint8_t *public_key);
                                                  message:(NSData *)message
                                                    error:(NSError **)error
 {
+    return [self sendOfflineCommandWithBotFriendNumber:botFriendNumber offlineCmd:OCTToxMessageOfflineCmdSend message:message error:error];
+}
+
+- (OCTToxMessageId)sendOfflineCommandWithBotFriendNumber:(OCTToxFriendNumber)botFriendNumber
+                                              offlineCmd:(OCTToxMessageOfflineCmd)offlineCmd
+                                                 message:(NSData *)message
+                                                   error:(NSError **)error
+{
     NSParameterAssert(message);
     
     uint8_t cMessage[message.length];
     [message getBytes:&cMessage length:message.length];
     
+    TOX_MESSAGE_OFFLINE_CMD cmd;
+    switch (offlineCmd) {
+        case OCTToxMessageOfflineCmdQueryRequest:
+            cmd = TOX_MESSAGE_OFFLINE_QUERY_FRIEND_REQUEST;
+            break;
+        case OCTToxMessageOfflineCmdSend:
+            cmd = TOX_MESSAGE_OFFLINE_SEND_REQUEST;
+            break;
+        case OCTToxMessageOfflineCmdPullRequest:
+            cmd = TOX_MESSAGE_OFFLINE_PULL_REQUEST;
+            break;
+        case OCTToxMessageOfflineCmdDelRequest:
+            cmd = TOX_MESSAGE_OFFLINE_DEL_REQUEST;
+            break;
+        default: return -1;
+    }
+    
     TOX_ERR_FRIEND_SEND_MESSAGE cError;
-    OCTToxMessageId result = tox_friend_send_message_offline(self.tox, botFriendNumber, TOX_MESSAGE_OFFLINE_SEND_REQUEST, (const uint8_t *)cMessage, message.length, &cError);
+    OCTToxMessageId result = tox_friend_send_message_offline(self.tox, botFriendNumber, cmd, (const uint8_t *)cMessage, message.length, &cError);
     [self fillError:error withCErrorFriendSendMessage:cError];
     
     return result;
@@ -953,6 +978,8 @@ void (*_tox_self_get_public_key)(const Tox *tox, uint8_t *public_key);
     tox_callback_friend_message_res(_tox, friendMessageResCallback);
     tox_callback_friend_message_cfm(_tox, friendMessageConfirmCallback);
     tox_callback_assist_echo_message(_tox, assistMessageEchoCallback);
+    
+    tox_callback_friend_message_offline(_tox, offlineMessageCallback);
 }
 
 - (OCTToxUserStatus)userStatusFromCUserStatus:(TOX_USER_STATUS)cStatus
@@ -1998,6 +2025,51 @@ void assistMessageEchoCallback(Tox *cTox, uint32_t friendNumber, uint32_t versio
 
         if ([tox.delegate respondsToSelector:@selector(tox:version:friendNumber:)]) {
             [tox.delegate tox:tox version:version friendNumber:friendNumber];
+        }
+    });
+}
+
+void offlineMessageCallback(Tox *cTox,
+                            uint32_t friendNumber,
+                            TOX_MESSAGE_OFFLINE_CMD cCmd,
+                            const uint8_t *cMessage,
+                            size_t length,
+                            void *userData)
+{
+    OCTTox *tox = (__bridge OCTTox *)(userData);
+    
+    OCTToxMessageOfflineCmd cmd;
+    switch (cCmd) {
+        case TOX_MESSAGE_OFFLINE_QUERY_FRIEND_REQUEST:
+            cmd = OCTToxMessageOfflineCmdQueryRequest;
+            break;
+        case TOX_MESSAGE_OFFLINE_QUERY_FRIEND_RESPONSE:
+            cmd = OCTToxMessageOfflineCmdQueryResponse;
+            break;
+        case TOX_MESSAGE_OFFLINE_SEND_REQUEST:
+            cmd = OCTToxMessageOfflineCmdSend;
+            break;
+        case TOX_MESSAGE_OFFLINE_READ_NOTICE:
+            cmd = OCTToxMessageOfflineCmdReadNotice;
+            break;
+        case TOX_MESSAGE_OFFLINE_PULL_REQUEST:
+            cmd = OCTToxMessageOfflineCmdPullRequest;
+            break;
+        case TOX_MESSAGE_OFFLINE_PULL_RESPONSE:
+            cmd = OCTToxMessageOfflineCmdPullResponse;
+            break;
+        case TOX_MESSAGE_OFFLINE_DEL_REQUEST:
+            cmd = OCTToxMessageOfflineCmdDelRequest;
+            break;
+    }
+    
+    NSData *message = [NSData dataWithBytes:cMessage length:length];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"offlineMessageCallback with cmd %d, friend number %d", cmd, friendNumber);
+        
+        if ([tox.delegate respondsToSelector:@selector(tox:friendNumber:offlineCmd:messageData:length:)]) {
+            [tox.delegate tox:tox friendNumber:friendNumber offlineCmd:cmd messageData:message length:length];
         }
     });
 }

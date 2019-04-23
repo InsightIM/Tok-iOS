@@ -16,10 +16,10 @@
 #import "Message.pbobjc.h"
 #import "OCTSettingsStorageObject.h"
 #import "MessageOperationManager.h"
+#import "OCTSendOfflineMessageOperation.h"
 
 @interface OCTSubmanagerChatsImpl ()
 
-@property (nonatomic, strong, readonly) NSOperationQueue *sendMessageQueue;
 @property (nonatomic, strong, readonly) MessageOperationManager *messageOperationManager;
 @end
 
@@ -245,6 +245,10 @@
     }
     
     OCTFriend *bot = [[self.dataSource managerGetRealmManager] friendWithPublicKey:botPublicKey];
+    if (bot.isConnected == NO) {
+        return NO;
+    }
+    
     OCTToxFriendNumber botFriendNumber = bot.friendNumber;
     
     __weak OCTSubmanagerChatsImpl *weakSelf = self;
@@ -287,13 +291,23 @@
     
     OCTTox *tox = [self.dataSource managerGetTox];
     OCTToxMessageId messageId = [tox generateMessageId];
-    OCTSendMessageOperation *operation = [[OCTSendMessageOperation alloc] initOfflineWithTox:tox
-                                                                                   messageId:messageId
-                                                                                friendNumber:friendNumber
-                                                                             botFriendNumber:botFriendNumber
-                                                                                     message:text
-                                                                                successBlock:successBlock
-                                                                                failureBlock:failureBlock];
+    NSData *cryptoMessage = [tox encryptOfflineMessage:friendNumber message:text];
+    
+    OfflineMessageReq *model = [OfflineMessageReq new];
+    model.localMsgId = messageId;
+    model.toPk = [friend.publicKey dataUsingEncoding:NSUTF8StringEncoding];
+    model.cryptoMessage = cryptoMessage;
+    
+    NSData *messageData = [model data];
+    
+    OCTSendOfflineMessageOperation *operation = [[OCTSendOfflineMessageOperation alloc] initOfflineWithTox:tox
+                                                                                                       cmd:OCTToxMessageOfflineCmdSend
+                                                                                                 messageId:messageId
+                                                                                           botFriendNumber:botFriendNumber
+                                                                                                   message:messageData
+                                                                                              successBlock:successBlock
+                                                                                              failureBlock:failureBlock];
+    
     [self.sendMessageQueue addOperation:operation];
     
     return YES;
@@ -331,7 +345,8 @@
 {
     switch (type) {
         case OCTToxMessageTypeNormal:
-        case OCTToxMessageTypeAction: {
+        case OCTToxMessageTypeAction:
+        case OCTToxMessageTypeOffline: {
             NSString *msg = [[NSString alloc] initWithData:messageData encoding:NSUTF8StringEncoding];
             if (msg == nil) {
                 return;

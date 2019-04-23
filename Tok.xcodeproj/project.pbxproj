@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		023E29A2226D9CF0004F292D /* LargePortraitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023E29A1226D9CF0004F292D /* LargePortraitCell.swift */; };
 		023E29A7226DB5B8004F292D /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 023E29A6226DB5B8004F292D /* timer.c */; };
+		0280726B226EB7C500E20B38 /* OCTSubmanagerChatsImpl+Offline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0280726A226EB7C500E20B38 /* OCTSubmanagerChatsImpl+Offline.m */; };
+		0280726E226EC04800E20B38 /* OCTSendOfflineMessageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0280726D226EC04800E20B38 /* OCTSendOfflineMessageOperation.m */; };
 		0282A38C226AFB320093480E /* BotIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38B226AFB320093480E /* BotIntroViewController.swift */; };
 		0282A38E226AFF380093480E /* IntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38D226AFF380093480E /* IntroductionCell.swift */; };
 		0282A390226B08570093480E /* IntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38F226B08570093480E /* IntroductionViewController.swift */; };
@@ -382,6 +384,10 @@
 		023E29A1226D9CF0004F292D /* LargePortraitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePortraitCell.swift; sourceTree = "<group>"; };
 		023E29A5226DB5B7004F292D /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
 		023E29A6226DB5B8004F292D /* timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timer.c; sourceTree = "<group>"; };
+		02807269226EB7C500E20B38 /* OCTSubmanagerChatsImpl+Offline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCTSubmanagerChatsImpl+Offline.h"; sourceTree = "<group>"; };
+		0280726A226EB7C500E20B38 /* OCTSubmanagerChatsImpl+Offline.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OCTSubmanagerChatsImpl+Offline.m"; sourceTree = "<group>"; };
+		0280726C226EC04800E20B38 /* OCTSendOfflineMessageOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCTSendOfflineMessageOperation.h; sourceTree = "<group>"; };
+		0280726D226EC04800E20B38 /* OCTSendOfflineMessageOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCTSendOfflineMessageOperation.m; sourceTree = "<group>"; };
 		0282A38B226AFB320093480E /* BotIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotIntroViewController.swift; sourceTree = "<group>"; };
 		0282A38D226AFF380093480E /* IntroductionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionCell.swift; sourceTree = "<group>"; };
 		0282A38F226B08570093480E /* IntroductionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionViewController.swift; sourceTree = "<group>"; };
@@ -1233,6 +1239,8 @@
 				4E71C35E2244E8A50056DAF3 /* OperationWorker.m */,
 				4EFCEB64224C7C5D00AF6B8C /* AssistWorker.h */,
 				4EFCEB65224C7C5D00AF6B8C /* AssistWorker.m */,
+				0280726C226EC04800E20B38 /* OCTSendOfflineMessageOperation.h */,
+				0280726D226EC04800E20B38 /* OCTSendOfflineMessageOperation.m */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -1321,6 +1329,8 @@
 				4EAC4928222E3055003D591C /* OCTSubmanagerFriendsImpl.m */,
 				4EAC4922222E3055003D591C /* OCTSubmanagerChatsImpl.h */,
 				4EAC492A222E3055003D591C /* OCTSubmanagerChatsImpl.m */,
+				02807269226EB7C500E20B38 /* OCTSubmanagerChatsImpl+Offline.h */,
+				0280726A226EB7C500E20B38 /* OCTSubmanagerChatsImpl+Offline.m */,
 			);
 			path = Submanagers;
 			sourceTree = "<group>";
@@ -2502,6 +2512,7 @@
 				4EAC4AF8222E3057003D591C /* ContactsViewController.swift in Sources */,
 				4EAC4B59222E3057003D591C /* MessageStyle.swift in Sources */,
 				4EAC4AA9222E3056003D591C /* ToxFactory.swift in Sources */,
+				0280726B226EB7C500E20B38 /* OCTSubmanagerChatsImpl+Offline.m in Sources */,
 				4EFCEB7C224E0AF600AF6B8C /* BotPortraitCell.swift in Sources */,
 				4EAC4AD5222E3056003D591C /* OCTFileDownloadOperation.m in Sources */,
 				4EAC4B15222E3057003D591C /* ImageScrollView.swift in Sources */,
@@ -2592,6 +2603,7 @@
 				4EAC4AD3222E3056003D591C /* OCTFileUploadOperation.m in Sources */,
 				4EAC4B30222E3057003D591C /* FullyHorizontalFlowLayout.swift in Sources */,
 				4EAC4BB3222E3057003D591C /* OnboardingCoordinator.swift in Sources */,
+				0280726E226EC04800E20B38 /* OCTSendOfflineMessageOperation.m in Sources */,
 				4EDCF6CE222FB7FF00B8B068 /* toxav_old.c in Sources */,
 				4EFCEB66224C7C5D00AF6B8C /* AssistWorker.m in Sources */,
 				4EDCF6ED222FB80000B8B068 /* DHT.c in Sources */,

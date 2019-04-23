@@ -34,6 +34,8 @@ tox_friend_message_res_cb friendMessageResCallback;
 tox_friend_message_cfm_cb friendMessageConfirmCallback;
 tox_assist_message_echo_cb assistMessageEchoCallback;
 
+tox_friend_message_offline_cb offlineMessageCallback;
+
 @interface OCTTox (Private)
 
 @property (assign, nonatomic) Tox *tox;
