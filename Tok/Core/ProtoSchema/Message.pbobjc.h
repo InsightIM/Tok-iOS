@@ -28,31 +28,9 @@
 CF_EXTERN_C_BEGIN
 
 @class FriendMessageCfm;
-@class FriendMessageDelReq;
-@class FriendMessagePullReq;
-@class FriendMessagePullRes;
 @class FriendMessageReq;
 @class FriendMessageRes;
-@class FriendMessageStoreCfm;
-@class FriendMessageStoreReq;
-@class FriendMessageStoreRes;
-@class FriendMessageToReadReq;
-@class FriendMessageToReadRes;
-@class FriendRealMessage;
-@class GroupCreate;
-@class GroupInvite;
-@class GroupMessageDelReq;
-@class GroupMessagePullReq;
-@class GroupMessagePullRes;
-@class GroupMessageStoreCfm;
-@class GroupMessageStoreReq;
-@class GroupMessageStoreRes;
-@class GroupMessageToRead;
-@class GroupMessageToReadReq;
-@class GroupMessageToReadRes;
-@class GroupPeer;
-@class GroupRealMsg;
-@class GroupTokenPush;
+@class OfflineMessage;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -71,254 +49,104 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MessageRoot : GPBRootObject
 @end
 
-#pragma mark - Head
+#pragma mark - QueryFriendReq
 
-typedef GPB_ENUM(Head_FieldNumber) {
-  Head_FieldNumber_Cmd = 1,
-  Head_FieldNumber_Version = 2,
+typedef GPB_ENUM(QueryFriendReq_FieldNumber) {
+  QueryFriendReq_FieldNumber_Pk = 1,
 };
 
-@interface Head : GPBMessage
+@interface QueryFriendReq : GPBMessage
 
-@property(nonatomic, readwrite) uint32_t cmd;
-
-@property(nonatomic, readwrite) uint32_t version;
+/** hex show */
+@property(nonatomic, readwrite, copy, null_resettable) NSData *pk;
 
 @end
 
-#pragma mark - GroupPeer
+#pragma mark - QueryFriendRes
 
-typedef GPB_ENUM(GroupPeer_FieldNumber) {
-  GroupPeer_FieldNumber_PeerPk = 1,
-  GroupPeer_FieldNumber_PeerName = 2,
+typedef GPB_ENUM(QueryFriendRes_FieldNumber) {
+  QueryFriendRes_FieldNumber_Exist = 1,
 };
 
-@interface GroupPeer : GPBMessage
+@interface QueryFriendRes : GPBMessage
 
-@property(nonatomic, readwrite, copy, null_resettable) NSData *peerPk;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *peerName;
+@property(nonatomic, readwrite) uint32_t exist;
 
 @end
 
-#pragma mark - GroupInvite
+#pragma mark - OfflineMessageReq
 
-typedef GPB_ENUM(GroupInvite_FieldNumber) {
-  GroupInvite_FieldNumber_GroupId = 1,
-  GroupInvite_FieldNumber_InviteToPk = 2,
-  GroupInvite_FieldNumber_InviteFrPk = 3,
-  GroupInvite_FieldNumber_GroupName = 4,
+typedef GPB_ENUM(OfflineMessageReq_FieldNumber) {
+  OfflineMessageReq_FieldNumber_LocalMsgId = 1,
+  OfflineMessageReq_FieldNumber_ToPk = 2,
+  OfflineMessageReq_FieldNumber_CryptoMessage = 3,
 };
 
-@interface GroupInvite : GPBMessage
+@interface OfflineMessageReq : GPBMessage
 
-@property(nonatomic, readwrite) uint32_t groupId;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *inviteToPk;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *inviteFrPk;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *groupName;
-
-@end
-
-#pragma mark - GroupTokenPush
-
-typedef GPB_ENUM(GroupTokenPush_FieldNumber) {
-  GroupTokenPush_FieldNumber_Platform = 1,
-  GroupTokenPush_FieldNumber_Token = 2,
-};
-
-@interface GroupTokenPush : GPBMessage
-
-@property(nonatomic, readwrite) uint32_t platform;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSString *token;
-
-@end
-
-#pragma mark - GroupCreate
-
-typedef GPB_ENUM(GroupCreate_FieldNumber) {
-  GroupCreate_FieldNumber_GroupId = 1,
-  GroupCreate_FieldNumber_GroupName = 2,
-};
-
-@interface GroupCreate : GPBMessage
-
-@property(nonatomic, readwrite) uint32_t groupId;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *groupName;
-
-@end
-
-#pragma mark - GroupRealMsg
-
-typedef GPB_ENUM(GroupRealMsg_FieldNumber) {
-  GroupRealMsg_FieldNumber_GroupId = 1,
-  GroupRealMsg_FieldNumber_Msg = 2,
-  GroupRealMsg_FieldNumber_FrPk = 3,
-  GroupRealMsg_FieldNumber_MsgId = 4,
-  GroupRealMsg_FieldNumber_MsgType = 5,
-  GroupRealMsg_FieldNumber_FileName = 6,
-  GroupRealMsg_FieldNumber_FileDisplayName = 7,
-  GroupRealMsg_FieldNumber_CreateTime = 8,
-};
-
-@interface GroupRealMsg : GPBMessage
-
-@property(nonatomic, readwrite) uint32_t groupId;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *msg;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *frPk;
-
-@property(nonatomic, readwrite) uint64_t msgId;
-
-@property(nonatomic, readwrite) uint32_t msgType;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *fileName;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *fileDisplayName;
-
-@property(nonatomic, readwrite) uint64_t createTime;
-
-@end
-
-#pragma mark - FileTransfer
-
-typedef GPB_ENUM(FileTransfer_FieldNumber) {
-  FileTransfer_FieldNumber_FileType = 1,
-  FileTransfer_FieldNumber_ToPk = 2,
-  FileTransfer_FieldNumber_ToGroup = 3,
-  FileTransfer_FieldNumber_RealName = 4,
-  FileTransfer_FieldNumber_CreateTime = 5,
-};
-
-@interface FileTransfer : GPBMessage
-
-@property(nonatomic, readwrite) int32_t fileType;
+@property(nonatomic, readwrite) int64_t localMsgId;
 
 @property(nonatomic, readwrite, copy, null_resettable) NSData *toPk;
 
-@property(nonatomic, readwrite) uint32_t toGroup;
+@property(nonatomic, readwrite, copy, null_resettable) NSData *cryptoMessage;
 
-@property(nonatomic, readwrite, copy, null_resettable) NSData *realName;
+@end
+
+#pragma mark - OfflineMessageReadNotice
+
+typedef GPB_ENUM(OfflineMessageReadNotice_FieldNumber) {
+  OfflineMessageReadNotice_FieldNumber_LatestMsgId = 1,
+};
+
+@interface OfflineMessageReadNotice : GPBMessage
+
+@property(nonatomic, readwrite) uint64_t latestMsgId;
+
+@end
+
+#pragma mark - OfflineMessage
+
+typedef GPB_ENUM(OfflineMessage_FieldNumber) {
+  OfflineMessage_FieldNumber_LocalMsgId = 1,
+  OfflineMessage_FieldNumber_MsgId = 2,
+  OfflineMessage_FieldNumber_FrPk = 3,
+  OfflineMessage_FieldNumber_ToPk = 4,
+  OfflineMessage_FieldNumber_Content = 5,
+  OfflineMessage_FieldNumber_CreateTime = 6,
+};
+
+@interface OfflineMessage : GPBMessage
+
+@property(nonatomic, readwrite) int64_t localMsgId;
+
+@property(nonatomic, readwrite) uint64_t msgId;
+
+@property(nonatomic, readwrite, copy, null_resettable) NSData *frPk;
+
+@property(nonatomic, readwrite, copy, null_resettable) NSData *toPk;
+
+@property(nonatomic, readwrite, copy, null_resettable) NSData *content;
 
 @property(nonatomic, readwrite) uint64_t createTime;
 
 @end
 
-#pragma mark - GroupMessageStoreReq
+#pragma mark - OfflineMessagePullReq
 
-typedef GPB_ENUM(GroupMessageStoreReq_FieldNumber) {
-  GroupMessageStoreReq_FieldNumber_RealMsg = 1,
-  GroupMessageStoreReq_FieldNumber_LocalMsgId = 2,
-};
-
-@interface GroupMessageStoreReq : GPBMessage
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupRealMsg *realMsg;
-/** Test to see if @c realMsg has been set. */
-@property(nonatomic, readwrite) BOOL hasRealMsg;
-
-/** generate message id locally, unique globally */
-@property(nonatomic, readwrite) uint64_t localMsgId;
+@interface OfflineMessagePullReq : GPBMessage
 
 @end
 
-#pragma mark - GroupMessageStoreRes
+#pragma mark - OfflineMessagePullRes
 
-typedef GPB_ENUM(GroupMessageStoreRes_FieldNumber) {
-  GroupMessageStoreRes_FieldNumber_GroupId = 1,
-  GroupMessageStoreRes_FieldNumber_LocalMsgId = 2,
+typedef GPB_ENUM(OfflineMessagePullRes_FieldNumber) {
+  OfflineMessagePullRes_FieldNumber_MsgArray = 1,
+  OfflineMessagePullRes_FieldNumber_LeftCount = 2,
 };
 
-@interface GroupMessageStoreRes : GPBMessage
+@interface OfflineMessagePullRes : GPBMessage
 
-@property(nonatomic, readwrite) uint32_t groupId;
-
-/** generate message id locally, unique globally */
-@property(nonatomic, readwrite) uint64_t localMsgId;
-
-@end
-
-#pragma mark - GroupMessageStoreCfm
-
-typedef GPB_ENUM(GroupMessageStoreCfm_FieldNumber) {
-  GroupMessageStoreCfm_FieldNumber_LocalMsgId = 1,
-};
-
-@interface GroupMessageStoreCfm : GPBMessage
-
-/** generate message id locally, unique globally */
-@property(nonatomic, readwrite) uint64_t localMsgId;
-
-@end
-
-#pragma mark - GroupMessageToRead
-
-typedef GPB_ENUM(GroupMessageToRead_FieldNumber) {
-  GroupMessageToRead_FieldNumber_GroupId = 1,
-  GroupMessageToRead_FieldNumber_Snapshoot = 2,
-};
-
-@interface GroupMessageToRead : GPBMessage
-
-@property(nonatomic, readwrite) uint64_t groupId;
-
-@property(nonatomic, readwrite) uint32_t snapshoot;
-
-@end
-
-#pragma mark - GroupMessageToReadReq
-
-typedef GPB_ENUM(GroupMessageToReadReq_FieldNumber) {
-  GroupMessageToReadReq_FieldNumber_LocalMsgId = 1,
-  GroupMessageToReadReq_FieldNumber_MsgsRoReadArray = 2,
-};
-
-@interface GroupMessageToReadReq : GPBMessage
-
-/** generate message id locally, unique globally */
-@property(nonatomic, readwrite) uint64_t localMsgId;
-
-@property(nonatomic, readwrite, strong, null_resettable) NSMutableArray<GroupMessageToRead*> *msgsRoReadArray;
-/** The number of items in @c msgsRoReadArray without causing the array to be created. */
-@property(nonatomic, readonly) NSUInteger msgsRoReadArray_Count;
-
-@end
-
-#pragma mark - GroupMessageToReadRes
-
-typedef GPB_ENUM(GroupMessageToReadRes_FieldNumber) {
-  GroupMessageToReadRes_FieldNumber_LocalMsgId = 2,
-};
-
-@interface GroupMessageToReadRes : GPBMessage
-
-/** generate message id locally, unique globally */
-@property(nonatomic, readwrite) uint64_t localMsgId;
-
-@end
-
-#pragma mark - GroupMessagePullReq
-
-@interface GroupMessagePullReq : GPBMessage
-
-@end
-
-#pragma mark - GroupMessagePullRes
-
-typedef GPB_ENUM(GroupMessagePullRes_FieldNumber) {
-  GroupMessagePullRes_FieldNumber_MsgArray = 1,
-  GroupMessagePullRes_FieldNumber_LeftCount = 2,
-};
-
-@interface GroupMessagePullRes : GPBMessage
-
-/** array of group message */
-@property(nonatomic, readwrite, strong, null_resettable) NSMutableArray<GroupRealMsg*> *msgArray;
+@property(nonatomic, readwrite, strong, null_resettable) NSMutableArray<OfflineMessage*> *msgArray;
 /** The number of items in @c msgArray without causing the array to be created. */
 @property(nonatomic, readonly) NSUInteger msgArray_Count;
 
@@ -326,78 +154,16 @@ typedef GPB_ENUM(GroupMessagePullRes_FieldNumber) {
 
 @end
 
-#pragma mark - GroupMessageDelReq
+#pragma mark - OfflineMessageDelReq
 
-typedef GPB_ENUM(GroupMessageDelReq_FieldNumber) {
-  GroupMessageDelReq_FieldNumber_LastMsgId = 1,
+typedef GPB_ENUM(OfflineMessageDelReq_FieldNumber) {
+  OfflineMessageDelReq_FieldNumber_LastMsgId = 2,
 };
 
-@interface GroupMessageDelReq : GPBMessage
+@interface OfflineMessageDelReq : GPBMessage
 
+/** last of message id to be deleted */
 @property(nonatomic, readwrite) uint64_t lastMsgId;
-
-@end
-
-#pragma mark - GroupMessage
-
-typedef GPB_ENUM(GroupMessage_FieldNumber) {
-  GroupMessage_FieldNumber_Cmd = 1,
-  GroupMessage_FieldNumber_GroupId = 2,
-  GroupMessage_FieldNumber_GroupName = 3,
-  GroupMessage_FieldNumber_GroupInvite = 4,
-  GroupMessage_FieldNumber_GroupTokenPush = 5,
-  GroupMessage_FieldNumber_GroupCreate = 6,
-  GroupMessage_FieldNumber_GroupRealMsg = 7,
-  GroupMessage_FieldNumber_GroupPeersArray = 8,
-  GroupMessage_FieldNumber_GroupMsgStoreReq = 9,
-  GroupMessage_FieldNumber_GroupMsgToReadReq = 10,
-  GroupMessage_FieldNumber_GroupMsgPullReq = 11,
-  GroupMessage_FieldNumber_GroupMsgDelReq = 12,
-};
-
-@interface GroupMessage : GPBMessage
-
-@property(nonatomic, readwrite) uint32_t cmd;
-
-@property(nonatomic, readwrite) uint32_t groupId;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *groupName;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupInvite *groupInvite;
-/** Test to see if @c groupInvite has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupInvite;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupTokenPush *groupTokenPush;
-/** Test to see if @c groupTokenPush has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupTokenPush;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupCreate *groupCreate;
-/** Test to see if @c groupCreate has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupCreate;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupRealMsg *groupRealMsg;
-/** Test to see if @c groupRealMsg has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupRealMsg;
-
-@property(nonatomic, readwrite, strong, null_resettable) NSMutableArray<GroupPeer*> *groupPeersArray;
-/** The number of items in @c groupPeersArray without causing the array to be created. */
-@property(nonatomic, readonly) NSUInteger groupPeersArray_Count;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupMessageStoreReq *groupMsgStoreReq;
-/** Test to see if @c groupMsgStoreReq has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupMsgStoreReq;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupMessageToReadReq *groupMsgToReadReq;
-/** Test to see if @c groupMsgToReadReq has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupMsgToReadReq;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupMessagePullReq *groupMsgPullReq;
-/** Test to see if @c groupMsgPullReq has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupMsgPullReq;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupMessageDelReq *groupMsgDelReq;
-/** Test to see if @c groupMsgDelReq has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupMsgDelReq;
 
 @end
 
@@ -445,188 +211,10 @@ typedef GPB_ENUM(FriendMessageCfm_FieldNumber) {
 
 @end
 
-#pragma mark - FriendMessageStoreReq
-
-typedef GPB_ENUM(FriendMessageStoreReq_FieldNumber) {
-  FriendMessageStoreReq_FieldNumber_FrPk = 1,
-  FriendMessageStoreReq_FieldNumber_ToPk = 2,
-  FriendMessageStoreReq_FieldNumber_Msg = 3,
-  FriendMessageStoreReq_FieldNumber_LocalMsgId = 4,
-};
-
-@interface FriendMessageStoreReq : GPBMessage
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *frPk;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *toPk;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *msg;
-
-/** generate message id locally, unique globally */
-@property(nonatomic, readwrite) uint64_t localMsgId;
-
-@end
-
-#pragma mark - FriendMessageStoreRes
-
-typedef GPB_ENUM(FriendMessageStoreRes_FieldNumber) {
-  FriendMessageStoreRes_FieldNumber_FrPk = 1,
-  FriendMessageStoreRes_FieldNumber_ToPk = 2,
-  FriendMessageStoreRes_FieldNumber_LocalMsgId = 3,
-  FriendMessageStoreRes_FieldNumber_MsgId = 4,
-};
-
-@interface FriendMessageStoreRes : GPBMessage
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *frPk;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *toPk;
-
-/** generate message id locally, unique globally */
-@property(nonatomic, readwrite) uint64_t localMsgId;
-
-/** database msg id */
-@property(nonatomic, readwrite) uint64_t msgId;
-
-@end
-
-#pragma mark - FriendMessageStoreCfm
-
-typedef GPB_ENUM(FriendMessageStoreCfm_FieldNumber) {
-  FriendMessageStoreCfm_FieldNumber_FrPk = 1,
-  FriendMessageStoreCfm_FieldNumber_ToPk = 2,
-  FriendMessageStoreCfm_FieldNumber_LocalMsgId = 3,
-};
-
-@interface FriendMessageStoreCfm : GPBMessage
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *frPk;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *toPk;
-
-/** generate message id locally, unique globally */
-@property(nonatomic, readwrite) uint64_t localMsgId;
-
-@end
-
-#pragma mark - FriendMessageToReadReq
-
-typedef GPB_ENUM(FriendMessageToReadReq_FieldNumber) {
-  FriendMessageToReadReq_FieldNumber_Snapshoot = 1,
-  FriendMessageToReadReq_FieldNumber_LocalMsgId = 2,
-};
-
-@interface FriendMessageToReadReq : GPBMessage
-
-/** usually, snapshoot is lastest msg id to be read */
-@property(nonatomic, readwrite) uint32_t snapshoot;
-
-/** generate message id locally, unique globally */
-@property(nonatomic, readwrite) uint64_t localMsgId;
-
-@end
-
-#pragma mark - FriendMessageToReadRes
-
-typedef GPB_ENUM(FriendMessageToReadRes_FieldNumber) {
-  FriendMessageToReadRes_FieldNumber_LocalMsgId = 2,
-};
-
-@interface FriendMessageToReadRes : GPBMessage
-
-/** generate message id locally, unique globally */
-@property(nonatomic, readwrite) uint64_t localMsgId;
-
-@end
-
-#pragma mark - FriendMessagePullReq
-
-@interface FriendMessagePullReq : GPBMessage
-
-@end
-
-#pragma mark - FriendRealMessage
-
-typedef GPB_ENUM(FriendRealMessage_FieldNumber) {
-  FriendRealMessage_FieldNumber_MsgId = 1,
-  FriendRealMessage_FieldNumber_FrPk = 2,
-  FriendRealMessage_FieldNumber_ToPk = 3,
-  FriendRealMessage_FieldNumber_MsgType = 4,
-  FriendRealMessage_FieldNumber_Proto = 5,
-  FriendRealMessage_FieldNumber_FileName = 6,
-  FriendRealMessage_FieldNumber_Extend1 = 7,
-  FriendRealMessage_FieldNumber_Extend2 = 8,
-  FriendRealMessage_FieldNumber_Extend3 = 9,
-  FriendRealMessage_FieldNumber_CreateTime = 10,
-};
-
-@interface FriendRealMessage : GPBMessage
-
-@property(nonatomic, readwrite) uint64_t msgId;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *frPk;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *toPk;
-
-@property(nonatomic, readwrite) uint32_t msgType;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *proto;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *fileName;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *extend1;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *extend2;
-
-@property(nonatomic, readwrite) uint64_t extend3;
-
-@property(nonatomic, readwrite) uint64_t createTime;
-
-@end
-
-#pragma mark - FriendMessagePullRes
-
-typedef GPB_ENUM(FriendMessagePullRes_FieldNumber) {
-  FriendMessagePullRes_FieldNumber_Pk = 1,
-  FriendMessagePullRes_FieldNumber_MsgArray = 2,
-  FriendMessagePullRes_FieldNumber_LeftCount = 3,
-};
-
-@interface FriendMessagePullRes : GPBMessage
-
-/** someone who want to get count of offline message */
-@property(nonatomic, readwrite, copy, null_resettable) NSData *pk;
-
-/** array of message */
-@property(nonatomic, readwrite, strong, null_resettable) NSMutableArray<FriendRealMessage*> *msgArray;
-/** The number of items in @c msgArray without causing the array to be created. */
-@property(nonatomic, readonly) NSUInteger msgArray_Count;
-
-@property(nonatomic, readwrite) uint32_t leftCount;
-
-@end
-
-#pragma mark - FriendMessageDelReq
-
-typedef GPB_ENUM(FriendMessageDelReq_FieldNumber) {
-  FriendMessageDelReq_FieldNumber_LastMsgId = 2,
-};
-
-@interface FriendMessageDelReq : GPBMessage
-
-/** last of message id to be deleted */
-@property(nonatomic, readwrite) uint64_t lastMsgId;
-
-@end
-
 #pragma mark - FriendMessage
 
 typedef GPB_ENUM(FriendMessage_FieldNumber) {
   FriendMessage_FieldNumber_FriendMsgReq = 1,
-  FriendMessage_FieldNumber_FriendMsgStoreReq = 2,
-  FriendMessage_FieldNumber_FriendMsgToReadReq = 3,
-  FriendMessage_FieldNumber_FriendMsgPullReq = 4,
-  FriendMessage_FieldNumber_FriendMsgDelReq = 5,
 };
 
 @interface FriendMessage : GPBMessage
@@ -635,34 +223,12 @@ typedef GPB_ENUM(FriendMessage_FieldNumber) {
 /** Test to see if @c friendMsgReq has been set. */
 @property(nonatomic, readwrite) BOOL hasFriendMsgReq;
 
-@property(nonatomic, readwrite, strong, null_resettable) FriendMessageStoreReq *friendMsgStoreReq;
-/** Test to see if @c friendMsgStoreReq has been set. */
-@property(nonatomic, readwrite) BOOL hasFriendMsgStoreReq;
-
-@property(nonatomic, readwrite, strong, null_resettable) FriendMessageToReadReq *friendMsgToReadReq;
-/** Test to see if @c friendMsgToReadReq has been set. */
-@property(nonatomic, readwrite) BOOL hasFriendMsgToReadReq;
-
-@property(nonatomic, readwrite, strong, null_resettable) FriendMessagePullReq *friendMsgPullReq;
-/** Test to see if @c friendMsgPullReq has been set. */
-@property(nonatomic, readwrite) BOOL hasFriendMsgPullReq;
-
-@property(nonatomic, readwrite, strong, null_resettable) FriendMessageDelReq *friendMsgDelReq;
-/** Test to see if @c friendMsgDelReq has been set. */
-@property(nonatomic, readwrite) BOOL hasFriendMsgDelReq;
-
 @end
 
 #pragma mark - EchoMessage
 
 typedef GPB_ENUM(EchoMessage_FieldNumber) {
   EchoMessage_FieldNumber_FriendMsgRes = 1,
-  EchoMessage_FieldNumber_FriendMsgStoreRes = 2,
-  EchoMessage_FieldNumber_FriendMsgToReadRes = 3,
-  EchoMessage_FieldNumber_FriendMsgPullRes = 4,
-  EchoMessage_FieldNumber_GroupMsgStoreRes = 5,
-  EchoMessage_FieldNumber_GroupMsgToReadRes = 6,
-  EchoMessage_FieldNumber_GroupMsgPullRes = 7,
 };
 
 @interface EchoMessage : GPBMessage
@@ -671,38 +237,12 @@ typedef GPB_ENUM(EchoMessage_FieldNumber) {
 /** Test to see if @c friendMsgRes has been set. */
 @property(nonatomic, readwrite) BOOL hasFriendMsgRes;
 
-@property(nonatomic, readwrite, strong, null_resettable) FriendMessageStoreRes *friendMsgStoreRes;
-/** Test to see if @c friendMsgStoreRes has been set. */
-@property(nonatomic, readwrite) BOOL hasFriendMsgStoreRes;
-
-@property(nonatomic, readwrite, strong, null_resettable) FriendMessageToReadRes *friendMsgToReadRes;
-/** Test to see if @c friendMsgToReadRes has been set. */
-@property(nonatomic, readwrite) BOOL hasFriendMsgToReadRes;
-
-@property(nonatomic, readwrite, strong, null_resettable) FriendMessagePullRes *friendMsgPullRes;
-/** Test to see if @c friendMsgPullRes has been set. */
-@property(nonatomic, readwrite) BOOL hasFriendMsgPullRes;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupMessageStoreRes *groupMsgStoreRes;
-/** Test to see if @c groupMsgStoreRes has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupMsgStoreRes;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupMessageToReadRes *groupMsgToReadRes;
-/** Test to see if @c groupMsgToReadRes has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupMsgToReadRes;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupMessagePullRes *groupMsgPullRes;
-/** Test to see if @c groupMsgPullRes has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupMsgPullRes;
-
 @end
 
 #pragma mark - ConfirmMessage
 
 typedef GPB_ENUM(ConfirmMessage_FieldNumber) {
   ConfirmMessage_FieldNumber_FriendMsgCfm = 1,
-  ConfirmMessage_FieldNumber_FriendMsgStoreCfm = 2,
-  ConfirmMessage_FieldNumber_GroupMsgStoreCfm = 3,
 };
 
 @interface ConfirmMessage : GPBMessage
@@ -710,14 +250,6 @@ typedef GPB_ENUM(ConfirmMessage_FieldNumber) {
 @property(nonatomic, readwrite, strong, null_resettable) FriendMessageCfm *friendMsgCfm;
 /** Test to see if @c friendMsgCfm has been set. */
 @property(nonatomic, readwrite) BOOL hasFriendMsgCfm;
-
-@property(nonatomic, readwrite, strong, null_resettable) FriendMessageStoreCfm *friendMsgStoreCfm;
-/** Test to see if @c friendMsgStoreCfm has been set. */
-@property(nonatomic, readwrite) BOOL hasFriendMsgStoreCfm;
-
-@property(nonatomic, readwrite, strong, null_resettable) GroupMessageStoreCfm *groupMsgStoreCfm;
-/** Test to see if @c groupMsgStoreCfm has been set. */
-@property(nonatomic, readwrite) BOOL hasGroupMsgStoreCfm;
 
 @end
 

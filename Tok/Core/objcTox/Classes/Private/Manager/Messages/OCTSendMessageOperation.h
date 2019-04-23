@@ -50,6 +50,14 @@ typedef void (^OCTSendMessageOperationFailureBlock)(NSError *error);
                successBlock:(nullable OCTSendMessageOperationSuccessBlock)successBlock
                failureBlock:(nullable OCTSendMessageOperationFailureBlock)failureBlock;
 
+- (instancetype)initOfflineWithTox:(OCTTox *)tox
+                         messageId:(OCTToxMessageId)messageId
+                      friendNumber:(OCTToxFriendNumber)friendNumber
+                   botFriendNumber:(OCTToxFriendNumber)botFriendNumber
+                           message:(NSString *)message
+                      successBlock:(nullable OCTSendMessageOperationSuccessBlock)successBlock
+                      failureBlock:(nullable OCTSendMessageOperationFailureBlock)failureBlock;
+
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

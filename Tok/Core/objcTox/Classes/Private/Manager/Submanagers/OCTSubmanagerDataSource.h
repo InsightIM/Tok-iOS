@@ -36,6 +36,7 @@ static NSString *const kOCTScheduleFileTransferCleanupNotification = @"kOCTSched
 @protocol OCTSubmanagerDataSource <NSObject>
 
 - (OCTTox *)managerGetTox;
+- (NSString *)getOfflineMessageBotPublicKey;
 - (BOOL)managerIsToxConnected;
 - (void)managerSaveTox;
 - (OCTRealmManager *)managerGetRealmManager;

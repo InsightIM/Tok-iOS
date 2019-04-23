@@ -91,6 +91,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)isManagerEncryptedWithPassword:(nonnull NSString *)password;
 
+/**
+ * Offline Message Bot Public Key (long term public key) of kOCTToxPublicKeyLength.
+ */
+@property (strong, nonatomic, nullable) NSString *offlineBotPublicKey;
+
 @end
 
 NS_ASSUME_NONNULL_END

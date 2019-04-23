@@ -108,6 +108,20 @@ typedef NS_ENUM(NSInteger, OCTToxMessageType) {
     OCTToxMessageTypeEnd,
 };
 
+
+/**
+ * Message offline type
+ */
+typedef NS_ENUM(NSInteger, OCTToxMessageOfflineCmd) {
+    OCTToxMessageOfflineCmdQueryRequest,
+    OCTToxMessageOfflineCmdQueryResponse,
+    OCTToxMessageOfflineCmdSend,
+    OCTToxMessageOfflineCmdReadNotice,
+    OCTToxMessageOfflineCmdPullRequest,
+    OCTToxMessageOfflineCmdPullResponse,
+    OCTToxMessageOfflineCmdDelRequest,
+};
+
 typedef NS_ENUM(NSInteger, OCTToxGroupCmdType) {
     OCTToxGroupCmdTypeCreate = 0,
     OCTToxGroupCmdTypeInvite,

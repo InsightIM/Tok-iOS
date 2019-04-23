@@ -17,6 +17,7 @@ class UserService {
     fileprivate(set) var toxMananger: OCTManager? = nil {
         didSet {
             setupAutodownload()
+            setupOfflineBot()
         }
     }
     
@@ -233,5 +234,15 @@ class UserService {
                 fatalError("\(error)")
             }
         }
+    }
+    
+    func setupOfflineBot() {
+        guard let toxMananger = toxMananger else {
+            return
+        }
+        
+        let bot = OfflineBotModel()
+        let publicKey: String? = bot.beAdded ? bot.publicKey : nil
+        toxMananger.offlineBotPublicKey = publicKey
     }
 }

@@ -42,6 +42,8 @@
 
 @implementation OCTManagerImpl
 
+@synthesize offlineBotPublicKey = _offlineBotPublicKey;
+
 #pragma mark -  Lifecycle
 
 - (instancetype)initWithConfiguration:(OCTManagerConfiguration *)configuration
@@ -137,6 +139,11 @@
 - (OCTTox *)managerGetTox
 {
     return self.tox;
+}
+
+- (NSString *)getOfflineMessageBotPublicKey
+{
+    return self.offlineBotPublicKey;
 }
 
 - (BOOL)managerIsToxConnected

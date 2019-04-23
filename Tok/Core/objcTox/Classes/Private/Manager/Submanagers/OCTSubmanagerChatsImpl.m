@@ -149,6 +149,11 @@
     NSParameterAssert(chat);
     NSParameterAssert(text);
     
+    
+    if ([self shouldSendOfflineMessageToChat:chat text:text type:type successBlock:userSuccessBlock failureBlock:userFailureBlock]) {
+        return;
+    }
+    
     OCTFriend *friend = [chat.friends firstObject];
     OCTToxFriendNumber friendNumber = friend.friendNumber;
     
@@ -220,6 +225,78 @@
                                                                          successBlock:successBlock
                                                                          failureBlock:failureBlock];
     [self.sendMessageQueue addOperation:operation];
+}
+
+- (BOOL)shouldSendOfflineMessageToChat:(OCTChat *)chat
+                                  text:(NSString *)text
+                                  type:(OCTToxMessageType)type
+                          successBlock:(void (^)(OCTMessageAbstract *message))userSuccessBlock
+                          failureBlock:(void (^)(NSError *error))userFailureBlock
+{
+    NSString *botPublicKey = [self.dataSource getOfflineMessageBotPublicKey];
+    if (botPublicKey == nil) {
+        return NO;
+    }
+    
+    OCTFriend *friend = [chat.friends firstObject];
+    OCTToxFriendNumber friendNumber = friend.friendNumber;
+    if (friend.isConnected) {
+        return NO;
+    }
+    
+    OCTFriend *bot = [[self.dataSource managerGetRealmManager] friendWithPublicKey:botPublicKey];
+    OCTToxFriendNumber botFriendNumber = bot.friendNumber;
+    
+    __weak OCTSubmanagerChatsImpl *weakSelf = self;
+    OCTSendMessageOperationSuccessBlock successBlock = ^(OCTToxMessageId messageId) {
+        __strong OCTSubmanagerChatsImpl *strongSelf = weakSelf;
+        
+        OCTRealmManager *realmManager = [strongSelf.dataSource managerGetRealmManager];
+        OCTMessageAbstract *message = [realmManager addMessageWithText:text type:type chat:chat sender:nil messageId:messageId dateInterval:0 status:messageId < 0 ? 2 : 0];
+        
+        if (userSuccessBlock) {
+            userSuccessBlock(message);
+        }
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (chat.isInvalidated) {
+                return;
+            }
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatUniqueIdentifier == %@ AND messageText.messageId == %llu",
+                                      chat.uniqueIdentifier, messageId];
+            
+            RLMResults *results = [realmManager objectsWithClass:[OCTMessageAbstract class] predicate:predicate];
+            
+            OCTMessageAbstract *message = [results firstObject];
+            
+            if (! message) {
+                return;
+            }
+            
+            if (message.messageText.status == 0) {
+                [realmManager updateObject:message withBlock:^(OCTMessageAbstract *theMessage) {
+                    theMessage.messageText.status = 2;
+                }];
+            }
+        });
+    };
+    
+    OCTSendMessageOperationFailureBlock failureBlock = ^(NSError *error) {
+        successBlock(-1);
+    };
+    
+    OCTTox *tox = [self.dataSource managerGetTox];
+    OCTToxMessageId messageId = [tox generateMessageId];
+    OCTSendMessageOperation *operation = [[OCTSendMessageOperation alloc] initOfflineWithTox:tox
+                                                                                   messageId:messageId
+                                                                                friendNumber:friendNumber
+                                                                             botFriendNumber:botFriendNumber
+                                                                                     message:text
+                                                                                successBlock:successBlock
+                                                                                failureBlock:failureBlock];
+    [self.sendMessageQueue addOperation:operation];
+    
+    return YES;
 }
 
 - (BOOL)setIsTyping:(BOOL)isTyping inChat:(OCTChat *)chat error:(NSError **)error

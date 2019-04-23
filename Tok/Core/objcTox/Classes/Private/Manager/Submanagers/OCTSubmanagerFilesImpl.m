@@ -181,24 +181,7 @@ static NSString *const kMessageToFriendPKKey = @"kMessageToFriendPKKey";
     
     NSString *fileName = message.messageFile.fileName;
     NSData *realName;
-    if (message.messageFile.isOffline) {
-        NSNumber *isGroup = operation.userInfo[kMessageIsGroupKey];
-        NSNumber *groupNumber = operation.userInfo[kMessageGroupNumberKey];
-        
-        FileTransfer *transfer = [FileTransfer new];
-        transfer.fileType = isGroup.boolValue ? 1 : 0;
-        transfer.realName = [fileName dataUsingEncoding:NSUTF8StringEncoding];
-        if (isGroup.boolValue) {
-            transfer.toGroup = (uint32_t)groupNumber.integerValue;
-        } else {
-            NSString *publicKey = operation.userInfo[kMessageToFriendPKKey];
-            transfer.toPk = [publicKey.uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
-        }
-        
-        realName = [transfer data];
-    } else {
-        realName = [fileName dataUsingEncoding:NSUTF8StringEncoding];
-    }
+    realName = [fileName dataUsingEncoding:NSUTF8StringEncoding];
     
     NSError *error;
     OCTToxFileNumber fileNumber = [[self.dataSource managerGetTox] fileSendWithFriendNumber:operation.friendNumber

@@ -287,6 +287,15 @@
                                                          type:(OCTToxMessageType)type
                                                       message:(NSData *)message
                                                         error:(NSError **)error;
+
+/**
+ * Send a offline text chat message to bot.
+ */
+- (OCTToxMessageId)sendOfflineMessageWithBotFriendNumber:(OCTToxFriendNumber)botFriendNumber
+                                               messageId:(OCTToxMessageId)messageId
+                                                 message:(NSData *)message
+                                                   error:(NSError **)error;
+
 /**
  * Send a text chat message to an online friend.
  *
@@ -561,8 +570,8 @@
 
 - (OCTToxMessageId)generateMessageId;
 
-- (BOOL)sendAssistToFriendNumber:(OCTToxFriendNumber)friendNumber;
-
 - (NSData *)encryptOfflineMessage:(OCTToxFriendNumber)friendNumber message:(NSString *)message;
+
+- (BOOL)sendAssistToFriendNumber:(OCTToxFriendNumber)friendNumber;
 
 @end

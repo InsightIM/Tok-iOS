@@ -90,23 +90,4 @@
 
 - (void)markChatMessagesAsRead:(OCTChat *)chat;
 
-/* Group */
-- (BOOL)uploadPushToken:(NSString *)pushToken;
-
-- (BOOL)createGroupWithGroupName:(NSString *)name callback:(void (^)(OCTChat *))block;
-
-- (BOOL)iniviteFriend:(OCTFriend *)friend groupNumber:(NSInteger)groupNumber;
-
-- (BOOL)fetchPeerList:(NSInteger)groupNumber;
-
-- (BOOL)updateGroupName:(NSString *)name groupNumber:(NSInteger)groupNumber;
-
-- (BOOL)getGroupName:(NSInteger)groupNumber;
-
-- (BOOL)leaveGroup:(NSInteger)groupNumber;
-
-- (OCTPeer *)peerWithID:(NSString *)uniqueIdentifier;
-
-- (OCTPeer *)peerWithPublicKey:(NSString *)publicKey groupNumber:(NSInteger)groupNumber;
-
 @end

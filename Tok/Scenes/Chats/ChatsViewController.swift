@@ -301,21 +301,9 @@ extension OCTChat {
             return (hasDraft, nil, "")
         }
         
-        var peerName = ""
-        if isGroup {
-            if message.senderUniqueIdentifier == nil {
-                if let nickName = UserService.shared.nickName {
-                    peerName = nickName + ": "
-                }
-            } else if let peer = UserService.shared.toxMananger!.chats.peer(withPublicKey: message.senderPublicKey, groupNumber: groupNumber),
-                let senderName = peer.nickname {
-                peerName = senderName + ": "
-            }
-        }
-        
         if let text = message.messageText {
             let content = text.text ?? ""
-            return (hasDraft, nil, "\(peerName)\(content)")
+            return (hasDraft, nil, content)
         }
         
         if let file = message.messageFile {
@@ -328,7 +316,7 @@ extension OCTChat {
             case "MessageVideo": text = "[Video]"
             default: text = file.fileName ?? "[File]"
             }
-            return (hasDraft, imageName, "\(peerName)\(text)")
+            return (hasDraft, imageName, text)
         } else if let _ = message.messageCall {
             return message.isOutgoing() ? (hasDraft, nil, "[Outgoing Call]") : (hasDraft, nil, "[Incoming Call]")
         }

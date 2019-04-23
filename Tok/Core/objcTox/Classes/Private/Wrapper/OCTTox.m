@@ -476,6 +476,23 @@ void (*_tox_self_get_public_key)(const Tox *tox, uint8_t *public_key);
     return result;
 }
 
+- (OCTToxMessageId)sendOfflineMessageWithBotFriendNumber:(OCTToxFriendNumber)botFriendNumber
+                                               messageId:(OCTToxMessageId)messageId
+                                                 message:(NSData *)message
+                                                   error:(NSError **)error
+{
+    NSParameterAssert(message);
+    
+    uint8_t cMessage[message.length];
+    [message getBytes:&cMessage length:message.length];
+    
+    TOX_ERR_FRIEND_SEND_MESSAGE cError;
+    OCTToxMessageId result = tox_friend_send_message_offline(self.tox, botFriendNumber, TOX_MESSAGE_OFFLINE_SEND_REQUEST, (const uint8_t *)cMessage, message.length, &cError);
+    [self fillError:error withCErrorFriendSendMessage:cError];
+    
+    return result;
+}
+
 - (OCTToxMessageId)sendMessageWithFriendNumber:(OCTToxFriendNumber)friendNumber
                                type:(OCTToxMessageType)type
                           messageId:(OCTToxMessageId)messageId
@@ -502,7 +519,10 @@ void (*_tox_self_get_public_key)(const Tox *tox, uint8_t *public_key);
         case OCTToxMessageTypeGroup:
             cType = TOX_MESSAGE_TYPE_GROUP;
             break;
-        case OCTToxMessageTypeEcho:
+        case OCTToxMessageTypeOffline:
+            cType = TOX_MESSAGE_TYPE_OFFILNE;
+            break;
+            case OCTToxMessageTypeEcho:
             cType = TOX_MESSAGE_TYPE_ECHO;
             break;
         case OCTToxMessageTypeConfirm:

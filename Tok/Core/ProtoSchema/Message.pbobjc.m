@@ -42,18 +42,16 @@ static GPBFileDescriptor *MessageRoot_FileDescriptor(void) {
   return descriptor;
 }
 
-#pragma mark - Head
+#pragma mark - QueryFriendReq
 
-@implementation Head
+@implementation QueryFriendReq
 
-@dynamic cmd;
-@dynamic version;
+@dynamic pk;
 
-typedef struct Head__storage_ {
+typedef struct QueryFriendReq__storage_ {
   uint32_t _has_storage_[1];
-  uint32_t cmd;
-  uint32_t version;
-} Head__storage_;
+  NSData *pk;
+} QueryFriendReq__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
@@ -62,31 +60,22 @@ typedef struct Head__storage_ {
   if (!descriptor) {
     static GPBMessageFieldDescription fields[] = {
       {
-        .name = "cmd",
+        .name = "pk",
         .dataTypeSpecific.className = NULL,
-        .number = Head_FieldNumber_Cmd,
+        .number = QueryFriendReq_FieldNumber_Pk,
         .hasIndex = 0,
-        .offset = (uint32_t)offsetof(Head__storage_, cmd),
+        .offset = (uint32_t)offsetof(QueryFriendReq__storage_, pk),
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "version",
-        .dataTypeSpecific.className = NULL,
-        .number = Head_FieldNumber_Version,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(Head__storage_, version),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
+        .dataType = GPBDataTypeBytes,
       },
     };
     GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[Head class]
+        [GPBDescriptor allocDescriptorForClass:[QueryFriendReq class]
                                      rootClass:[MessageRoot class]
                                           file:MessageRoot_FileDescriptor()
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(Head__storage_)
+                                   storageSize:sizeof(QueryFriendReq__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
     NSAssert(descriptor == nil, @"Startup recursed!");
     descriptor = localDescriptor;
@@ -96,18 +85,16 @@ typedef struct Head__storage_ {
 
 @end
 
-#pragma mark - GroupPeer
+#pragma mark - QueryFriendRes
 
-@implementation GroupPeer
+@implementation QueryFriendRes
 
-@dynamic peerPk;
-@dynamic peerName;
+@dynamic exist;
 
-typedef struct GroupPeer__storage_ {
+typedef struct QueryFriendRes__storage_ {
   uint32_t _has_storage_[1];
-  NSData *peerPk;
-  NSData *peerName;
-} GroupPeer__storage_;
+  uint32_t exist;
+} QueryFriendRes__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
@@ -116,31 +103,22 @@ typedef struct GroupPeer__storage_ {
   if (!descriptor) {
     static GPBMessageFieldDescription fields[] = {
       {
-        .name = "peerPk",
+        .name = "exist",
         .dataTypeSpecific.className = NULL,
-        .number = GroupPeer_FieldNumber_PeerPk,
+        .number = QueryFriendRes_FieldNumber_Exist,
         .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupPeer__storage_, peerPk),
+        .offset = (uint32_t)offsetof(QueryFriendRes__storage_, exist),
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "peerName",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupPeer_FieldNumber_PeerName,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(GroupPeer__storage_, peerName),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
+        .dataType = GPBDataTypeUInt32,
       },
     };
     GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupPeer class]
+        [GPBDescriptor allocDescriptorForClass:[QueryFriendRes class]
                                      rootClass:[MessageRoot class]
                                           file:MessageRoot_FileDescriptor()
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupPeer__storage_)
+                                   storageSize:sizeof(QueryFriendRes__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
     NSAssert(descriptor == nil, @"Startup recursed!");
     descriptor = localDescriptor;
@@ -150,328 +128,20 @@ typedef struct GroupPeer__storage_ {
 
 @end
 
-#pragma mark - GroupInvite
+#pragma mark - OfflineMessageReq
 
-@implementation GroupInvite
+@implementation OfflineMessageReq
 
-@dynamic groupId;
-@dynamic inviteToPk;
-@dynamic inviteFrPk;
-@dynamic groupName;
-
-typedef struct GroupInvite__storage_ {
-  uint32_t _has_storage_[1];
-  uint32_t groupId;
-  NSData *inviteToPk;
-  NSData *inviteFrPk;
-  NSData *groupName;
-} GroupInvite__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "groupId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupInvite_FieldNumber_GroupId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupInvite__storage_, groupId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "inviteToPk",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupInvite_FieldNumber_InviteToPk,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(GroupInvite__storage_, inviteToPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "inviteFrPk",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupInvite_FieldNumber_InviteFrPk,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(GroupInvite__storage_, inviteFrPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "groupName",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupInvite_FieldNumber_GroupName,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(GroupInvite__storage_, groupName),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupInvite class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupInvite__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - GroupTokenPush
-
-@implementation GroupTokenPush
-
-@dynamic platform;
-@dynamic token;
-
-typedef struct GroupTokenPush__storage_ {
-  uint32_t _has_storage_[1];
-  uint32_t platform;
-  NSString *token;
-} GroupTokenPush__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "platform",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupTokenPush_FieldNumber_Platform,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupTokenPush__storage_, platform),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "token",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupTokenPush_FieldNumber_Token,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(GroupTokenPush__storage_, token),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeString,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupTokenPush class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupTokenPush__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - GroupCreate
-
-@implementation GroupCreate
-
-@dynamic groupId;
-@dynamic groupName;
-
-typedef struct GroupCreate__storage_ {
-  uint32_t _has_storage_[1];
-  uint32_t groupId;
-  NSData *groupName;
-} GroupCreate__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "groupId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupCreate_FieldNumber_GroupId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupCreate__storage_, groupId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "groupName",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupCreate_FieldNumber_GroupName,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(GroupCreate__storage_, groupName),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupCreate class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupCreate__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - GroupRealMsg
-
-@implementation GroupRealMsg
-
-@dynamic groupId;
-@dynamic msg;
-@dynamic frPk;
-@dynamic msgId;
-@dynamic msgType;
-@dynamic fileName;
-@dynamic fileDisplayName;
-@dynamic createTime;
-
-typedef struct GroupRealMsg__storage_ {
-  uint32_t _has_storage_[1];
-  uint32_t groupId;
-  uint32_t msgType;
-  NSData *msg;
-  NSData *frPk;
-  NSData *fileName;
-  NSData *fileDisplayName;
-  uint64_t msgId;
-  uint64_t createTime;
-} GroupRealMsg__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "groupId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupRealMsg_FieldNumber_GroupId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupRealMsg__storage_, groupId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "msg",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupRealMsg_FieldNumber_Msg,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(GroupRealMsg__storage_, msg),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "frPk",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupRealMsg_FieldNumber_FrPk,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(GroupRealMsg__storage_, frPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "msgId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupRealMsg_FieldNumber_MsgId,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(GroupRealMsg__storage_, msgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-      {
-        .name = "msgType",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupRealMsg_FieldNumber_MsgType,
-        .hasIndex = 4,
-        .offset = (uint32_t)offsetof(GroupRealMsg__storage_, msgType),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "fileName",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupRealMsg_FieldNumber_FileName,
-        .hasIndex = 5,
-        .offset = (uint32_t)offsetof(GroupRealMsg__storage_, fileName),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "fileDisplayName",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupRealMsg_FieldNumber_FileDisplayName,
-        .hasIndex = 6,
-        .offset = (uint32_t)offsetof(GroupRealMsg__storage_, fileDisplayName),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "createTime",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupRealMsg_FieldNumber_CreateTime,
-        .hasIndex = 7,
-        .offset = (uint32_t)offsetof(GroupRealMsg__storage_, createTime),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupRealMsg class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupRealMsg__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - FileTransfer
-
-@implementation FileTransfer
-
-@dynamic fileType;
+@dynamic localMsgId;
 @dynamic toPk;
-@dynamic toGroup;
-@dynamic realName;
-@dynamic createTime;
+@dynamic cryptoMessage;
 
-typedef struct FileTransfer__storage_ {
+typedef struct OfflineMessageReq__storage_ {
   uint32_t _has_storage_[1];
-  int32_t fileType;
-  uint32_t toGroup;
   NSData *toPk;
-  NSData *realName;
-  uint64_t createTime;
-} FileTransfer__storage_;
+  NSData *cryptoMessage;
+  int64_t localMsgId;
+} OfflineMessageReq__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
@@ -480,58 +150,181 @@ typedef struct FileTransfer__storage_ {
   if (!descriptor) {
     static GPBMessageFieldDescription fields[] = {
       {
-        .name = "fileType",
+        .name = "localMsgId",
         .dataTypeSpecific.className = NULL,
-        .number = FileTransfer_FieldNumber_FileType,
+        .number = OfflineMessageReq_FieldNumber_LocalMsgId,
         .hasIndex = 0,
-        .offset = (uint32_t)offsetof(FileTransfer__storage_, fileType),
+        .offset = (uint32_t)offsetof(OfflineMessageReq__storage_, localMsgId),
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeInt32,
+        .dataType = GPBDataTypeInt64,
       },
       {
         .name = "toPk",
         .dataTypeSpecific.className = NULL,
-        .number = FileTransfer_FieldNumber_ToPk,
+        .number = OfflineMessageReq_FieldNumber_ToPk,
         .hasIndex = 1,
-        .offset = (uint32_t)offsetof(FileTransfer__storage_, toPk),
+        .offset = (uint32_t)offsetof(OfflineMessageReq__storage_, toPk),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBytes,
       },
       {
-        .name = "toGroup",
+        .name = "cryptoMessage",
         .dataTypeSpecific.className = NULL,
-        .number = FileTransfer_FieldNumber_ToGroup,
+        .number = OfflineMessageReq_FieldNumber_CryptoMessage,
         .hasIndex = 2,
-        .offset = (uint32_t)offsetof(FileTransfer__storage_, toGroup),
+        .offset = (uint32_t)offsetof(OfflineMessageReq__storage_, cryptoMessage),
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
+        .dataType = GPBDataTypeBytes,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[OfflineMessageReq class]
+                                     rootClass:[MessageRoot class]
+                                          file:MessageRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(OfflineMessageReq__storage_)
+                                         flags:GPBDescriptorInitializationFlag_None];
+    NSAssert(descriptor == nil, @"Startup recursed!");
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
+#pragma mark - OfflineMessageReadNotice
+
+@implementation OfflineMessageReadNotice
+
+@dynamic latestMsgId;
+
+typedef struct OfflineMessageReadNotice__storage_ {
+  uint32_t _has_storage_[1];
+  uint64_t latestMsgId;
+} OfflineMessageReadNotice__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "latestMsgId",
+        .dataTypeSpecific.className = NULL,
+        .number = OfflineMessageReadNotice_FieldNumber_LatestMsgId,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(OfflineMessageReadNotice__storage_, latestMsgId),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeUInt64,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[OfflineMessageReadNotice class]
+                                     rootClass:[MessageRoot class]
+                                          file:MessageRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(OfflineMessageReadNotice__storage_)
+                                         flags:GPBDescriptorInitializationFlag_None];
+    NSAssert(descriptor == nil, @"Startup recursed!");
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
+#pragma mark - OfflineMessage
+
+@implementation OfflineMessage
+
+@dynamic localMsgId;
+@dynamic msgId;
+@dynamic frPk;
+@dynamic toPk;
+@dynamic content;
+@dynamic createTime;
+
+typedef struct OfflineMessage__storage_ {
+  uint32_t _has_storage_[1];
+  NSData *frPk;
+  NSData *toPk;
+  NSData *content;
+  int64_t localMsgId;
+  uint64_t msgId;
+  uint64_t createTime;
+} OfflineMessage__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "localMsgId",
+        .dataTypeSpecific.className = NULL,
+        .number = OfflineMessage_FieldNumber_LocalMsgId,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(OfflineMessage__storage_, localMsgId),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeInt64,
       },
       {
-        .name = "realName",
+        .name = "msgId",
         .dataTypeSpecific.className = NULL,
-        .number = FileTransfer_FieldNumber_RealName,
+        .number = OfflineMessage_FieldNumber_MsgId,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(OfflineMessage__storage_, msgId),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeUInt64,
+      },
+      {
+        .name = "frPk",
+        .dataTypeSpecific.className = NULL,
+        .number = OfflineMessage_FieldNumber_FrPk,
+        .hasIndex = 2,
+        .offset = (uint32_t)offsetof(OfflineMessage__storage_, frPk),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeBytes,
+      },
+      {
+        .name = "toPk",
+        .dataTypeSpecific.className = NULL,
+        .number = OfflineMessage_FieldNumber_ToPk,
         .hasIndex = 3,
-        .offset = (uint32_t)offsetof(FileTransfer__storage_, realName),
+        .offset = (uint32_t)offsetof(OfflineMessage__storage_, toPk),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeBytes,
+      },
+      {
+        .name = "content",
+        .dataTypeSpecific.className = NULL,
+        .number = OfflineMessage_FieldNumber_Content,
+        .hasIndex = 4,
+        .offset = (uint32_t)offsetof(OfflineMessage__storage_, content),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBytes,
       },
       {
         .name = "createTime",
         .dataTypeSpecific.className = NULL,
-        .number = FileTransfer_FieldNumber_CreateTime,
-        .hasIndex = 4,
-        .offset = (uint32_t)offsetof(FileTransfer__storage_, createTime),
+        .number = OfflineMessage_FieldNumber_CreateTime,
+        .hasIndex = 5,
+        .offset = (uint32_t)offsetof(OfflineMessage__storage_, createTime),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeUInt64,
       },
     };
     GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[FileTransfer class]
+        [GPBDescriptor allocDescriptorForClass:[OfflineMessage class]
                                      rootClass:[MessageRoot class]
                                           file:MessageRoot_FileDescriptor()
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(FileTransfer__storage_)
+                                   storageSize:sizeof(OfflineMessage__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
     NSAssert(descriptor == nil, @"Startup recursed!");
     descriptor = localDescriptor;
@@ -541,316 +334,14 @@ typedef struct FileTransfer__storage_ {
 
 @end
 
-#pragma mark - GroupMessageStoreReq
+#pragma mark - OfflineMessagePullReq
 
-@implementation GroupMessageStoreReq
+@implementation OfflineMessagePullReq
 
-@dynamic hasRealMsg, realMsg;
-@dynamic localMsgId;
 
-typedef struct GroupMessageStoreReq__storage_ {
+typedef struct OfflineMessagePullReq__storage_ {
   uint32_t _has_storage_[1];
-  GroupRealMsg *realMsg;
-  uint64_t localMsgId;
-} GroupMessageStoreReq__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "realMsg",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupRealMsg),
-        .number = GroupMessageStoreReq_FieldNumber_RealMsg,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupMessageStoreReq__storage_, realMsg),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "localMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessageStoreReq_FieldNumber_LocalMsgId,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(GroupMessageStoreReq__storage_, localMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupMessageStoreReq class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupMessageStoreReq__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - GroupMessageStoreRes
-
-@implementation GroupMessageStoreRes
-
-@dynamic groupId;
-@dynamic localMsgId;
-
-typedef struct GroupMessageStoreRes__storage_ {
-  uint32_t _has_storage_[1];
-  uint32_t groupId;
-  uint64_t localMsgId;
-} GroupMessageStoreRes__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "groupId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessageStoreRes_FieldNumber_GroupId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupMessageStoreRes__storage_, groupId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "localMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessageStoreRes_FieldNumber_LocalMsgId,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(GroupMessageStoreRes__storage_, localMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupMessageStoreRes class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupMessageStoreRes__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - GroupMessageStoreCfm
-
-@implementation GroupMessageStoreCfm
-
-@dynamic localMsgId;
-
-typedef struct GroupMessageStoreCfm__storage_ {
-  uint32_t _has_storage_[1];
-  uint64_t localMsgId;
-} GroupMessageStoreCfm__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "localMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessageStoreCfm_FieldNumber_LocalMsgId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupMessageStoreCfm__storage_, localMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupMessageStoreCfm class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupMessageStoreCfm__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - GroupMessageToRead
-
-@implementation GroupMessageToRead
-
-@dynamic groupId;
-@dynamic snapshoot;
-
-typedef struct GroupMessageToRead__storage_ {
-  uint32_t _has_storage_[1];
-  uint32_t snapshoot;
-  uint64_t groupId;
-} GroupMessageToRead__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "groupId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessageToRead_FieldNumber_GroupId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupMessageToRead__storage_, groupId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-      {
-        .name = "snapshoot",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessageToRead_FieldNumber_Snapshoot,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(GroupMessageToRead__storage_, snapshoot),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupMessageToRead class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupMessageToRead__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - GroupMessageToReadReq
-
-@implementation GroupMessageToReadReq
-
-@dynamic localMsgId;
-@dynamic msgsRoReadArray, msgsRoReadArray_Count;
-
-typedef struct GroupMessageToReadReq__storage_ {
-  uint32_t _has_storage_[1];
-  NSMutableArray *msgsRoReadArray;
-  uint64_t localMsgId;
-} GroupMessageToReadReq__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "localMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessageToReadReq_FieldNumber_LocalMsgId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupMessageToReadReq__storage_, localMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-      {
-        .name = "msgsRoReadArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupMessageToRead),
-        .number = GroupMessageToReadReq_FieldNumber_MsgsRoReadArray,
-        .hasIndex = GPBNoHasBit,
-        .offset = (uint32_t)offsetof(GroupMessageToReadReq__storage_, msgsRoReadArray),
-        .flags = GPBFieldRepeated,
-        .dataType = GPBDataTypeMessage,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupMessageToReadReq class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupMessageToReadReq__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - GroupMessageToReadRes
-
-@implementation GroupMessageToReadRes
-
-@dynamic localMsgId;
-
-typedef struct GroupMessageToReadRes__storage_ {
-  uint32_t _has_storage_[1];
-  uint64_t localMsgId;
-} GroupMessageToReadRes__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "localMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessageToReadRes_FieldNumber_LocalMsgId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupMessageToReadRes__storage_, localMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupMessageToReadRes class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupMessageToReadRes__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - GroupMessagePullReq
-
-@implementation GroupMessagePullReq
-
-
-typedef struct GroupMessagePullReq__storage_ {
-  uint32_t _has_storage_[1];
-} GroupMessagePullReq__storage_;
+} OfflineMessagePullReq__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
@@ -858,12 +349,12 @@ typedef struct GroupMessagePullReq__storage_ {
   static GPBDescriptor *descriptor = nil;
   if (!descriptor) {
     GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupMessagePullReq class]
+        [GPBDescriptor allocDescriptorForClass:[OfflineMessagePullReq class]
                                      rootClass:[MessageRoot class]
                                           file:MessageRoot_FileDescriptor()
                                         fields:NULL
                                     fieldCount:0
-                                   storageSize:sizeof(GroupMessagePullReq__storage_)
+                                   storageSize:sizeof(OfflineMessagePullReq__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
     NSAssert(descriptor == nil, @"Startup recursed!");
     descriptor = localDescriptor;
@@ -873,18 +364,18 @@ typedef struct GroupMessagePullReq__storage_ {
 
 @end
 
-#pragma mark - GroupMessagePullRes
+#pragma mark - OfflineMessagePullRes
 
-@implementation GroupMessagePullRes
+@implementation OfflineMessagePullRes
 
 @dynamic msgArray, msgArray_Count;
 @dynamic leftCount;
 
-typedef struct GroupMessagePullRes__storage_ {
+typedef struct OfflineMessagePullRes__storage_ {
   uint32_t _has_storage_[1];
   uint32_t leftCount;
   NSMutableArray *msgArray;
-} GroupMessagePullRes__storage_;
+} OfflineMessagePullRes__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
@@ -894,30 +385,30 @@ typedef struct GroupMessagePullRes__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "msgArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupRealMsg),
-        .number = GroupMessagePullRes_FieldNumber_MsgArray,
+        .dataTypeSpecific.className = GPBStringifySymbol(OfflineMessage),
+        .number = OfflineMessagePullRes_FieldNumber_MsgArray,
         .hasIndex = GPBNoHasBit,
-        .offset = (uint32_t)offsetof(GroupMessagePullRes__storage_, msgArray),
+        .offset = (uint32_t)offsetof(OfflineMessagePullRes__storage_, msgArray),
         .flags = GPBFieldRepeated,
         .dataType = GPBDataTypeMessage,
       },
       {
         .name = "leftCount",
         .dataTypeSpecific.className = NULL,
-        .number = GroupMessagePullRes_FieldNumber_LeftCount,
+        .number = OfflineMessagePullRes_FieldNumber_LeftCount,
         .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupMessagePullRes__storage_, leftCount),
+        .offset = (uint32_t)offsetof(OfflineMessagePullRes__storage_, leftCount),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeUInt32,
       },
     };
     GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupMessagePullRes class]
+        [GPBDescriptor allocDescriptorForClass:[OfflineMessagePullRes class]
                                      rootClass:[MessageRoot class]
                                           file:MessageRoot_FileDescriptor()
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupMessagePullRes__storage_)
+                                   storageSize:sizeof(OfflineMessagePullRes__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
     NSAssert(descriptor == nil, @"Startup recursed!");
     descriptor = localDescriptor;
@@ -927,16 +418,16 @@ typedef struct GroupMessagePullRes__storage_ {
 
 @end
 
-#pragma mark - GroupMessageDelReq
+#pragma mark - OfflineMessageDelReq
 
-@implementation GroupMessageDelReq
+@implementation OfflineMessageDelReq
 
 @dynamic lastMsgId;
 
-typedef struct GroupMessageDelReq__storage_ {
+typedef struct OfflineMessageDelReq__storage_ {
   uint32_t _has_storage_[1];
   uint64_t lastMsgId;
-} GroupMessageDelReq__storage_;
+} OfflineMessageDelReq__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
@@ -947,190 +438,21 @@ typedef struct GroupMessageDelReq__storage_ {
       {
         .name = "lastMsgId",
         .dataTypeSpecific.className = NULL,
-        .number = GroupMessageDelReq_FieldNumber_LastMsgId,
+        .number = OfflineMessageDelReq_FieldNumber_LastMsgId,
         .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupMessageDelReq__storage_, lastMsgId),
+        .offset = (uint32_t)offsetof(OfflineMessageDelReq__storage_, lastMsgId),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeUInt64,
       },
     };
     GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupMessageDelReq class]
+        [GPBDescriptor allocDescriptorForClass:[OfflineMessageDelReq class]
                                      rootClass:[MessageRoot class]
                                           file:MessageRoot_FileDescriptor()
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupMessageDelReq__storage_)
+                                   storageSize:sizeof(OfflineMessageDelReq__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - GroupMessage
-
-@implementation GroupMessage
-
-@dynamic cmd;
-@dynamic groupId;
-@dynamic groupName;
-@dynamic hasGroupInvite, groupInvite;
-@dynamic hasGroupTokenPush, groupTokenPush;
-@dynamic hasGroupCreate, groupCreate;
-@dynamic hasGroupRealMsg, groupRealMsg;
-@dynamic groupPeersArray, groupPeersArray_Count;
-@dynamic hasGroupMsgStoreReq, groupMsgStoreReq;
-@dynamic hasGroupMsgToReadReq, groupMsgToReadReq;
-@dynamic hasGroupMsgPullReq, groupMsgPullReq;
-@dynamic hasGroupMsgDelReq, groupMsgDelReq;
-
-typedef struct GroupMessage__storage_ {
-  uint32_t _has_storage_[1];
-  uint32_t cmd;
-  uint32_t groupId;
-  NSData *groupName;
-  GroupInvite *groupInvite;
-  GroupTokenPush *groupTokenPush;
-  GroupCreate *groupCreate;
-  GroupRealMsg *groupRealMsg;
-  NSMutableArray *groupPeersArray;
-  GroupMessageStoreReq *groupMsgStoreReq;
-  GroupMessageToReadReq *groupMsgToReadReq;
-  GroupMessagePullReq *groupMsgPullReq;
-  GroupMessageDelReq *groupMsgDelReq;
-} GroupMessage__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "cmd",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessage_FieldNumber_Cmd,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, cmd),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "groupId",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessage_FieldNumber_GroupId,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "groupName",
-        .dataTypeSpecific.className = NULL,
-        .number = GroupMessage_FieldNumber_GroupName,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupName),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "groupInvite",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupInvite),
-        .number = GroupMessage_FieldNumber_GroupInvite,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupInvite),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupTokenPush",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupTokenPush),
-        .number = GroupMessage_FieldNumber_GroupTokenPush,
-        .hasIndex = 4,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupTokenPush),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupCreate",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupCreate),
-        .number = GroupMessage_FieldNumber_GroupCreate,
-        .hasIndex = 5,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupCreate),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupRealMsg",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupRealMsg),
-        .number = GroupMessage_FieldNumber_GroupRealMsg,
-        .hasIndex = 6,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupRealMsg),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupPeersArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupPeer),
-        .number = GroupMessage_FieldNumber_GroupPeersArray,
-        .hasIndex = GPBNoHasBit,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupPeersArray),
-        .flags = GPBFieldRepeated,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupMsgStoreReq",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupMessageStoreReq),
-        .number = GroupMessage_FieldNumber_GroupMsgStoreReq,
-        .hasIndex = 7,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupMsgStoreReq),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupMsgToReadReq",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupMessageToReadReq),
-        .number = GroupMessage_FieldNumber_GroupMsgToReadReq,
-        .hasIndex = 8,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupMsgToReadReq),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupMsgPullReq",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupMessagePullReq),
-        .number = GroupMessage_FieldNumber_GroupMsgPullReq,
-        .hasIndex = 9,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupMsgPullReq),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupMsgDelReq",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupMessageDelReq),
-        .number = GroupMessage_FieldNumber_GroupMsgDelReq,
-        .hasIndex = 10,
-        .offset = (uint32_t)offsetof(GroupMessage__storage_, groupMsgDelReq),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[GroupMessage class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(GroupMessage__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-#if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    static const char *extraTextFormatInfo =
-        "\004\004\013\000\005\016\000\006\013\000\007\014\000";
-    [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
-#endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
     NSAssert(descriptor == nil, @"Startup recursed!");
     descriptor = localDescriptor;
   }
@@ -1290,617 +612,15 @@ typedef struct FriendMessageCfm__storage_ {
 
 @end
 
-#pragma mark - FriendMessageStoreReq
-
-@implementation FriendMessageStoreReq
-
-@dynamic frPk;
-@dynamic toPk;
-@dynamic msg;
-@dynamic localMsgId;
-
-typedef struct FriendMessageStoreReq__storage_ {
-  uint32_t _has_storage_[1];
-  NSData *frPk;
-  NSData *toPk;
-  NSData *msg;
-  uint64_t localMsgId;
-} FriendMessageStoreReq__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "frPk",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreReq_FieldNumber_FrPk,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(FriendMessageStoreReq__storage_, frPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "toPk",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreReq_FieldNumber_ToPk,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(FriendMessageStoreReq__storage_, toPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "msg",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreReq_FieldNumber_Msg,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(FriendMessageStoreReq__storage_, msg),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "localMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreReq_FieldNumber_LocalMsgId,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(FriendMessageStoreReq__storage_, localMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[FriendMessageStoreReq class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(FriendMessageStoreReq__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - FriendMessageStoreRes
-
-@implementation FriendMessageStoreRes
-
-@dynamic frPk;
-@dynamic toPk;
-@dynamic localMsgId;
-@dynamic msgId;
-
-typedef struct FriendMessageStoreRes__storage_ {
-  uint32_t _has_storage_[1];
-  NSData *frPk;
-  NSData *toPk;
-  uint64_t localMsgId;
-  uint64_t msgId;
-} FriendMessageStoreRes__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "frPk",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreRes_FieldNumber_FrPk,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(FriendMessageStoreRes__storage_, frPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "toPk",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreRes_FieldNumber_ToPk,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(FriendMessageStoreRes__storage_, toPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "localMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreRes_FieldNumber_LocalMsgId,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(FriendMessageStoreRes__storage_, localMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-      {
-        .name = "msgId",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreRes_FieldNumber_MsgId,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(FriendMessageStoreRes__storage_, msgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[FriendMessageStoreRes class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(FriendMessageStoreRes__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - FriendMessageStoreCfm
-
-@implementation FriendMessageStoreCfm
-
-@dynamic frPk;
-@dynamic toPk;
-@dynamic localMsgId;
-
-typedef struct FriendMessageStoreCfm__storage_ {
-  uint32_t _has_storage_[1];
-  NSData *frPk;
-  NSData *toPk;
-  uint64_t localMsgId;
-} FriendMessageStoreCfm__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "frPk",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreCfm_FieldNumber_FrPk,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(FriendMessageStoreCfm__storage_, frPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "toPk",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreCfm_FieldNumber_ToPk,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(FriendMessageStoreCfm__storage_, toPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "localMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageStoreCfm_FieldNumber_LocalMsgId,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(FriendMessageStoreCfm__storage_, localMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[FriendMessageStoreCfm class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(FriendMessageStoreCfm__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - FriendMessageToReadReq
-
-@implementation FriendMessageToReadReq
-
-@dynamic snapshoot;
-@dynamic localMsgId;
-
-typedef struct FriendMessageToReadReq__storage_ {
-  uint32_t _has_storage_[1];
-  uint32_t snapshoot;
-  uint64_t localMsgId;
-} FriendMessageToReadReq__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "snapshoot",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageToReadReq_FieldNumber_Snapshoot,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(FriendMessageToReadReq__storage_, snapshoot),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "localMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageToReadReq_FieldNumber_LocalMsgId,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(FriendMessageToReadReq__storage_, localMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[FriendMessageToReadReq class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(FriendMessageToReadReq__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - FriendMessageToReadRes
-
-@implementation FriendMessageToReadRes
-
-@dynamic localMsgId;
-
-typedef struct FriendMessageToReadRes__storage_ {
-  uint32_t _has_storage_[1];
-  uint64_t localMsgId;
-} FriendMessageToReadRes__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "localMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageToReadRes_FieldNumber_LocalMsgId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(FriendMessageToReadRes__storage_, localMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[FriendMessageToReadRes class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(FriendMessageToReadRes__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - FriendMessagePullReq
-
-@implementation FriendMessagePullReq
-
-
-typedef struct FriendMessagePullReq__storage_ {
-  uint32_t _has_storage_[1];
-} FriendMessagePullReq__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[FriendMessagePullReq class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:NULL
-                                    fieldCount:0
-                                   storageSize:sizeof(FriendMessagePullReq__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - FriendRealMessage
-
-@implementation FriendRealMessage
-
-@dynamic msgId;
-@dynamic frPk;
-@dynamic toPk;
-@dynamic msgType;
-@dynamic proto;
-@dynamic fileName;
-@dynamic extend1;
-@dynamic extend2;
-@dynamic extend3;
-@dynamic createTime;
-
-typedef struct FriendRealMessage__storage_ {
-  uint32_t _has_storage_[1];
-  uint32_t msgType;
-  NSData *frPk;
-  NSData *toPk;
-  NSData *proto;
-  NSData *fileName;
-  NSData *extend1;
-  NSData *extend2;
-  uint64_t msgId;
-  uint64_t extend3;
-  uint64_t createTime;
-} FriendRealMessage__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "msgId",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendRealMessage_FieldNumber_MsgId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(FriendRealMessage__storage_, msgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-      {
-        .name = "frPk",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendRealMessage_FieldNumber_FrPk,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(FriendRealMessage__storage_, frPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "toPk",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendRealMessage_FieldNumber_ToPk,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(FriendRealMessage__storage_, toPk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "msgType",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendRealMessage_FieldNumber_MsgType,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(FriendRealMessage__storage_, msgType),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-      {
-        .name = "proto",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendRealMessage_FieldNumber_Proto,
-        .hasIndex = 4,
-        .offset = (uint32_t)offsetof(FriendRealMessage__storage_, proto),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "fileName",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendRealMessage_FieldNumber_FileName,
-        .hasIndex = 5,
-        .offset = (uint32_t)offsetof(FriendRealMessage__storage_, fileName),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "extend1",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendRealMessage_FieldNumber_Extend1,
-        .hasIndex = 6,
-        .offset = (uint32_t)offsetof(FriendRealMessage__storage_, extend1),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "extend2",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendRealMessage_FieldNumber_Extend2,
-        .hasIndex = 7,
-        .offset = (uint32_t)offsetof(FriendRealMessage__storage_, extend2),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "extend3",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendRealMessage_FieldNumber_Extend3,
-        .hasIndex = 8,
-        .offset = (uint32_t)offsetof(FriendRealMessage__storage_, extend3),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-      {
-        .name = "createTime",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendRealMessage_FieldNumber_CreateTime,
-        .hasIndex = 9,
-        .offset = (uint32_t)offsetof(FriendRealMessage__storage_, createTime),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[FriendRealMessage class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(FriendRealMessage__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - FriendMessagePullRes
-
-@implementation FriendMessagePullRes
-
-@dynamic pk;
-@dynamic msgArray, msgArray_Count;
-@dynamic leftCount;
-
-typedef struct FriendMessagePullRes__storage_ {
-  uint32_t _has_storage_[1];
-  uint32_t leftCount;
-  NSData *pk;
-  NSMutableArray *msgArray;
-} FriendMessagePullRes__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "pk",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessagePullRes_FieldNumber_Pk,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(FriendMessagePullRes__storage_, pk),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "msgArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(FriendRealMessage),
-        .number = FriendMessagePullRes_FieldNumber_MsgArray,
-        .hasIndex = GPBNoHasBit,
-        .offset = (uint32_t)offsetof(FriendMessagePullRes__storage_, msgArray),
-        .flags = GPBFieldRepeated,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "leftCount",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessagePullRes_FieldNumber_LeftCount,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(FriendMessagePullRes__storage_, leftCount),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[FriendMessagePullRes class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(FriendMessagePullRes__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
-#pragma mark - FriendMessageDelReq
-
-@implementation FriendMessageDelReq
-
-@dynamic lastMsgId;
-
-typedef struct FriendMessageDelReq__storage_ {
-  uint32_t _has_storage_[1];
-  uint64_t lastMsgId;
-} FriendMessageDelReq__storage_;
-
-// This method is threadsafe because it is initially called
-// in +initialize for each subclass.
-+ (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "lastMsgId",
-        .dataTypeSpecific.className = NULL,
-        .number = FriendMessageDelReq_FieldNumber_LastMsgId,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(FriendMessageDelReq__storage_, lastMsgId),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
-      },
-    };
-    GPBDescriptor *localDescriptor =
-        [GPBDescriptor allocDescriptorForClass:[FriendMessageDelReq class]
-                                     rootClass:[MessageRoot class]
-                                          file:MessageRoot_FileDescriptor()
-                                        fields:fields
-                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
-                                   storageSize:sizeof(FriendMessageDelReq__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
-}
-
-@end
-
 #pragma mark - FriendMessage
 
 @implementation FriendMessage
 
 @dynamic hasFriendMsgReq, friendMsgReq;
-@dynamic hasFriendMsgStoreReq, friendMsgStoreReq;
-@dynamic hasFriendMsgToReadReq, friendMsgToReadReq;
-@dynamic hasFriendMsgPullReq, friendMsgPullReq;
-@dynamic hasFriendMsgDelReq, friendMsgDelReq;
 
 typedef struct FriendMessage__storage_ {
   uint32_t _has_storage_[1];
   FriendMessageReq *friendMsgReq;
-  FriendMessageStoreReq *friendMsgStoreReq;
-  FriendMessageToReadReq *friendMsgToReadReq;
-  FriendMessagePullReq *friendMsgPullReq;
-  FriendMessageDelReq *friendMsgDelReq;
 } FriendMessage__storage_;
 
 // This method is threadsafe because it is initially called
@@ -1915,42 +635,6 @@ typedef struct FriendMessage__storage_ {
         .number = FriendMessage_FieldNumber_FriendMsgReq,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(FriendMessage__storage_, friendMsgReq),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "friendMsgStoreReq",
-        .dataTypeSpecific.className = GPBStringifySymbol(FriendMessageStoreReq),
-        .number = FriendMessage_FieldNumber_FriendMsgStoreReq,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(FriendMessage__storage_, friendMsgStoreReq),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "friendMsgToReadReq",
-        .dataTypeSpecific.className = GPBStringifySymbol(FriendMessageToReadReq),
-        .number = FriendMessage_FieldNumber_FriendMsgToReadReq,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(FriendMessage__storage_, friendMsgToReadReq),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "friendMsgPullReq",
-        .dataTypeSpecific.className = GPBStringifySymbol(FriendMessagePullReq),
-        .number = FriendMessage_FieldNumber_FriendMsgPullReq,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(FriendMessage__storage_, friendMsgPullReq),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "friendMsgDelReq",
-        .dataTypeSpecific.className = GPBStringifySymbol(FriendMessageDelReq),
-        .number = FriendMessage_FieldNumber_FriendMsgDelReq,
-        .hasIndex = 4,
-        .offset = (uint32_t)offsetof(FriendMessage__storage_, friendMsgDelReq),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeMessage,
       },
@@ -1976,22 +660,10 @@ typedef struct FriendMessage__storage_ {
 @implementation EchoMessage
 
 @dynamic hasFriendMsgRes, friendMsgRes;
-@dynamic hasFriendMsgStoreRes, friendMsgStoreRes;
-@dynamic hasFriendMsgToReadRes, friendMsgToReadRes;
-@dynamic hasFriendMsgPullRes, friendMsgPullRes;
-@dynamic hasGroupMsgStoreRes, groupMsgStoreRes;
-@dynamic hasGroupMsgToReadRes, groupMsgToReadRes;
-@dynamic hasGroupMsgPullRes, groupMsgPullRes;
 
 typedef struct EchoMessage__storage_ {
   uint32_t _has_storage_[1];
   FriendMessageRes *friendMsgRes;
-  FriendMessageStoreRes *friendMsgStoreRes;
-  FriendMessageToReadRes *friendMsgToReadRes;
-  FriendMessagePullRes *friendMsgPullRes;
-  GroupMessageStoreRes *groupMsgStoreRes;
-  GroupMessageToReadRes *groupMsgToReadRes;
-  GroupMessagePullRes *groupMsgPullRes;
 } EchoMessage__storage_;
 
 // This method is threadsafe because it is initially called
@@ -2006,60 +678,6 @@ typedef struct EchoMessage__storage_ {
         .number = EchoMessage_FieldNumber_FriendMsgRes,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(EchoMessage__storage_, friendMsgRes),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "friendMsgStoreRes",
-        .dataTypeSpecific.className = GPBStringifySymbol(FriendMessageStoreRes),
-        .number = EchoMessage_FieldNumber_FriendMsgStoreRes,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(EchoMessage__storage_, friendMsgStoreRes),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "friendMsgToReadRes",
-        .dataTypeSpecific.className = GPBStringifySymbol(FriendMessageToReadRes),
-        .number = EchoMessage_FieldNumber_FriendMsgToReadRes,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(EchoMessage__storage_, friendMsgToReadRes),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "friendMsgPullRes",
-        .dataTypeSpecific.className = GPBStringifySymbol(FriendMessagePullRes),
-        .number = EchoMessage_FieldNumber_FriendMsgPullRes,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(EchoMessage__storage_, friendMsgPullRes),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupMsgStoreRes",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupMessageStoreRes),
-        .number = EchoMessage_FieldNumber_GroupMsgStoreRes,
-        .hasIndex = 4,
-        .offset = (uint32_t)offsetof(EchoMessage__storage_, groupMsgStoreRes),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupMsgToReadRes",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupMessageToReadRes),
-        .number = EchoMessage_FieldNumber_GroupMsgToReadRes,
-        .hasIndex = 5,
-        .offset = (uint32_t)offsetof(EchoMessage__storage_, groupMsgToReadRes),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupMsgPullRes",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupMessagePullRes),
-        .number = EchoMessage_FieldNumber_GroupMsgPullRes,
-        .hasIndex = 6,
-        .offset = (uint32_t)offsetof(EchoMessage__storage_, groupMsgPullRes),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeMessage,
       },
@@ -2085,14 +703,10 @@ typedef struct EchoMessage__storage_ {
 @implementation ConfirmMessage
 
 @dynamic hasFriendMsgCfm, friendMsgCfm;
-@dynamic hasFriendMsgStoreCfm, friendMsgStoreCfm;
-@dynamic hasGroupMsgStoreCfm, groupMsgStoreCfm;
 
 typedef struct ConfirmMessage__storage_ {
   uint32_t _has_storage_[1];
   FriendMessageCfm *friendMsgCfm;
-  FriendMessageStoreCfm *friendMsgStoreCfm;
-  GroupMessageStoreCfm *groupMsgStoreCfm;
 } ConfirmMessage__storage_;
 
 // This method is threadsafe because it is initially called
@@ -2107,24 +721,6 @@ typedef struct ConfirmMessage__storage_ {
         .number = ConfirmMessage_FieldNumber_FriendMsgCfm,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(ConfirmMessage__storage_, friendMsgCfm),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "friendMsgStoreCfm",
-        .dataTypeSpecific.className = GPBStringifySymbol(FriendMessageStoreCfm),
-        .number = ConfirmMessage_FieldNumber_FriendMsgStoreCfm,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(ConfirmMessage__storage_, friendMsgStoreCfm),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "groupMsgStoreCfm",
-        .dataTypeSpecific.className = GPBStringifySymbol(GroupMessageStoreCfm),
-        .number = ConfirmMessage_FieldNumber_GroupMsgStoreCfm,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(ConfirmMessage__storage_, groupMsgStoreCfm),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeMessage,
       },
