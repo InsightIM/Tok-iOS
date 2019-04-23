@@ -66,11 +66,14 @@ typedef GPB_ENUM(QueryFriendReq_FieldNumber) {
 
 typedef GPB_ENUM(QueryFriendRes_FieldNumber) {
   QueryFriendRes_FieldNumber_Exist = 1,
+  QueryFriendRes_FieldNumber_Pk = 2,
 };
 
 @interface QueryFriendRes : GPBMessage
 
 @property(nonatomic, readwrite) uint32_t exist;
+
+@property(nonatomic, readwrite, copy, null_resettable) NSData *pk;
 
 @end
 

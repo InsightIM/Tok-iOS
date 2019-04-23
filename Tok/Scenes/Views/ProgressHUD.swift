@@ -58,7 +58,7 @@ class ProgressHUD: MBProgressHUD {
 }
 
 extension MBProgressHUD {
-    class func showTextHUD(withText text: String?, in view: UIView?, afterDelay second: TimeInterval = 3.0, completion: (() -> Void)? = nil) {
+    class func showTextHUD(withText text: String?, in view: UIView?, afterDelay second: TimeInterval = 1.5, completion: (() -> Void)? = nil) {
         guard let text = text, let view = view else {
             return
         }

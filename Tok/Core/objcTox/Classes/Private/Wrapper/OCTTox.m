@@ -477,14 +477,6 @@ void (*_tox_self_get_public_key)(const Tox *tox, uint8_t *public_key);
 }
 
 - (OCTToxMessageId)sendOfflineMessageWithBotFriendNumber:(OCTToxFriendNumber)botFriendNumber
-                                               messageId:(OCTToxMessageId)messageId
-                                                 message:(NSData *)message
-                                                   error:(NSError **)error
-{
-    return [self sendOfflineCommandWithBotFriendNumber:botFriendNumber offlineCmd:OCTToxMessageOfflineCmdSend message:message error:error];
-}
-
-- (OCTToxMessageId)sendOfflineCommandWithBotFriendNumber:(OCTToxFriendNumber)botFriendNumber
                                               offlineCmd:(OCTToxMessageOfflineCmd)offlineCmd
                                                  message:(NSData *)message
                                                    error:(NSError **)error

@@ -289,14 +289,9 @@
                                                         error:(NSError **)error;
 
 /**
- * Send a offline text chat message to bot.
+ * Send a offline message to bot.
  */
 - (OCTToxMessageId)sendOfflineMessageWithBotFriendNumber:(OCTToxFriendNumber)botFriendNumber
-                                               messageId:(OCTToxMessageId)messageId
-                                                 message:(NSData *)message
-                                                   error:(NSError **)error;
-
-- (OCTToxMessageId)sendOfflineCommandWithBotFriendNumber:(OCTToxFriendNumber)botFriendNumber
                                               offlineCmd:(OCTToxMessageOfflineCmd)offlineCmd
                                                  message:(NSData *)message
                                                    error:(NSError **)error;

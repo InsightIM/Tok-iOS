@@ -90,10 +90,12 @@ typedef struct QueryFriendReq__storage_ {
 @implementation QueryFriendRes
 
 @dynamic exist;
+@dynamic pk;
 
 typedef struct QueryFriendRes__storage_ {
   uint32_t _has_storage_[1];
   uint32_t exist;
+  NSData *pk;
 } QueryFriendRes__storage_;
 
 // This method is threadsafe because it is initially called
@@ -110,6 +112,15 @@ typedef struct QueryFriendRes__storage_ {
         .offset = (uint32_t)offsetof(QueryFriendRes__storage_, exist),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeUInt32,
+      },
+      {
+        .name = "pk",
+        .dataTypeSpecific.className = NULL,
+        .number = QueryFriendRes_FieldNumber_Pk,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(QueryFriendRes__storage_, pk),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeBytes,
       },
     };
     GPBDescriptor *localDescriptor =

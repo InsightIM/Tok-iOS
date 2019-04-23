@@ -76,13 +76,18 @@
         return;
     }
     BOOL exist = model.exist == 1;
-    
-    OCTFriend *friend = [OCTFriend new];
+    NSString *publicKey = [[NSString alloc] initWithData:model.pk encoding:NSUTF8StringEncoding];
+    if (publicKey == nil) {
+        return;
+    }
     
     OCTRealmManager *realmManager = [self.dataSource managerGetRealmManager];
-    [realmManager updateObject:friend withBlock:^(OCTFriend *theObject) {
-        theObject.supportOfflineMessage = exist;
-    }];
+    OCTFriend *friend = [realmManager friendWithPublicKey:publicKey];
+    if (friend.supportOfflineMessage != exist) {
+        [realmManager updateObject:friend withBlock:^(OCTFriend *theObject) {
+            theObject.supportOfflineMessage = exist;
+        }];
+    }
 }
 
 - (void)sendPullRequestWithTox:(OCTTox *)tox botFriendNumber:(OCTToxFriendNumber)botFriendNumber

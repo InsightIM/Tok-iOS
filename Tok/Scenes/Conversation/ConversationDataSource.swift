@@ -92,6 +92,7 @@ class ConversationDataSource {
         hasMore.accept(messageAbstracts.count > 0)
         
         bindOnline()
+        checkOfflineBot() 
         addMessagesNotification()
         addFriendNotification()
         
@@ -173,6 +174,18 @@ class ConversationDataSource {
         let friend = chat.friends?.firstObject() as! OCTFriend
         let status: UserStatus = friend.isConnected ? .online : .offline
         titleUpdated.accept((friend.nickname, status.toString(), status))
+        
+    }
+    
+    private func checkOfflineBot() {
+        let friend = chat.friends?.firstObject() as! OCTFriend
+        let offlineBot = OfflineBotModel()
+        if offlineBot.beAdded {
+            chats.queryFriendIsSupportOfflineMessage(friend)
+            UserService.shared.toxMananger?.offlineBotPublicKey = offlineBot.publicKey
+        } else {
+            UserService.shared.toxMananger?.offlineBotPublicKey = nil
+        }
     }
     
     private func addMessagesNotification() {

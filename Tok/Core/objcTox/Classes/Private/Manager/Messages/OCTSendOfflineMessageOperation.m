@@ -65,7 +65,7 @@
     }
     
     NSError *error;
-    [self.tox sendOfflineCommandWithBotFriendNumber:_botFriendNumber offlineCmd:_offlineCmd message:_message error:&error];
+    [self.tox sendOfflineMessageWithBotFriendNumber:_botFriendNumber offlineCmd:_offlineCmd message:_message error:&error];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.cancelled) {

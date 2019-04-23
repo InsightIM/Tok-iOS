@@ -243,6 +243,9 @@
     if (friend.isConnected) {
         return NO;
     }
+    if (friend.supportOfflineMessage == NO) {
+        return NO;
+    }
     
     OCTFriend *bot = [[self.dataSource managerGetRealmManager] friendWithPublicKey:botPublicKey];
     if (bot.isConnected == NO) {
