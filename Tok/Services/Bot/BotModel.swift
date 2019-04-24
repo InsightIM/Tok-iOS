@@ -72,7 +72,7 @@ struct OfflineBotModel: BotModelProtocol {
     }
     
     var statusMessage: String {
-        return getBot()?.statusMessage ?? NSLocalizedString("This bot is a temporary solution designed to send offline messages in Tok, and it works only when both side of the conversation add this bot.", comment: "")
+        return getBot()?.statusMessage ?? NSLocalizedString("offlinebot_bio", comment: "")
     }
     
     var avatar: UIImage? {
