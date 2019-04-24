@@ -43,33 +43,6 @@
     }
 }
 
-#pragma mark - Public
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
-
-- (void)queryFriendIsSupportOfflineMessage:(OCTFriend *)friend
-{
-    NSString *botPublicKey = [self.dataSource getOfflineMessageBotPublicKey];
-    if (botPublicKey == nil) {
-        NSLog(@"queryFriendIsSupportOfflineMessage not set botPublicKey");
-        return;
-    }
-    
-    OCTTox *tox = [self.dataSource managerGetTox];
-    OCTToxFriendNumber botFriendNumber = [tox friendNumberWithPublicKey:botPublicKey error:nil];
-    
-    QueryFriendReq *req = [QueryFriendReq new];
-    req.pk = [friend.publicKey dataUsingEncoding:NSUTF8StringEncoding];
-    OCTSendOfflineMessageOperation *operation = [[OCTSendOfflineMessageOperation alloc] initOfflineWithTox:tox
-                                                                                                       cmd:OCTToxMessageOfflineCmdQueryRequest
-                                                                                           botFriendNumber:botFriendNumber
-                                                                                                   message:[req data]];
-    [self.sendMessageQueue addOperation:operation];
-}
-
-#pragma clang diagnostic pop
-
 #pragma mark - Private
 
 - (void)handleOfflineMessageQueryResponseWithTox:(OCTTox *)tox data:(NSData *)data botFriendNumber:(OCTToxFriendNumber)botFriendNumber
@@ -155,6 +128,7 @@
         // Add offline message
         NSData *data = [tox decryptOfflineMessage:message.content friendNumber:friend.friendNumber];
         NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"receive offline msg: %@", msg);
         if (msg != nil) {
             [realmManager addMessageWithText:msg type:OCTToxMessageTypeOffline chat:chat sender:friend messageId:messageId dateInterval:time status:1];
         }

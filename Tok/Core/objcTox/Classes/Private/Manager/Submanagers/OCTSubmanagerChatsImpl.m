@@ -163,158 +163,6 @@
     }
 }
 
-- (void)sendMessageUsingOldVersionToChat:(OCTChat *)chat
-                                    text:(NSString *)text
-                                    type:(OCTToxMessageType)type
-                            successBlock:(void (^)(OCTMessageAbstract *message))userSuccessBlock
-                            failureBlock:(void (^)(NSError *error))userFailureBlock
-{
-    NSParameterAssert(chat);
-    NSParameterAssert(text);
-    
-    OCTFriend *friend = [chat.friends firstObject];
-    OCTToxMessageType realType = type;
-    OCTToxFriendNumber friendNumber = friend.friendNumber;
-    
-    __weak OCTSubmanagerChatsImpl *weakSelf = self;
-    OCTSendMessageOperationSuccessBlock successBlock = ^(OCTToxMessageId messageId) {
-        __strong OCTSubmanagerChatsImpl *strongSelf = weakSelf;
-        
-        OCTRealmManager *realmManager = [strongSelf.dataSource managerGetRealmManager];
-        OCTMessageAbstract *message = [realmManager addMessageWithText:text type:realType chat:chat sender:nil messageId:messageId dateInterval:0 status:messageId < 0 ? 2 : 0];
-        
-        if (userSuccessBlock) {
-            userSuccessBlock(message);
-        }
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (chat.isInvalidated) {
-                return;
-            }
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatUniqueIdentifier == %@ AND messageText.messageId == %llu",
-                                      chat.uniqueIdentifier, messageId];
-            
-            RLMResults *results = [realmManager objectsWithClass:[OCTMessageAbstract class] predicate:predicate];
-            
-            OCTMessageAbstract *message = [results firstObject];
-            
-            if (! message) {
-                return;
-            }
-            
-            if (message.messageText.status == 0) {
-                [realmManager updateObject:message withBlock:^(OCTMessageAbstract *theMessage) {
-                    theMessage.messageText.status = 2;
-                }];
-            }
-        });
-    };
-    
-    OCTSendMessageOperationFailureBlock failureBlock = ^(NSError *error) {
-        successBlock(-1);
-    };
-    
-    OCTTox *tox = [self.dataSource managerGetTox];
-    OCTSendMessageOperation *operation = [[OCTSendMessageOperation alloc] initWithTox:tox
-                                                                            messageId:0
-                                                                         friendNumber:friendNumber
-                                                                          messageType:realType
-                                                                              message:text
-                                                                              version:0
-                                                                         successBlock:successBlock
-                                                                         failureBlock:failureBlock];
-    [self.sendMessageQueue addOperation:operation];
-}
-
-- (BOOL)shouldSendOfflineMessageToChat:(OCTChat *)chat
-                                  text:(NSString *)text
-                                  type:(OCTToxMessageType)type
-                          successBlock:(void (^)(OCTMessageAbstract *message))userSuccessBlock
-                          failureBlock:(void (^)(NSError *error))userFailureBlock
-{
-    OCTFriend *friend = [chat.friends firstObject];
-    OCTToxFriendNumber friendNumber = friend.friendNumber;
-    if (friend.isConnected) {
-        return NO;
-    }
-    
-    NSString *botPublicKey = [self.dataSource getOfflineMessageBotPublicKey];
-    if (botPublicKey == nil) {
-        return NO;
-    }
-    
-    if (friend.supportOfflineMessage == NO) {
-        return NO;
-    }
-    
-    OCTFriend *bot = [[self.dataSource managerGetRealmManager] friendWithPublicKey:botPublicKey];
-    if (bot.isConnected == NO) {
-        return NO;
-    }
-    
-    OCTToxFriendNumber botFriendNumber = bot.friendNumber;
-    __weak OCTSubmanagerChatsImpl *weakSelf = self;
-    OCTSendMessageOperationSuccessBlock successBlock = ^(OCTToxMessageId messageId) {
-        __strong OCTSubmanagerChatsImpl *strongSelf = weakSelf;
-        
-        OCTRealmManager *realmManager = [strongSelf.dataSource managerGetRealmManager];
-        OCTMessageAbstract *message = [realmManager addMessageWithText:text type:type chat:chat sender:nil messageId:messageId dateInterval:0 status:messageId < 0 ? 2 : 0];
-        
-        if (userSuccessBlock) {
-            userSuccessBlock(message);
-        }
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (chat.isInvalidated) {
-                return;
-            }
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatUniqueIdentifier == %@ AND messageText.messageId == %llu",
-                                      chat.uniqueIdentifier, messageId];
-            
-            RLMResults *results = [realmManager objectsWithClass:[OCTMessageAbstract class] predicate:predicate];
-            
-            OCTMessageAbstract *message = [results firstObject];
-            
-            if (! message) {
-                return;
-            }
-            
-            if (message.messageText.status == 0) {
-                [realmManager updateObject:message withBlock:^(OCTMessageAbstract *theMessage) {
-                    theMessage.messageText.status = 2;
-                }];
-            }
-        });
-    };
-    
-    OCTSendMessageOperationFailureBlock failureBlock = ^(NSError *error) {
-        successBlock(-1);
-    };
-    
-    OCTTox *tox = [self.dataSource managerGetTox];
-    OCTToxMessageId messageId = [tox generateMessageId];
-    NSData *cryptoMessage = [tox encryptOfflineMessage:friendNumber message:text];
-    
-    OfflineMessageReq *model = [OfflineMessageReq new];
-    model.localMsgId = messageId;
-    model.toPk = [friend.publicKey dataUsingEncoding:NSUTF8StringEncoding];
-    model.cryptoMessage = cryptoMessage;
-    
-    NSData *messageData = [model data];
-    
-    OCTSendOfflineMessageOperation *operation = [[OCTSendOfflineMessageOperation alloc] initOfflineWithTox:tox
-                                                                                                       cmd:OCTToxMessageOfflineCmdSend
-                                                                                                 messageId:messageId
-                                                                                           botFriendNumber:botFriendNumber
-                                                                                                   message:messageData
-                                                                                              successBlock:successBlock
-                                                                                              failureBlock:failureBlock];
-    
-    [self.sendMessageQueue addOperation:operation];
-    
-    return YES;
-}
-
 - (BOOL)setIsTyping:(BOOL)isTyping inChat:(OCTChat *)chat error:(NSError **)error
 {
     NSParameterAssert(chat);
@@ -323,6 +171,26 @@
     OCTTox *tox = [self.dataSource managerGetTox];
 
     return [tox setUserIsTyping:isTyping forFriendNumber:friend.friendNumber error:error];
+}
+
+- (void)queryFriendIsSupportOfflineMessage:(OCTFriend *)friend
+{
+    NSString *botPublicKey = [self.dataSource getOfflineMessageBotPublicKey];
+    if (botPublicKey == nil) {
+        NSLog(@"queryFriendIsSupportOfflineMessage not set botPublicKey");
+        return;
+    }
+    
+    OCTTox *tox = [self.dataSource managerGetTox];
+    OCTToxFriendNumber botFriendNumber = [tox friendNumberWithPublicKey:botPublicKey error:nil];
+    
+    QueryFriendReq *req = [QueryFriendReq new];
+    req.pk = [friend.publicKey dataUsingEncoding:NSUTF8StringEncoding];
+    OCTSendOfflineMessageOperation *operation = [[OCTSendOfflineMessageOperation alloc] initOfflineWithTox:tox
+                                                                                                       cmd:OCTToxMessageOfflineCmdQueryRequest
+                                                                                           botFriendNumber:botFriendNumber
+                                                                                                   message:[req data]];
+    [self.sendMessageQueue addOperation:operation];
 }
 
 #pragma mark -  NSNotification
@@ -443,6 +311,8 @@
     NSLog(@"[2.3] Received Confirm Message. \nId: %lld, friendNumber: %d, result: %@", msgId, friendNumber, success ? @"Success" : @"Failure");
 }
 
+#pragma mark - Private
+
 - (BOOL)setMessageStatus:(OCTToxMessageId)messageId friendNumber:(OCTToxFriendNumber)friendNumber isSuccess:(BOOL)isSuccess
 {
     OCTRealmManager *realmManager = [self.dataSource managerGetRealmManager];
@@ -476,6 +346,160 @@
     }];
     
     return isSuccess;
+}
+
+- (BOOL)shouldSendOfflineMessageToChat:(OCTChat *)chat
+                                  text:(NSString *)text
+                                  type:(OCTToxMessageType)type
+                          successBlock:(void (^)(OCTMessageAbstract *message))userSuccessBlock
+                          failureBlock:(void (^)(NSError *error))userFailureBlock
+{
+    OCTFriend *friend = [chat.friends firstObject];
+    OCTToxFriendNumber friendNumber = friend.friendNumber;
+    if (friend.isConnected) {
+        return NO;
+    }
+    
+    NSString *botPublicKey = [self.dataSource getOfflineMessageBotPublicKey];
+    if (botPublicKey == nil) {
+        return NO;
+    }
+    
+    if (friend.supportOfflineMessage == NO) {
+        return NO;
+    }
+    
+    OCTFriend *bot = [[self.dataSource managerGetRealmManager] friendWithPublicKey:botPublicKey];
+    if (bot.isConnected == NO) {
+        return NO;
+    }
+    
+    OCTToxFriendNumber botFriendNumber = bot.friendNumber;
+    __weak OCTSubmanagerChatsImpl *weakSelf = self;
+    OCTSendMessageOperationSuccessBlock successBlock = ^(OCTToxMessageId messageId) {
+        __strong OCTSubmanagerChatsImpl *strongSelf = weakSelf;
+        
+        OCTRealmManager *realmManager = [strongSelf.dataSource managerGetRealmManager];
+        OCTMessageAbstract *message = [realmManager addMessageWithText:text type:type chat:chat sender:nil messageId:messageId dateInterval:0 status:messageId < 0 ? 2 : 0];
+        
+        if (userSuccessBlock) {
+            userSuccessBlock(message);
+        }
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (chat.isInvalidated) {
+                return;
+            }
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatUniqueIdentifier == %@ AND messageText.messageId == %llu",
+                                      chat.uniqueIdentifier, messageId];
+            
+            RLMResults *results = [realmManager objectsWithClass:[OCTMessageAbstract class] predicate:predicate];
+            
+            OCTMessageAbstract *message = [results firstObject];
+            
+            if (! message) {
+                return;
+            }
+            
+            if (message.messageText.status == 0) {
+                [realmManager updateObject:message withBlock:^(OCTMessageAbstract *theMessage) {
+                    theMessage.messageText.status = 2;
+                }];
+            }
+        });
+    };
+    
+    OCTSendMessageOperationFailureBlock failureBlock = ^(NSError *error) {
+        successBlock(-1);
+    };
+    
+    OCTTox *tox = [self.dataSource managerGetTox];
+    OCTToxMessageId messageId = [tox generateMessageId];
+    NSData *cryptoMessage = [tox encryptOfflineMessage:friendNumber message:text];
+    NSLog(@"cryptoMessage len: %d", cryptoMessage.length);
+    
+    OfflineMessageReq *model = [OfflineMessageReq new];
+    model.localMsgId = messageId;
+    model.toPk = [friend.publicKey dataUsingEncoding:NSUTF8StringEncoding];
+    model.cryptoMessage = cryptoMessage;
+    
+    NSData *messageData = [model data];
+    NSLog(@"messageData len: %d", messageData.length);
+    
+    OCTSendOfflineMessageOperation *operation = [[OCTSendOfflineMessageOperation alloc] initOfflineWithTox:tox
+                                                                                                       cmd:OCTToxMessageOfflineCmdSend
+                                                                                                 messageId:messageId
+                                                                                           botFriendNumber:botFriendNumber
+                                                                                                   message:messageData
+                                                                                              successBlock:successBlock
+                                                                                              failureBlock:failureBlock];
+    
+    [self.sendMessageQueue addOperation:operation];
+    
+    return YES;
+}
+
+- (void)sendMessageUsingOldVersionToChat:(OCTChat *)chat
+                                    text:(NSString *)text
+                                    type:(OCTToxMessageType)type
+                            successBlock:(void (^)(OCTMessageAbstract *message))userSuccessBlock
+                            failureBlock:(void (^)(NSError *error))userFailureBlock
+{
+    NSParameterAssert(chat);
+    NSParameterAssert(text);
+    
+    OCTFriend *friend = [chat.friends firstObject];
+    OCTToxMessageType realType = type;
+    OCTToxFriendNumber friendNumber = friend.friendNumber;
+    
+    __weak OCTSubmanagerChatsImpl *weakSelf = self;
+    OCTSendMessageOperationSuccessBlock successBlock = ^(OCTToxMessageId messageId) {
+        __strong OCTSubmanagerChatsImpl *strongSelf = weakSelf;
+        
+        OCTRealmManager *realmManager = [strongSelf.dataSource managerGetRealmManager];
+        OCTMessageAbstract *message = [realmManager addMessageWithText:text type:realType chat:chat sender:nil messageId:messageId dateInterval:0 status:messageId < 0 ? 2 : 0];
+        
+        if (userSuccessBlock) {
+            userSuccessBlock(message);
+        }
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (chat.isInvalidated) {
+                return;
+            }
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatUniqueIdentifier == %@ AND messageText.messageId == %llu",
+                                      chat.uniqueIdentifier, messageId];
+            
+            RLMResults *results = [realmManager objectsWithClass:[OCTMessageAbstract class] predicate:predicate];
+            
+            OCTMessageAbstract *message = [results firstObject];
+            
+            if (! message) {
+                return;
+            }
+            
+            if (message.messageText.status == 0) {
+                [realmManager updateObject:message withBlock:^(OCTMessageAbstract *theMessage) {
+                    theMessage.messageText.status = 2;
+                }];
+            }
+        });
+    };
+    
+    OCTSendMessageOperationFailureBlock failureBlock = ^(NSError *error) {
+        successBlock(-1);
+    };
+    
+    OCTTox *tox = [self.dataSource managerGetTox];
+    OCTSendMessageOperation *operation = [[OCTSendMessageOperation alloc] initWithTox:tox
+                                                                            messageId:0
+                                                                         friendNumber:friendNumber
+                                                                          messageType:realType
+                                                                              message:text
+                                                                              version:0
+                                                                         successBlock:successBlock
+                                                                         failureBlock:failureBlock];
+    [self.sendMessageQueue addOperation:operation];
 }
 
 @end
