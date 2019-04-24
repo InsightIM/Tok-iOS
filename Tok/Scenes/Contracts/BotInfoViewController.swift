@@ -14,7 +14,6 @@ class BotInfoViewController: BaseViewController {
     private let disposeBag = DisposeBag()
     
     private var bot: BotModelProtocol
-    private var friend: OCTFriend
     
     let titles: [String] = [
         "",
@@ -58,7 +57,6 @@ class BotInfoViewController: BaseViewController {
     
     init(bot: BotModelProtocol) {
         self.bot = bot
-        friend = bot.getBot() ?? bot.defaultBot
         
         super.init()
         
@@ -71,7 +69,7 @@ class BotInfoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleString = friend.nickname
+        titleString = bot.nickName
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -97,7 +95,8 @@ class BotInfoViewController: BaseViewController {
             
             messagesButton.rx.tap
                 .subscribe(onNext: { [weak self] _ in
-                    if let chat = UserService.shared.toxMananger!.chats.getOrCreateChat(with: self?.friend) {
+                    let friend = self?.bot.getBot()
+                    if let chat = UserService.shared.toxMananger!.chats.getOrCreateChat(with: friend) {
                         self?.navigationController?.popViewController(animated: false)
                         NotificationCenter.default.post(name: NSNotification.Name.ShowChat, object: nil, userInfo: ["chat": chat])
                     }
@@ -145,14 +144,14 @@ extension BotInfoViewController: UITableViewDataSource, UITableViewDelegate {
             let cell: BotPortraitCell = tableView.dequeueReusableCell(for: indexPath)
             cell.accessoryType = .none
             
-            let avatar = friend.avatar
-            let nickname = friend.nickname
+            let avatar = bot.avatar
+            let nickname = bot.nickName
             cell.avatarImageView.image = avatar
             cell.nameLabel.text = nickname
             return cell
         } else {
             let cell: UITableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            cell.textLabel?.text = indexPath.section == 1 ? friend.statusMessage : friend.publicKey
+            cell.textLabel?.text = indexPath.section == 1 ? bot.statusMessage : bot.publicKey
             cell.textLabel?.numberOfLines = 0
             cell.textLabel?.textColor = .tokBlack
             cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -175,7 +174,7 @@ extension BotInfoViewController: UITableViewDataSource, UITableViewDelegate {
         case 0:
             guard let cell = tableView.cellForRow(at: indexPath) as? PortraitCell else { return }
             
-            let avatar = friend.avatar
+            let avatar = bot.avatar
             let data = YBImageBrowseCellData()
             data.imageBlock = { avatar }
             data.sourceObject = cell.avatarImageView

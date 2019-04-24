@@ -36,13 +36,19 @@ class BotIntroViewController: BaseViewController {
     }()
     
     private let bot = OfflineBotModel()
-    private lazy var friend: OCTFriend = {
-        let friend: OCTFriend = bot.getBot() ?? bot.defaultBot
-        return friend
-    }()
     
     let addBotAction = Action<String, Void> { address in
         return FriendService.sendRequest(address: address, message: "add bot")
+    }
+    
+    override init() {
+        super.init()
+        
+        hidesBottomBarWhenPushed = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -120,8 +126,8 @@ extension BotIntroViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             let cell: BotPortraitCell = tableView.dequeueReusableCell(for: indexPath)
             
-            let avatar = friend.avatar
-            let nickname = friend.nickname
+            let avatar = bot.avatar
+            let nickname = bot.nickName
             cell.avatarImageView.image = avatar
             cell.nameLabel.text = nickname
             cell.added = bot.beAdded

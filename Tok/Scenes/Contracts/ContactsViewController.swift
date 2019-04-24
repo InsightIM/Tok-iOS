@@ -122,7 +122,7 @@ class ContactsViewController: BaseViewController {
         
         let findFriendBot = FindFriendBotModel()
         if findFriendBot.beAdded == false {
-            let item = ContactItemModel(image: UIImage(named: "MenuFriendRequest"), title: NSLocalizedString("FindFriendBot", comment: ""), caption: nil, friend: nil, action: Action { [unowned self] _ -> Observable<Void> in
+            let item = ContactItemModel(image: UIImage(named: "FindFriendBotIcon"), title: NSLocalizedString("FindFriendBot", comment: ""), caption: nil, friend: nil, action: Action { [unowned self] _ -> Observable<Void> in
                 let vc = BotInfoViewController(bot: findFriendBot)
                 self.navigationController?.pushViewController(vc, animated: true)
                 return .empty()
@@ -132,7 +132,7 @@ class ContactsViewController: BaseViewController {
         }
         
         if OfflineBotModel().beAdded == false {
-            let item = ContactItemModel(image: UIImage(named: "MenuFriendRequest"), title: NSLocalizedString("OfflineMessageBot", comment: ""), caption: nil, friend: nil, action: Action { [unowned self] _ -> Observable<Void> in
+            let item = ContactItemModel(image: UIImage(named: "OfflineBotIcon"), title: NSLocalizedString("OfflineMessageBot", comment: ""), caption: nil, friend: nil, action: Action { [unowned self] _ -> Observable<Void> in
                 let vc = BotIntroViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
                 return .empty()

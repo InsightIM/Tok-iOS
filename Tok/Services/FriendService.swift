@@ -43,7 +43,7 @@ struct FriendService {
             do {
                 try UserService.shared.toxMananger!.friends.sendFriendRequest(toAddress: result, message: message)
                 return .just(())
-            } catch let error {
+            } catch {
                 return Observable.error(error)
             }
         }

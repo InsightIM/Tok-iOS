@@ -9,10 +9,15 @@
 import UIKit
 
 protocol BotModelProtocol {
+    
+    var nickName: String { get }
+    var statusMessage: String { get }
+    var avatar: UIImage? { get }
+    
     var publicKey: String { get }
     var address: String { get }
     var beAdded: Bool { get }
-    var defaultBot: OCTFriend { get }
+
     func getBot() -> OCTFriend?
 }
 
@@ -29,6 +34,18 @@ extension BotModelProtocol {
 }
 
 struct FindFriendBotModel: BotModelProtocol {
+    
+    var nickName: String {
+        return getBot()?.nickname ?? NSLocalizedString("FindFriendBot", comment: "")
+    }
+    
+    var statusMessage: String {
+        return getBot()?.statusMessage ?? NSLocalizedString("What can I do? FindFriendBot can help you find more friends. Click or Type /help for a list of commands.", comment: "")
+    }
+    
+    var avatar: UIImage? {
+        return getBot()?.avatar ?? UIImage(named: "BotPlaceholder")
+    }
     
     enum Command: String {
         case start = "/start"
@@ -47,18 +64,20 @@ struct FindFriendBotModel: BotModelProtocol {
             UserDefaults.standard.findFriendBotAddress = newValue
         }
     }
-    
-    var defaultBot: OCTFriend = {
-        let friend = OCTFriend()
-        friend.nickname = NSLocalizedString("FindFriendBot", comment: "")
-        friend.publicKey = UserDefaults.standard.findFriendBotPublicKey
-        friend.statusMessage = NSLocalizedString("What can I do? FindFriendBot can help you find more friends. Click or Type /help for a list of commands.", comment: "")
-        friend.avatarData = UIImage(named: "BotPlaceholder")?.pngData()
-        return friend
-    }()
 }
 
 struct OfflineBotModel: BotModelProtocol {
+    var nickName: String {
+        return getBot()?.nickname ?? NSLocalizedString("OfflineMessageBot", comment: "")
+    }
+    
+    var statusMessage: String {
+        return getBot()?.statusMessage ?? NSLocalizedString("This bot is a temporary solution designed to send offline messages in Tok, and it works only when both side of the conversation add this bot.", comment: "")
+    }
+    
+    var avatar: UIImage? {
+        return getBot()?.avatar ?? UIImage(named: "BotPlaceholder")
+    }
     
     var publicKey: String {
         return UserDefaults.standard.offlineBotPublicKey
@@ -72,15 +91,6 @@ struct OfflineBotModel: BotModelProtocol {
             UserDefaults.standard.offlineBotAddress = newValue
         }
     }
-    
-    var defaultBot: OCTFriend = {
-        let friend = OCTFriend()
-        friend.nickname = NSLocalizedString("OfflineMessageBot", comment: "")
-        friend.publicKey = UserDefaults.standard.offlineBotPublicKey
-        friend.statusMessage = NSLocalizedString("This bot is a temporary solution designed to send offline messages in Tok, and it works only when both side of the conversation add this bot.", comment: "")
-        friend.avatarData = UIImage(named: "BotPlaceholder")?.pngData()
-        return friend
-    }()
 }
 
 fileprivate extension UserDefaults {
@@ -95,7 +105,7 @@ fileprivate extension UserDefaults {
     }
     
     var findFriendBotPublicKey: String {
-        return String(findFriendBotAddress.prefix(64))
+        return String(findFriendBotAddress.prefix(Int(kOCTToxPublicKeyLength)))
     }
     
     var offlineBotAddress: String {
@@ -108,6 +118,6 @@ fileprivate extension UserDefaults {
     }
     
     var offlineBotPublicKey: String {
-        return String(offlineBotAddress.prefix(64))
+        return String(offlineBotAddress.prefix(Int(kOCTToxPublicKeyLength)))
     }
 }

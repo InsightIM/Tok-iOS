@@ -13,8 +13,8 @@ class MeViewController: BaseViewController {
     
     let titles: [[(String, String, String, Bool)]] = [
         [("Me", "", "", false)],
-        [(NSLocalizedString("My Tok ID", comment: ""), "MyID", "QRCode", false), (NSLocalizedString("FindFriendBot", comment: ""), "Bot", "", true),
-         (NSLocalizedString("OfflineMessageBot", comment: ""), "Bot", "", true)],
+        [(NSLocalizedString("My Tok ID", comment: ""), "MyID", "QRCode", false), (NSLocalizedString("FindFriendBot", comment: ""), "FindFriendBotIcon", "", true),
+         (NSLocalizedString("OfflineMessageBot", comment: ""), "OfflineBotIcon", "", true)],
         [(NSLocalizedString("Security & Privacy", comment: ""), "SecurityAndPrivacy", "", false), (NSLocalizedString("About Tok", comment: ""), "About", "", false)],
         [(NSLocalizedString("Settings", comment: ""), "Settings", "", false)]
     ]
@@ -24,7 +24,7 @@ class MeViewController: BaseViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         tableView.separatorColor = .tokLine
-        tableView.sectionHeaderHeight = 20
+        tableView.sectionHeaderHeight = 15
         tableView.sectionFooterHeight = 0.01
         tableView.delegate = self
         tableView.dataSource = self
@@ -121,7 +121,6 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
                     navigationController?.pushViewController(vc, animated: true)
                 } else {
                     let vc = BotIntroViewController()
-                    vc.hidesBottomBarWhenPushed = true
                     navigationController?.pushViewController(vc, animated: true)
                 }
             }

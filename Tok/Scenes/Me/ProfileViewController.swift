@@ -107,7 +107,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 do {
                     try UserService.shared.toxMananger!.user.setUserName(textField.text)
                     self?.tableView.reloadData()
-                } catch let error {
+                } catch {
                     ProgressHUD.showTextHUD(withText: error.localizedDescription, in: self?.view)
                 }
             }
@@ -129,7 +129,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 do {
                     try UserService.shared.toxMananger!.user.setUserStatusMessage(textField.text)
                     self?.tableView.reloadData()
-                } catch let error {
+                } catch {
                     ProgressHUD.showTextHUD(withText: error.localizedDescription, in: self?.view)
                 }
             }
