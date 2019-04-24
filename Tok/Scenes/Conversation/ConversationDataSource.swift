@@ -30,25 +30,7 @@ class ConversationDataSource {
     
     let findFriendBot = FindFriendBotModel()
     
-    private let friendOnline = BehaviorRelay(value: false)
-    
-    private var groupTitle: String {
-        if chat.isGroup {
-            return chat.title ?? "Group \(chat.groupNumber)"
-        }
-        return ""
-    }
-    
-    private var groupSubtitle: String {
-        if chat.isGroup {
-            var count = 2
-            if let peers = peers {
-                count = peers.count
-            }
-            return "\(count) " + NSLocalizedString("Participants", comment: "").uppercased()
-        }
-        return UserStatus.offline.toString()
-    }
+    let offlineBot = OfflineBotModel()
     
     // MARK: - Private
     
@@ -173,8 +155,12 @@ class ConversationDataSource {
     private func bindOnline() {
         let friend = chat.friends?.firstObject() as! OCTFriend
         let status: UserStatus = friend.isConnected ? .online : .offline
-        titleUpdated.accept((friend.nickname, status.toString(), status))
-        
+        if friend.isConnected == false, offlineBot.getBot()?.isConnected == true {
+            let statusString = NSLocalizedString("Bot online", comment: "")
+            titleUpdated.accept((friend.nickname, statusString, .online))
+        } else {
+            titleUpdated.accept((friend.nickname, status.toString(), status))
+        }
     }
     
     private func checkOfflineBot() {
@@ -256,14 +242,20 @@ class ConversationDataSource {
     }
     
     private func addFriendNotification() {
-        guard chat.isGroup == false else {
-            return
-        }
         guard let friend = chat.friends?.firstObject() as? OCTFriend else {
             return
         }
         
-        let predicate = NSPredicate(format: "uniqueIdentifier == %@", friend.uniqueIdentifier)
+        var predicate: NSPredicate
+        if let bot = offlineBot.getBot() {
+            predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
+                NSPredicate(format: "uniqueIdentifier == %@", friend.uniqueIdentifier),
+                NSPredicate(format: "uniqueIdentifier == %@", bot.uniqueIdentifier),
+                ])
+        } else {
+            predicate = NSPredicate(format: "uniqueIdentifier == %@", friend.uniqueIdentifier)
+        }
+        
         let results = UserService.shared.toxMananger!.objects.friends(predicate: predicate)
         
         friendToken = results.addNotificationBlock { [weak self] change in
@@ -271,12 +263,8 @@ class ConversationDataSource {
             switch change {
             case .initial:
                 break
-            case .update(let results, _, _, _):
-                guard let friend = results?.firstObject else { return }
-                let title = friend.nickname
-                let subtitle = friend.isConnected ? UserStatus.online.toString() : UserStatus.offline.toString()
-                self.friendOnline.accept(friend.isConnected)
-                self.titleUpdated.accept((title, subtitle, friend.isConnected ? .online : .offline))
+            case .update:
+                self.bindOnline()
             case .error(let error):
                 fatalError("\(error)")
             }
@@ -345,7 +333,20 @@ extension ConversationDataSource {
         
         chats.sendMessage(to: self.chat, text: string, type: .normal, successBlock: { [unowned self] _ in
             self.updateLastReadDate()
-        }, failureBlock: nil)
+        }, failureBlock: { [weak self] _ in
+            guard let self = self,
+                let friend = self.chat.friends?.firstObject() as? OCTFriend,
+                friend.isConnected == false else {
+                    return
+            }
+            
+            if self.offlineBot.beAdded == false
+                || (friend.supportOfflineMessage && self.offlineBot.getBot()?.isConnected == false) {
+                self.errors.onNext(NSLocalizedString("No offline message bots are available", comment: ""))
+            } else if friend.supportOfflineMessage == false, self.offlineBot.getBot()?.isConnected == true {
+                self.errors.onNext(NSLocalizedString("Your friend didn’t add an offline messaging bot", comment: ""))
+            }
+        })
         UserService.shared.toxMananger!.objects.change(chat, enteredText: "")
     }
     
@@ -373,15 +374,21 @@ extension ConversationDataSource {
     
     private func sendFile(data: Data, fileName: String) {
         let submanagerFiles = UserService.shared.toxMananger!.files
-        submanagerFiles.send(data, withFileName: fileName, to: chat) { error in
-            print("Send file error: %@", error.localizedDescription)
+        submanagerFiles.send(data, withFileName: fileName, to: chat) { [weak self] error in
+            guard let self = self, let friend = self.chat.friends?.firstObject() as? OCTFriend else { return }
+            if friend.isConnected == false, self.offlineBot.beAdded == true {
+                self.errors.onNext(NSLocalizedString("Only text offline messages are supported", comment: ""))
+            }
         }
     }
     
     private func sendFile(url: URL) {
         let submanagerFiles = UserService.shared.toxMananger!.files
-        submanagerFiles.sendFile(atPath: url.standardizedFileURL.path, moveToUploads: true, to: chat) { error in
-            print("Send file error: %@", error.localizedDescription)
+        submanagerFiles.sendFile(atPath: url.standardizedFileURL.path, moveToUploads: true, to: chat) { [weak self] error in
+            guard let self = self, let friend = self.chat.friends?.firstObject() as? OCTFriend else { return }
+            if friend.isConnected == false, self.offlineBot.beAdded == true {
+                self.errors.onNext(NSLocalizedString("Only text offline messages are supported", comment: ""))
+            }
         }
     }
     

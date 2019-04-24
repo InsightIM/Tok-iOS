@@ -482,12 +482,20 @@
                 [realmManager updateObject:message withBlock:^(OCTMessageAbstract *theMessage) {
                     theMessage.messageText.status = 2;
                 }];
+                
+                if (userFailureBlock) {
+                    userFailureBlock(nil);
+                }
             }
         });
     };
     
     OCTSendMessageOperationFailureBlock failureBlock = ^(NSError *error) {
         successBlock(-1);
+        
+        if (userFailureBlock) {
+            userFailureBlock(error);
+        }
     };
     
     OCTTox *tox = [self.dataSource managerGetTox];
