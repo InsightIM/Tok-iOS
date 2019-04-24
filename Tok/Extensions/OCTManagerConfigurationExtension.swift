@@ -117,6 +117,15 @@ class UserDefaultsManager {
             setBool(newValue, forKey: Keys.ShowOnboarding)
         }
     }
+    
+    var showNewFeatureOnMe: Bool {
+        get {
+            return boolForKey(Keys.ShowNewFeatureOnMe, defaultValue: true)
+        }
+        set {
+            setBool(newValue, forKey: Keys.ShowNewFeatureOnMe)
+        }
+    }
         
     func resetUDPEnabled() {
         removeObjectForKey(Keys.UDPEnabled)
@@ -138,6 +147,7 @@ private extension UserDefaultsManager {
         static let ShowFindFriendBotTip = "user-info/show-find-friend-tip"
         static let ShowOfflineMessageBotTip = "user-info/show-offline-bot-tip"
         static let ShowOnboarding = "user-info/show-onboarding"
+        static let ShowNewFeatureOnMe = "user-info/show-new-feature-onme-1.2.1"
     }
     
     func setObject(_ object: AnyObject?, forKey key: String) {

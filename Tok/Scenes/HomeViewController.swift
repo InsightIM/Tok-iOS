@@ -66,6 +66,17 @@ class HomeViewController: UITabBarController {
     }
     
     private func bindViewModel() {
+        self.rx.didSelect
+            .subscribe(onNext: { [unowned self] nav in
+                guard let nav = nav as? UINavigationController,
+                    let me = nav.viewControllers.first else {
+                        return
+                }
+                me.tabBarItem.badgeValue = nil
+                self.viewModel.hideNewFeature()
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.chatsCount
             .drive(chats.tabBarItem.rx.badgeValue)
             .disposed(by: disposeBag)

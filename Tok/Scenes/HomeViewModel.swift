@@ -49,16 +49,11 @@ class HomeViewModel: NSObject {
         
         manager.user.delegate = self
         
-        Observable.merge(NotificationCenter.default.rx.notification(.FindFriendBotTipChanged),
-                         NotificationCenter.default.rx.notification(.OfflineMessageBotTipChanged))
-            .map { [weak self] _ -> String? in
-                guard let self = self else { return nil }
-                return (self.userDefaultsManager.showFindFriendBotTip
-                    || self.userDefaultsManager.showOfflineMessageBotTip)
-                    ? "New" : nil
-            }
-            .bind(to: hasNewFeature)
-            .disposed(by: disposeBag)
+        hasNewFeature.accept(userDefaultsManager.showNewFeatureOnMe ? "New" : nil)
+    }
+    
+    func hideNewFeature() {
+        userDefaultsManager.showNewFeatureOnMe = false
     }
     
     deinit {

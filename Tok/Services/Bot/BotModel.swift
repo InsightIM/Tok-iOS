@@ -44,7 +44,7 @@ struct FindFriendBotModel: BotModelProtocol {
     }
     
     var avatar: UIImage? {
-        return getBot()?.avatar ?? UIImage(named: "BotPlaceholder")
+        return getBot()?.avatar ?? UIImage(named: "FindFriendBotPlaceholder")
     }
     
     enum Command: String {
@@ -76,7 +76,7 @@ struct OfflineBotModel: BotModelProtocol {
     }
     
     var avatar: UIImage? {
-        return getBot()?.avatar ?? UIImage(named: "BotPlaceholder")
+        return getBot()?.avatar ?? UIImage(named: "OfflineBotPlaceholder")
     }
     
     var publicKey: String {
