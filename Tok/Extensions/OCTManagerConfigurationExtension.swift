@@ -147,7 +147,7 @@ private extension UserDefaultsManager {
         static let ShowFindFriendBotTip = "user-info/show-find-friend-tip"
         static let ShowOfflineMessageBotTip = "user-info/show-offline-bot-tip"
         static let ShowOnboarding = "user-info/show-onboarding"
-        static let ShowNewFeatureOnMe = "user-info/show-new-feature-onme-1.2.1"
+        static let ShowNewFeatureOnMe = "user-info/show-new-feature-onme-1.2.0"
     }
     
     func setObject(_ object: AnyObject?, forKey key: String) {
