@@ -116,6 +116,7 @@ typedef NS_ENUM(NSInteger, OCTToxMessageOfflineCmd) {
     OCTToxMessageOfflineCmdQueryRequest,
     OCTToxMessageOfflineCmdQueryResponse,
     OCTToxMessageOfflineCmdSend,
+    OCTToxMessageOfflineCmdSendResponse,
     OCTToxMessageOfflineCmdReadNotice,
     OCTToxMessageOfflineCmdPullRequest,
     OCTToxMessageOfflineCmdPullResponse,

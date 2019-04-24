@@ -149,7 +149,6 @@
     NSParameterAssert(chat);
     NSParameterAssert(text);
     
-    
     if ([self shouldSendOfflineMessageToChat:chat text:text type:type successBlock:userSuccessBlock failureBlock:userFailureBlock]) {
         return;
     }
@@ -233,16 +232,17 @@
                           successBlock:(void (^)(OCTMessageAbstract *message))userSuccessBlock
                           failureBlock:(void (^)(NSError *error))userFailureBlock
 {
-    NSString *botPublicKey = [self.dataSource getOfflineMessageBotPublicKey];
-    if (botPublicKey == nil) {
-        return NO;
-    }
-    
     OCTFriend *friend = [chat.friends firstObject];
     OCTToxFriendNumber friendNumber = friend.friendNumber;
     if (friend.isConnected) {
         return NO;
     }
+    
+    NSString *botPublicKey = [self.dataSource getOfflineMessageBotPublicKey];
+    if (botPublicKey == nil) {
+        return NO;
+    }
+    
     if (friend.supportOfflineMessage == NO) {
         return NO;
     }
@@ -253,7 +253,6 @@
     }
     
     OCTToxFriendNumber botFriendNumber = bot.friendNumber;
-    
     __weak OCTSubmanagerChatsImpl *weakSelf = self;
     OCTSendMessageOperationSuccessBlock successBlock = ^(OCTToxMessageId messageId) {
         __strong OCTSubmanagerChatsImpl *strongSelf = weakSelf;

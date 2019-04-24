@@ -1466,6 +1466,12 @@ uint32_t tox_encrypt_offline_message(Tox *tox, uint32_t friend_number, const uin
 	return  message_len;
 }
 
+uint32_t tox_decrypt_offline_message(Tox *tox, const uint32_t friendnumber, const uint8_t *message, size_t length,
+								uint8_t *decrypted_message) {
+	Messenger *m = tox->m;
+	int message_len = m_decrypt_offline_message(m, friendnumber, message, length, decrypted_message);
+	return  message_len;
+}
 
 void tox_callback_friend_read_receipt(Tox *tox, tox_friend_read_receipt_cb *callback)
 {

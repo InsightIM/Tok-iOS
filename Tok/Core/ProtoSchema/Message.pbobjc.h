@@ -95,6 +95,18 @@ typedef GPB_ENUM(OfflineMessageReq_FieldNumber) {
 
 @end
 
+#pragma mark - OfflineMessageRes
+
+typedef GPB_ENUM(OfflineMessageRes_FieldNumber) {
+  OfflineMessageRes_FieldNumber_LocalMsgId = 1,
+};
+
+@interface OfflineMessageRes : GPBMessage
+
+@property(nonatomic, readwrite) int64_t localMsgId;
+
+@end
+
 #pragma mark - OfflineMessageReadNotice
 
 typedef GPB_ENUM(OfflineMessageReadNotice_FieldNumber) {

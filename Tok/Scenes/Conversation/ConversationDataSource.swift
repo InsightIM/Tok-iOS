@@ -92,7 +92,7 @@ class ConversationDataSource {
         hasMore.accept(messageAbstracts.count > 0)
         
         bindOnline()
-        checkOfflineBot() 
+        checkOfflineBot()
         addMessagesNotification()
         addFriendNotification()
         

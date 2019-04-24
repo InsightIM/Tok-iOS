@@ -572,6 +572,8 @@
 
 - (NSData *)encryptOfflineMessage:(OCTToxFriendNumber)friendNumber message:(NSString *)message;
 
+- (NSData *)decryptOfflineMessage:(NSData *)message friendNumber:(OCTToxFriendNumber)friendNumber;
+
 - (BOOL)sendAssistToFriendNumber:(OCTToxFriendNumber)friendNumber;
 
 @end

@@ -16,6 +16,7 @@
 #import "OCTFriend.h"
 #import "OCTChat.h"
 #import "OCTMessageAbstract.h"
+#import "OCTMessageText.h"
 #import "OCTSendOfflineMessageOperation.h"
 
 @implementation OCTSubmanagerChatsImpl (Offline)
@@ -33,6 +34,9 @@
             break;
         case OCTToxMessageOfflineCmdPullResponse:
             [self handlePullResponseWithTox:tox data:messageData botFriendNumber:friendNumber];
+            break;
+        case OCTToxMessageOfflineCmdSendResponse:
+            [self handleOfflineMessageSendResponseWithData:messageData];
             break;
         default:
             break;
@@ -90,6 +94,31 @@
     }
 }
 
+- (void)handleOfflineMessageSendResponseWithData:(NSData *)data
+{
+    OfflineMessageRes *model = [OfflineMessageRes parseFromData:data error:nil];
+    if (model == nil) {
+        NSLog(@"OfflineMessageSendResponse Parse error");
+        return;
+    }
+    
+    OCTToxMessageId messageId = model.localMsgId;
+    OCTRealmManager *realmManager = [self.dataSource managerGetRealmManager];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"messageText.messageId == %lld", messageId];
+    
+    RLMResults *results = [realmManager objectsWithClass:[OCTMessageAbstract class] predicate:predicate];
+    OCTMessageAbstract *message = [results firstObject];
+    
+    if (! message) {
+        return;
+    }
+    
+    NSLog(@"Offline Message Send Response. messageId: %lld ", messageId);
+    [realmManager updateObject:message withBlock:^(OCTMessageAbstract *theMessage) {
+        theMessage.messageText.status = 1;
+    }];
+}
+
 - (void)sendPullRequestWithTox:(OCTTox *)tox botFriendNumber:(OCTToxFriendNumber)botFriendNumber
 {
     OfflineMessagePullReq *pull = [OfflineMessagePullReq new];
@@ -108,9 +137,12 @@
         return;
     }
     
+    uint64_t maxMsgId = 0;
     for (OfflineMessage *message in model.msgArray) {
+        maxMsgId = MAX(message.msgId, maxMsgId);
+        
         OCTToxMessageId messageId = message.localMsgId;
-        NSTimeInterval time = message.createTime;
+        NSTimeInterval time = message.createTime / 1000.0;
         NSString *publicKey = [[NSString alloc] initWithData:message.frPk encoding:NSUTF8StringEncoding];
         
         OCTRealmManager *realmManager = [self.dataSource managerGetRealmManager];
@@ -121,17 +153,19 @@
         }
         
         // Add offline message
-        NSString *msg = [[NSString alloc] initWithData:message.content encoding:NSUTF8StringEncoding];
-        if (msg == nil) {
-            continue;
+        NSData *data = [tox decryptOfflineMessage:message.content friendNumber:friend.friendNumber];
+        NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        if (msg != nil) {
+            [realmManager addMessageWithText:msg type:OCTToxMessageTypeOffline chat:chat sender:friend messageId:messageId dateInterval:time status:1];
         }
-        
-        [realmManager addMessageWithText:msg type:OCTToxMessageTypeOffline chat:chat sender:friend messageId:messageId dateInterval:time status:1];
-        
-        // Send delete cmd
+    }
+    
+    NSLog(@"Offline Message Pull Response. message count: %ld, max msg id: %lld, left count: %ld", model.msgArray.count, maxMsgId, model.leftCount);
+    
+    // Send delete cmd
+    if (model.msgArray.count > 0) {
         OfflineMessageDelReq *del = [OfflineMessageDelReq new];
-        del.lastMsgId = message.msgId;
-        
+        del.lastMsgId = maxMsgId;
         OCTSendOfflineMessageOperation *operation = [[OCTSendOfflineMessageOperation alloc] initOfflineWithTox:tox
                                                                                                            cmd:OCTToxMessageOfflineCmdDelRequest
                                                                                                botFriendNumber:botFriendNumber
@@ -139,6 +173,7 @@
         [self.sendMessageQueue addOperation:operation];
     }
     
+    // There are more offline message, send pull cmd again
     BOOL needPullAgain = model.leftCount > 0;
     if (needPullAgain) {
         [self sendPullRequestWithTox:tox botFriendNumber:botFriendNumber];
@@ -148,7 +183,7 @@
 - (BOOL)checkMessageIsExisted:(OCTToxMessageId)messageId chat:(OCTChat *)chat
 {
     OCTRealmManager *realmManager = [self.dataSource managerGetRealmManager];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatUniqueIdentifier == %@ AND messageText.messageId == %d",
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatUniqueIdentifier == %@ AND messageText.messageId == %lld",
                               chat.uniqueIdentifier, messageId];
     
     // messageId is reset on every launch, so we want to update delivered status on latest message.

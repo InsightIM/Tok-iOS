@@ -924,6 +924,18 @@ void (*_tox_self_get_public_key)(const Tox *tox, uint8_t *public_key);
     return data;
 }
 
+- (NSData *)decryptOfflineMessage:(NSData *)message friendNumber:(OCTToxFriendNumber)friendNumber
+{
+    const uint8_t *cMessage = (const uint8_t *)[message bytes];
+
+    size_t delength = message.length - CRYPTO_PUBLIC_KEY_SIZE - CRYPTO_NONCE_SIZE - CRYPTO_MAC_SIZE;
+    uint8_t *decryptMessage = malloc(delength);
+    NSUInteger len = tox_decrypt_offline_message(self.tox, friendNumber, cMessage, message.length, decryptMessage);
+    
+    NSData *data = [NSData dataWithBytes:decryptMessage length:len];
+    return data;
+}
+
 - (BOOL)sendAssistToFriendNumber:(OCTToxFriendNumber)friendNumber
 {
     TOX_ERR_FRIEND_SEND_MESSAGE cError;
@@ -2040,6 +2052,9 @@ void offlineMessageCallback(Tox *cTox,
             break;
         case TOX_MESSAGE_OFFLINE_SEND_REQUEST:
             cmd = OCTToxMessageOfflineCmdSend;
+            break;
+        case TOX_MESSAGE_OFFLINE_SEND_RESPONSE:
+            cmd = OCTToxMessageOfflineCmdSendResponse;
             break;
         case TOX_MESSAGE_OFFLINE_READ_NOTICE:
             cmd = OCTToxMessageOfflineCmdReadNotice;

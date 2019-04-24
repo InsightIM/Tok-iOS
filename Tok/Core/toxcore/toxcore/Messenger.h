@@ -873,4 +873,9 @@ uint32_t copy_friendlist(const Messenger *m, uint32_t *out_list, uint32_t list_s
  */
 int m_encrypt_offline_message(Messenger *m, const uint32_t friendnumber, const uint8_t *message, const int length , uint8_t *encrypt_message);
 
+/**
+ * decrypt offline message
+ */
+int m_decrypt_offline_message(Messenger *m, const uint32_t friendnumber, const uint8_t *message, const int length, uint8_t *decrypt_message);
+
 #endif

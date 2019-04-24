@@ -441,9 +441,9 @@ typedef enum TOX_MESSAGE_TYPE {
 
 	/**
 	 * A message send when peer is offline
+	 * PACKET_ID_MESSAGE_OFFLINE = PACKET_ID_MESSAGE + 6
 	 */
 	TOX_MESSAGE_TYPE_OFFILNE = 6,
-
 
 	/**
 	 * A message describing a echo action. 
@@ -462,7 +462,6 @@ typedef enum TOX_MESSAGE_TYPE {
 	 * message end
 	 */
 	TOX_MESSAGE_TYPE_END = 99,
-
 
 } TOX_MESSAGE_TYPE;
 
@@ -542,6 +541,7 @@ typedef enum TOX_MESSAGE_OFFLINE_CMD {
 	TOX_MESSAGE_OFFLINE_QUERY_FRIEND_REQUEST,	
 	TOX_MESSAGE_OFFLINE_QUERY_FRIEND_RESPONSE,	
 	TOX_MESSAGE_OFFLINE_SEND_REQUEST,
+	TOX_MESSAGE_OFFLINE_SEND_RESPONSE,
 	TOX_MESSAGE_OFFLINE_READ_NOTICE,
 	TOX_MESSAGE_OFFLINE_PULL_REQUEST,
 	TOX_MESSAGE_OFFLINE_PULL_RESPONSE,
@@ -1965,11 +1965,22 @@ uint32_t tox_encrypt_offline_message(Tox *tox, uint32_t friend_number, const uin
 
 /**
  * send message store request,
+ * decrypt offline message
+>>>>>>> offline_message
  * @param friend_number The friend number of the friend to send the message to.
  * @param message A non-NULL pointer to the first element of a byte array
  *   containing the message text.
  * @param length Length of the message to be sent.
  *
+ * @decrypted_message the output message after decrypted
+ */
+uint32_t tox_decrypt_offline_message(Tox *tox, const uint32_t friendnumber, const uint8_t *message, size_t length,
+								uint8_t *decrypted_message);
+
+/**
+ * @param friend_number The friend number of the friend who received the message.
+ * @param message_id The message ID as returned from tox_friend_send_message
+ *   corresponding to the message sent.
  */
 uint32_t tox_friend_send_message_store_req(Tox *tox, uint32_t friend_number, const uint8_t *message,
                                  size_t length, TOX_ERR_FRIEND_SEND_MESSAGE *error);

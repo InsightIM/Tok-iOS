@@ -204,6 +204,49 @@ typedef struct OfflineMessageReq__storage_ {
 
 @end
 
+#pragma mark - OfflineMessageRes
+
+@implementation OfflineMessageRes
+
+@dynamic localMsgId;
+
+typedef struct OfflineMessageRes__storage_ {
+  uint32_t _has_storage_[1];
+  int64_t localMsgId;
+} OfflineMessageRes__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "localMsgId",
+        .dataTypeSpecific.className = NULL,
+        .number = OfflineMessageRes_FieldNumber_LocalMsgId,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(OfflineMessageRes__storage_, localMsgId),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeInt64,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[OfflineMessageRes class]
+                                     rootClass:[MessageRoot class]
+                                          file:MessageRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(OfflineMessageRes__storage_)
+                                         flags:GPBDescriptorInitializationFlag_None];
+    NSAssert(descriptor == nil, @"Startup recursed!");
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
 #pragma mark - OfflineMessageReadNotice
 
 @implementation OfflineMessageReadNotice

@@ -2572,7 +2572,6 @@ static int m_handle_packet(void *object, int i, const uint8_t *temp, uint16_t le
                     break;
                 }
                 
-                // 取出nonce
                 VLA(uint8_t, nonce, CRYPTO_NONCE_SIZE);
                 memcpy(nonce, message + CRYPTO_PUBLIC_KEY_SIZE+time_len, CRYPTO_NONCE_SIZE);
                 
@@ -3602,7 +3601,7 @@ int m_encrypt_offline_message(Messenger *m, const uint32_t friendnumber, const u
     int total_length =   CRYPTO_PUBLIC_KEY_SIZE + CRYPTO_NONCE_SIZE + length + CRYPTO_MAC_SIZE;
 
     VLA(uint8_t, packet, CRYPTO_PUBLIC_KEY_SIZE + CRYPTO_NONCE_SIZE + length + CRYPTO_MAC_SIZE);
-    // 随机一个nonce
+    
     VLA(uint8_t, nonce, CRYPTO_NONCE_SIZE);
     random_nonce(nonce);
 
@@ -3624,4 +3623,27 @@ int m_encrypt_offline_message(Messenger *m, const uint32_t friendnumber, const u
 
 
     return  total_length;
+}
+
+int m_decrypt_offline_message(Messenger *m, const uint32_t friendnumber, const uint8_t *message, const int length, uint8_t *decrypt_message) {
+    if (friendnumber == -1) {
+        return 0;
+    }
+    if (length - CRYPTO_PUBLIC_KEY_SIZE - CRYPTO_NONCE_SIZE <= 0) {
+        return 0;
+    }
+    uint8_t *friendpk = m->friendlist[friendnumber].real_pk;
+    
+    VLA(uint8_t, nonce, CRYPTO_NONCE_SIZE);
+    memcpy(nonce, message + CRYPTO_PUBLIC_KEY_SIZE, CRYPTO_NONCE_SIZE);
+    
+    VLA(uint8_t, encrypted_message, length - CRYPTO_PUBLIC_KEY_SIZE - CRYPTO_NONCE_SIZE);
+    memcpy(encrypted_message, message + CRYPTO_PUBLIC_KEY_SIZE + CRYPTO_NONCE_SIZE, length - CRYPTO_PUBLIC_KEY_SIZE - CRYPTO_NONCE_SIZE);
+    
+    uint8_t real_message[length - CRYPTO_PUBLIC_KEY_SIZE - CRYPTO_NONCE_SIZE - CRYPTO_MAC_SIZE];
+    
+    const uint8_t *secret_key = nc_get_self_secret_key(m->net_crypto);
+    int len = decrypt_data(friendpk, secret_key, nonce, encrypted_message, length - CRYPTO_PUBLIC_KEY_SIZE - CRYPTO_NONCE_SIZE, real_message);
+    memcpy(decrypt_message, real_message, len);
+    return len;
 }
