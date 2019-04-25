@@ -38,5 +38,7 @@ public protocol MediaItem {
 
     /// The size of the media item.
     var size: CGSize { get }
+    
+    var fileSize: String { get }
 
 }

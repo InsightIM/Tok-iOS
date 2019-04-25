@@ -31,6 +31,14 @@ class OperationMessageCell: MessageContentCell {
         return button
     }()
     
+    lazy var sizeLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.textColor = .white
+        return label
+    }()
+    
     var status: FileTransferProgress = .waiting {
         didSet {
             updateViews()
@@ -63,6 +71,11 @@ class OperationMessageCell: MessageContentCell {
             make.center.equalToSuperview()
             make.size.equalTo(40)
         }
+        
+        sizeLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(progressView.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+        }
     }
     
     open override func setupSubviews() {
@@ -88,10 +101,12 @@ class OperationMessageCell: MessageContentCell {
             imageView.image = model.image ?? mediaItem.placeholderImage
             isOutgoing = message.isOutgoing
             status = model.status.value
+            sizeLabel.text = mediaItem.fileSize
         case .audio(let item):
             let model = item as! AudioMessageModel
             isOutgoing = message.isOutgoing
             status = model.status.value
+            sizeLabel.text = nil
         default:
             break
         }
@@ -104,6 +119,7 @@ class OperationMessageCell: MessageContentCell {
         messageContainerView.addSubview(marker)
         messageContainerView.addSubview(operationButton)
         messageContainerView.addSubview(progressView)
+        messageContainerView.addSubview(sizeLabel)
     }
     
     // MARK: - Private Methods
@@ -114,18 +130,22 @@ class OperationMessageCell: MessageContentCell {
             marker.isHidden = true
             progressView.isHidden = true
             operationButton.isHidden = true
+            sizeLabel.isHidden = true
         case .loading:
             marker.isHidden = false
             progressView.isHidden = false
             operationButton.isHidden = true
+            sizeLabel.isHidden = false
         case .success:
             marker.isHidden = true
             progressView.isHidden = true
             operationButton.isHidden = true
+            sizeLabel.isHidden = true
         case .waiting:
             marker.isHidden = false
             progressView.isHidden = !isOutgoing
             operationButton.isHidden = isOutgoing
+            sizeLabel.isHidden = false
         }
     }
 }

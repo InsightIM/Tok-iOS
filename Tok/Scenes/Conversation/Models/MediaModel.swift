@@ -32,6 +32,8 @@ class MediaModel: MediaItem, FileStatusType {
         return image?.size ?? CGSize(width: 200, height: 200)
     }
     
+    var fileSize: String
+    
     var placeholderImage: UIImage
     
     var isVideo: Bool
@@ -53,6 +55,7 @@ class MediaModel: MediaItem, FileStatusType {
         self.isOutgoing = isOutgoing
         self.thumbPath = thumbPath
         self.duration = messageFile.duration
+        self.fileSize = ByteCountFormatter.string(fromByteCount: messageFile.fileSize, countStyle: ByteCountFormatter.CountStyle.file)
         
         placeholderImage = UIImage()
         status = BehaviorRelay<FileTransferProgress>(value: messageFile.fileType.toFileStatus())
