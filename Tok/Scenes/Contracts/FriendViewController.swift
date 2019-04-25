@@ -192,7 +192,7 @@ extension FriendViewController: UITableViewDataSource, UITableViewDelegate {
             let confirmAction = UIAlertAction(title: "OK", style: .default) { [unowned self, weak alertController] _ in
                 guard let alertController = alertController else { return }
                 
-                var newNickName = (self.friend?.nickname ?? self.friend?.publicKey) ?? ""
+                var newNickName = (self.friend?.name ?? self.friend?.publicKey) ?? ""
                 if let input = alertController.textFields?.first?.text, input.isNotEmpty {
                     newNickName = input
                 }
