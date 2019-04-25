@@ -163,7 +163,7 @@ class ConversationDataSource {
     private func bindOnline() {
         let friend = chat.friends?.firstObject() as! OCTFriend
         let status: UserStatus = friend.isConnected ? .online : .offline
-        if friend.isConnected == false, offlineBot.getBot()?.isConnected == true {
+        if friend.isConnected == false, friend.supportOfflineMessage, offlineBot.getBot()?.isConnected == true {
             let statusString = NSLocalizedString("OfflineMessageBot online", comment: "")
             titleUpdated.accept((friend.nickname, statusString, .online))
         } else {
@@ -173,7 +173,6 @@ class ConversationDataSource {
     
     private func queryFriendIsSupportOfflineMessage() {
         guard let bot = offlineBot.getBot() else {
-            UserService.shared.toxMananger?.offlineBotPublicKey = nil
             return
         }
         
