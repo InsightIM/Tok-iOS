@@ -125,7 +125,7 @@ class BotInfoViewController: BaseViewController {
         
         let border = UIView()
         border.backgroundColor = UIColor.tokLine
-        view.addSubview(border)
+        footerView.addSubview(border)
         border.snp.makeConstraints { (make) in
             make.height.equalTo(1.0 / UIScreen.main.scale)
             make.left.right.top.equalToSuperview()
