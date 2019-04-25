@@ -216,7 +216,7 @@ class ConversationViewController: MessagesViewController {
             .disposed(by: disposeBag)
         
         dataSource.titleUpdated
-            .distinctUntilChanged { $0.1 == $1.1 }
+            .distinctUntilChanged { $0.0 == $1.0 && $0.1 == $1.1 }
             .debug("titleUpdated")
             .subscribe(onNext: { [weak self] (title, subtitle, userStatus) in
                 guard let `self` = self else { return }
