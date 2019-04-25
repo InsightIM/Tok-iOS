@@ -110,7 +110,7 @@ fileprivate extension UserDefaults {
     
     var offlineBotAddress: String {
         get {
-            return string(forKey: "OfflineBotAddressKey") ?? "354FF4AFFAADE38A01FD3397244E4DDF323C6548E21BFD1C258A206FC5AFD02A38A93458D7DE"
+            return string(forKey: "OfflineBotAddressKey") ?? "EC6EFF1B9CA5E5C2E41715A187497094B9D61F1604FBC1B6F202B1F1C89B4501B4EB7E520B24"
         }
         set {
             set(newValue, forKey: "OfflineBotAddressKey")
