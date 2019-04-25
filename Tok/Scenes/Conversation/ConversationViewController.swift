@@ -153,11 +153,13 @@ class ConversationViewController: MessagesViewController {
         bindDataSource()
         
         chatActionBarView.inputTextView.text = dataSource.chat.enteredText ?? ""
+        
+        dataSource.markAllMessageAsRead()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dataSource.updateLastReadDate()
+        
         initViewLayout()
         willMove = false
     }
