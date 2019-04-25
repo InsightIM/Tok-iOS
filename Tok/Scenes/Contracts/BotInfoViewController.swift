@@ -35,7 +35,6 @@ class BotInfoViewController: BaseViewController {
     
     lazy var footerView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100))
-        view.backgroundColor = .clear
         return view
     }()
     
@@ -50,7 +49,7 @@ class BotInfoViewController: BaseViewController {
         tableView.dataSource = self
         tableView.tableFooterView = footerView
         tableView.register(cellType: BotPortraitCell.self)
-        tableView.register(cellType: UITableViewCell.self)
+        tableView.register(cellType: FriendInfoCell.self)
         
         return tableView
     }()
@@ -123,6 +122,14 @@ class BotInfoViewController: BaseViewController {
                 })
                 .disposed(by: disposeBag)
         }
+        
+        let border = UIView()
+        border.backgroundColor = UIColor.tokLine
+        view.addSubview(border)
+        border.snp.makeConstraints { (make) in
+            make.height.equalTo(1.0 / UIScreen.main.scale)
+            make.left.right.top.equalToSuperview()
+        }
     }
 }
 
@@ -139,6 +146,12 @@ extension BotInfoViewController: UITableViewDataSource, UITableViewDelegate {
         return titles[section]
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont.systemFont(ofSize: 14)
+        header.textLabel?.textColor = UIColor("#83838D")
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell: BotPortraitCell = tableView.dequeueReusableCell(for: indexPath)
@@ -150,12 +163,8 @@ extension BotInfoViewController: UITableViewDataSource, UITableViewDelegate {
             cell.nameLabel.text = nickname
             return cell
         } else {
-            let cell: UITableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            let cell: FriendInfoCell = tableView.dequeueReusableCell(for: indexPath)
             cell.textLabel?.text = indexPath.section == 1 ? bot.statusMessage : bot.publicKey
-            cell.textLabel?.numberOfLines = 0
-            cell.textLabel?.textColor = .tokBlack
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
-            cell.textLabel?.copyable = true
             return cell
         }
     }

@@ -48,6 +48,7 @@ class PortraitCell: UITableViewCell {
             make.top.equalTo(12)
             make.bottom.equalTo(-12)
             make.left.equalTo(20)
+            make.height.equalTo(64)
         }
         
         contentView.addSubview(nameLabel)

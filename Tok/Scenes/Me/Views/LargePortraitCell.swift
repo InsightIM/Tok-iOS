@@ -83,4 +83,8 @@ class LargePortraitCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        avatarImageView.round(corners: [.topRight, .bottomLeft, .bottomRight], radius: 20)
+    }
 }

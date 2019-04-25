@@ -16,9 +16,8 @@ class FriendViewController: BaseViewController {
     var friend: OCTFriend?
     var peer: OCTPeer?
     
-    let titles: [[String]] = [
-        ["Me"],
-        [NSLocalizedString("Public Key", comment: ""), NSLocalizedString("Remark", comment: "")]
+    let titles: [String] = [
+        "", NSLocalizedString("Public Key", comment: ""), NSLocalizedString("Remark", comment: "")
     ]
     
     lazy var messagesButton: UIButton = {
@@ -29,6 +28,15 @@ class FriendViewController: BaseViewController {
     
     lazy var footerView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100))
+        
+        let border = UIView()
+        border.backgroundColor = UIColor.tokLine
+        view.addSubview(border)
+        border.snp.makeConstraints { (make) in
+            make.height.equalTo(1.0 / UIScreen.main.scale)
+            make.left.right.top.equalToSuperview()
+        }
+        
         return view
     }()
     
@@ -37,7 +45,7 @@ class FriendViewController: BaseViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         tableView.separatorColor = .tokLine
-        tableView.sectionHeaderHeight = 20
+        tableView.sectionHeaderHeight = 30
         tableView.sectionFooterHeight = 0.01
         tableView.delegate = self
         tableView.dataSource = self
@@ -106,7 +114,7 @@ extension FriendViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles[section].count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -125,26 +133,31 @@ extension FriendViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.detailLabel.text = friend?.statusMessage ?? NSLocalizedString("Hey there! I'm using Tok.", comment: "")
             return cell
-        } else {
-            let cell: FriendInfoCell = tableView.dequeueReusableCell(for: indexPath)
-            let title = titles[indexPath.section][indexPath.row]
-            cell.nameLabel.text = title
-            cell.detailLabel.text = indexPath.row == 0 ? (friend?.publicKey ?? peer?.publicKey) : (friend?.nickname ?? peer?.nickname)
-            cell.accessoryType = indexPath.row == 0 ? .none : .disclosureIndicator
-            cell.selectionStyle = indexPath.row == 0 ? .none : .default
-            return cell
         }
+        
+        let cell: FriendInfoCell = tableView.dequeueReusableCell(for: indexPath)
+        if indexPath.section == 1 {
+            cell.textLabel?.text = friend?.publicKey ?? peer?.publicKey
+            cell.accessoryType = .none
+            cell.selectionStyle = .none
+        } else if indexPath.section == 2 {
+            cell.textLabel?.text = friend?.nickname ?? peer?.nickname
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .default
+        }
+        
+        return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 88
-        } else {
-            if indexPath.row == 0 {
-                return 70
-            }
-        }
-        return 44
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let title = titles[section]
+        return title
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont.systemFont(ofSize: 14)
+        header.textLabel?.textColor = UIColor("#83838D")
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -169,39 +182,37 @@ extension FriendViewController: UITableViewDataSource, UITableViewDelegate {
             let browser = YBImageBrowser()
             browser.dataSourceArray = [data]
             browser.show()
-        case 1:
-            if indexPath.row == 1 {
-                let alertController = UIAlertController(title: NSLocalizedString("Alias", comment: ""), message: "", preferredStyle: .alert)
-                alertController.addTextField(configurationHandler: { [weak self] textField in
-                    textField.text = (self?.friend?.nickname ?? self?.peer?.nickname)
-                    textField.clearButtonMode = .whileEditing
-                })
+        case 2:
+            let alertController = UIAlertController(title: NSLocalizedString("Alias", comment: ""), message: "", preferredStyle: .alert)
+            alertController.addTextField(configurationHandler: { [weak self] textField in
+                textField.text = (self?.friend?.nickname ?? self?.peer?.nickname)
+                textField.clearButtonMode = .whileEditing
+            })
+            
+            let confirmAction = UIAlertAction(title: "OK", style: .default) { [unowned self, weak alertController] _ in
+                guard let alertController = alertController else { return }
                 
-                let confirmAction = UIAlertAction(title: "OK", style: .default) { [unowned self, weak alertController] _ in
-                    guard let alertController = alertController else { return }
-                
-                    var newNickName = (self.friend?.nickname ?? self.friend?.publicKey) ?? ""
-                    if let input = alertController.textFields?.first?.text, input.isNotEmpty {
-                        newNickName = input
-                    }
-                    
-                    if let friend = self.friend {
-                        UserService.shared.toxMananger!.objects.change(friend, nickname: newNickName)
-                    } else if let peer = self.peer {
-                        if newNickName.isEmpty == true {
-                            newNickName = (peer.nickname ?? peer.publicKey) ?? ""
-                        }
-                        UserService.shared.toxMananger!.objects.change(peer, nickname: newNickName)
-                    }
-                    
-                    self.tableView.reloadData()
+                var newNickName = (self.friend?.nickname ?? self.friend?.publicKey) ?? ""
+                if let input = alertController.textFields?.first?.text, input.isNotEmpty {
+                    newNickName = input
                 }
                 
-                alertController.addAction(confirmAction)
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                alertController.addAction(cancelAction)
-                self.present(alertController, animated: true, completion: nil)
+                if let friend = self.friend {
+                    UserService.shared.toxMananger!.objects.change(friend, nickname: newNickName)
+                } else if let peer = self.peer {
+                    if newNickName.isEmpty == true {
+                        newNickName = (peer.nickname ?? peer.publicKey) ?? ""
+                    }
+                    UserService.shared.toxMananger!.objects.change(peer, nickname: newNickName)
+                }
+                
+                self.tableView.reloadData()
             }
+            
+            alertController.addAction(confirmAction)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
         default:
             break
         }
