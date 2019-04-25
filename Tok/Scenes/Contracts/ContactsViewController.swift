@@ -292,7 +292,11 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 return ()
             }
-            AlertViewManager.showMessageSheet(with: NSLocalizedString("Delete this contact?\nYour chat history will be lost.", comment: ""), actions: [
+            
+            let message = friend.publicKey == OfflineBotModel().publicKey
+                ? NSLocalizedString("Delete this bot?\nYour offline messages will be lost.", comment: "")
+                : NSLocalizedString("Delete this contact?\nYour chat history will be lost.", comment: "")
+            AlertViewManager.showMessageSheet(with: message, actions: [
                 (NSLocalizedString("Delete", comment: ""), .destructive, deleteAction)
                 ])
         }

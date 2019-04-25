@@ -529,3 +529,6 @@
 
 /* No comment provided by engineer. */
 "Your friend didn’t add an offline messaging bot" = "Your friend didn’t add an offline messaging bot";
+
+/* No comment provided by engineer. */
+"Delete this bot?\nYour offline messages will be lost." = "Delete this bot?\nYour offline messages will be lost.";
