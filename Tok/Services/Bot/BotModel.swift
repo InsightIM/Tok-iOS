@@ -40,7 +40,7 @@ struct FindFriendBotModel: BotModelProtocol {
     }
     
     var statusMessage: String {
-        return getBot()?.statusMessage ?? NSLocalizedString("What can I do? FindFriendBot can help you find more friends. Click or Type /help for a list of commands.", comment: "")
+        return getBot()?.statusMessage ?? NSLocalizedString("What can I do? FindFriendBot can help you find more friends. Type '/help' for a list of commands in the input bar.", comment: "")
     }
     
     var avatar: UIImage? {

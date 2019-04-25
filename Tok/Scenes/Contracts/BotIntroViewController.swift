@@ -121,7 +121,7 @@ extension BotIntroViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 0 {
             let cell: IntroductionCell = tableView.dequeueReusableCell(for: indexPath)
             cell.titleLabel.text = NSLocalizedString("How to send offline messages?", comment: "")
-            cell.detailLabel.text = NSLocalizedString("1. Add this bot on both sides.\n2. You can send text messages when your friend's status is 'Bot online'.", comment: "")
+            cell.detailLabel.text = NSLocalizedString("1. Add this bot on both sides.\n2. You can send text messages when your friend's status is 'OfflineMessageBot online'.", comment: "")
             return cell
         } else {
             let cell: BotPortraitCell = tableView.dequeueReusableCell(for: indexPath)

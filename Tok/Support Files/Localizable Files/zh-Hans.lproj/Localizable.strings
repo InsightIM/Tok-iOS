@@ -468,7 +468,7 @@
 "FindFriendBot" = "添加朋友机器人";
 
 /* No comment provided by engineer. */
-"What can I do? FindFriendBot can help you find more friends. Click or Type /help for a list of commands." = "我可以做什么？添加朋友机器人可以帮你寻找更多的朋友。添加我为好友，点击或输入 /help 获取指令列表。";
+"What can I do? FindFriendBot can help you find more friends. Type '/help' for a list of commands in the input bar." = "我可以做什么？添加朋友机器人可以帮你寻找更多的朋友。添加我为好友，在会话框中点击或输入 /help 获取指令列表。";
 
 /* No comment provided by engineer. */
 "Autodownload Files" = "自动下载文件";
@@ -495,13 +495,13 @@
 "offlinebot_intro" = "<body class=\"page layout\"><div id=\"layout-container\"><div class=\"container\"><section class=\"content\"><h2>如何向朋友发送离线消息？</h2><p><ol><li>会话双方都已添加这个机器人。</li><li>当好友状态是“机器人在线”时，你可以发送消息给他。</li></ol></p><h2 class=\"warning\">警示</h2><p>这是一个解决离线信息发送问题的临时方案。<br />机器人会在服务器中储存你的加密信息，当你的好友上线后机器人将会转发加密信息，机器人无法解密您的信息。如果您接受这个方案，添加机器人后您就可以和好友发送离线消息了。</p><h2>更多信息</h2><p><ol><li>只有当会话双方都添加了机器人，离线消息功能才会生效。</li><li>机器人只转发消息。</li><li>机器人工作原理如下图所示：<br /> <img src=\"data:image/png;base64,$image$\"></li><li>当你的好友收到信息后机器人会立刻删除储存的加密信息，如果你的好友再也不上线了，加密数据最多保存30天，这些加密信息对任何第三方来说都是没有意义的。</li><li>目前你只能选择我们提供的机器人。</li><li>代码已经在github开源 https://github.com/InsightIM <a href=\"javascript:void(0);\" onclick=\"copyLink('https://github.com/InsightIM');\">[复制链接]</a></li></ol></p></section></div></div></body>";
 
 /* No comment provided by engineer. */
-"1. Add this bot on both sides.\n2. You can send text messages when your friend's status is 'Bot online'." = "1. 会话双方都已添加这个机器人。\n2. 当好友状态是“Bot online”时，你可以发送消息给他。";
+"1. Add this bot on both sides.\n2. You can send text messages when your friend's status is 'OfflineMessageBot'." = "1. 会话双方都已添加这个机器人。\n2. 当好友状态是 “离线机器人在线” 时，你可以发送消息给他。";
 
 /* No comment provided by engineer. */
 "Add this bot to send offline messages with friends" = "添加这个机器人以支持发送离线消息";
 
 /* No comment provided by engineer. */
-"Bot online" = "机器人在线";
+"OfflineMessageBot online" = "离线机器人在线";
 
 /* No comment provided by engineer. */
 "How to send offline messages?" = "如何向朋友发送离线消息？";

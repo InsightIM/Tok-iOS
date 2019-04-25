@@ -41,6 +41,8 @@ class HomeCoordinator: BaseCoordinator<Void> {
                 chatsNav.pushViewController(chatVC, animated: false)
             })
             .disposed(by: disposeBag)
+        
+        setupOfflineBot()
     }
     
     override func start() -> Observable<Void> {
@@ -52,5 +54,9 @@ class HomeCoordinator: BaseCoordinator<Void> {
             
             return UserService.shared.didLogout.take(1)
         }
+    }
+    
+    private func setupOfflineBot() {
+        manager.offlineBotPublicKey = OfflineBotModel().publicKey
     }
 }

@@ -74,7 +74,6 @@ class ConversationDataSource {
         hasMore.accept(messageAbstracts.count > 0)
         
         bindOnline()
-        checkOfflineBot()
         addMessagesNotification()
         addFriendNotification()
         
@@ -83,6 +82,15 @@ class ConversationDataSource {
             selector: #selector(self.applicationDidBecomeActive),
             name: UIApplication.didBecomeActiveNotification,
             object: nil)
+        
+        titleUpdated
+            .distinctUntilChanged { $0.1 == $1.1 }
+            .debug("titleUpdatedForQuery")
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.queryFriendIsSupportOfflineMessage()
+            })
+            .disposed(by: disposeBag)
         
         loadData()
     }
@@ -156,22 +164,25 @@ class ConversationDataSource {
         let friend = chat.friends?.firstObject() as! OCTFriend
         let status: UserStatus = friend.isConnected ? .online : .offline
         if friend.isConnected == false, offlineBot.getBot()?.isConnected == true {
-            let statusString = NSLocalizedString("Bot online", comment: "")
+            let statusString = NSLocalizedString("OfflineMessageBot online", comment: "")
             titleUpdated.accept((friend.nickname, statusString, .online))
         } else {
             titleUpdated.accept((friend.nickname, status.toString(), status))
         }
     }
     
-    private func checkOfflineBot() {
-        let friend = chat.friends?.firstObject() as! OCTFriend
-        let offlineBot = OfflineBotModel()
-        if offlineBot.beAdded {
-            chats.queryFriendIsSupportOfflineMessage(friend)
-            UserService.shared.toxMananger?.offlineBotPublicKey = offlineBot.publicKey
-        } else {
+    private func queryFriendIsSupportOfflineMessage() {
+        guard let bot = offlineBot.getBot() else {
             UserService.shared.toxMananger?.offlineBotPublicKey = nil
+            return
         }
+        
+        guard bot.isConnected else {
+            return
+        }
+        
+        let friend = chat.friends?.firstObject() as! OCTFriend
+        chats.queryFriendIsSupportOfflineMessage(friend)
     }
     
     private func addMessagesNotification() {
