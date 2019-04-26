@@ -515,6 +515,60 @@ typedef struct OfflineMessageDelReq__storage_ {
 
 @end
 
+#pragma mark - DeviceUpdateReq
+
+@implementation DeviceUpdateReq
+
+@dynamic type;
+@dynamic identifier;
+
+typedef struct DeviceUpdateReq__storage_ {
+  uint32_t _has_storage_[1];
+  uint32_t type;
+  NSData *identifier;
+} DeviceUpdateReq__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "type",
+        .dataTypeSpecific.className = NULL,
+        .number = DeviceUpdateReq_FieldNumber_Type,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(DeviceUpdateReq__storage_, type),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeUInt32,
+      },
+      {
+        .name = "identifier",
+        .dataTypeSpecific.className = NULL,
+        .number = DeviceUpdateReq_FieldNumber_Identifier,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(DeviceUpdateReq__storage_, identifier),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeBytes,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[DeviceUpdateReq class]
+                                     rootClass:[MessageRoot class]
+                                          file:MessageRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(DeviceUpdateReq__storage_)
+                                         flags:GPBDescriptorInitializationFlag_None];
+    NSAssert(descriptor == nil, @"Startup recursed!");
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
 #pragma mark - FriendMessageReq
 
 @implementation FriendMessageReq

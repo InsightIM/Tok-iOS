@@ -14,6 +14,7 @@
 		0282A38C226AFB320093480E /* BotIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38B226AFB320093480E /* BotIntroViewController.swift */; };
 		0282A38E226AFF380093480E /* IntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38D226AFF380093480E /* IntroductionCell.swift */; };
 		0282A390226B08570093480E /* IntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0282A38F226B08570093480E /* IntroductionViewController.swift */; };
+		02A59CFE227306FF0061452D /* UploadPushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A59CFD227306FF0061452D /* UploadPushManager.swift */; };
 		02E18C8D2269A6D400B9F571 /* BotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E18C8C2269A6D400B9F571 /* BotModel.swift */; };
 		4E294C552254BEFB009DC146 /* UICircularRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E294C4C2254BEFB009DC146 /* UICircularRing.swift */; };
 		4E294C562254BEFB009DC146 /* UICircularRingLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E294C4D2254BEFB009DC146 /* UICircularRingLayer.swift */; };
@@ -391,6 +392,7 @@
 		0282A38B226AFB320093480E /* BotIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotIntroViewController.swift; sourceTree = "<group>"; };
 		0282A38D226AFF380093480E /* IntroductionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionCell.swift; sourceTree = "<group>"; };
 		0282A38F226B08570093480E /* IntroductionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionViewController.swift; sourceTree = "<group>"; };
+		02A59CFD227306FF0061452D /* UploadPushManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPushManager.swift; sourceTree = "<group>"; };
 		02E18C8C2269A6D400B9F571 /* BotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotModel.swift; sourceTree = "<group>"; };
 		4E294C4C2254BEFB009DC146 /* UICircularRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICircularRing.swift; sourceTree = "<group>"; };
 		4E294C4D2254BEFB009DC146 /* UICircularRingLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICircularRingLayer.swift; sourceTree = "<group>"; };
@@ -2002,6 +2004,7 @@
 				4EAC4A6B222E3056003D591C /* AlertAudioPlayer.swift */,
 				4EAC4A6C222E3056003D591C /* AvatarManager.swift */,
 				4E88591A2251FFD900017C3D /* FriendService.swift */,
+				02A59CFD227306FF0061452D /* UploadPushManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2495,6 +2498,7 @@
 				4EAC4ADF222E3056003D591C /* BaseViewController.swift in Sources */,
 				4EAC4B4B222E3057003D591C /* ConversationCollectionViewFlowLayout.swift in Sources */,
 				4EAC4B27222E3057003D591C /* AlertMessageView.swift in Sources */,
+				02A59CFE227306FF0061452D /* UploadPushManager.swift in Sources */,
 				4EA01D4E225F211F00CFE608 /* ProgressCircleView.swift in Sources */,
 				4EAC4BB4222E3057003D591C /* AuthCoordinator.swift in Sources */,
 				4EAC4B5E222E3057003D591C /* HorizontalEdgeInsets.swift in Sources */,

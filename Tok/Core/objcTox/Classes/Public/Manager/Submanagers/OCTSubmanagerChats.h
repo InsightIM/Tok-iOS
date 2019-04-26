@@ -92,4 +92,6 @@
 
 - (void)queryFriendIsSupportOfflineMessage:(OCTFriend *)friend;
 
+- (void)uploadPushToken:(NSString *)token;
+
 @end

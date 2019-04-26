@@ -65,5 +65,9 @@ extension HomeViewModel: OCTSubmanagerUserDelegate {
     func submanagerUser(_ submanager: OCTSubmanagerUser, connectionStatusUpdate connectionStatus: OCTToxConnectionStatus) {
         let isOnline = (connectionStatus != .none)
         self.isConnected.accept(isOnline)
+        
+        if isOnline {
+            UploadPushManager.shared.uploadPushTokenIfNeeded()
+        }
     }
 }

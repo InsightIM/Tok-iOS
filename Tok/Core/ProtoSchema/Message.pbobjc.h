@@ -182,6 +182,22 @@ typedef GPB_ENUM(OfflineMessageDelReq_FieldNumber) {
 
 @end
 
+#pragma mark - DeviceUpdateReq
+
+typedef GPB_ENUM(DeviceUpdateReq_FieldNumber) {
+  DeviceUpdateReq_FieldNumber_Type = 1,
+  DeviceUpdateReq_FieldNumber_Identifier = 2,
+};
+
+@interface DeviceUpdateReq : GPBMessage
+
+/** for push, 1 is ios, 2 is android */
+@property(nonatomic, readwrite) uint32_t type;
+
+@property(nonatomic, readwrite, copy, null_resettable) NSData *identifier;
+
+@end
+
 #pragma mark - FriendMessageReq
 
 typedef GPB_ENUM(FriendMessageReq_FieldNumber) {

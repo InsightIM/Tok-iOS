@@ -545,7 +545,8 @@ typedef enum TOX_MESSAGE_OFFLINE_CMD {
 	TOX_MESSAGE_OFFLINE_READ_NOTICE,
 	TOX_MESSAGE_OFFLINE_PULL_REQUEST,
 	TOX_MESSAGE_OFFLINE_PULL_RESPONSE,
-	TOX_MESSAGE_OFFLINE_DEL_REQUEST
+	TOX_MESSAGE_OFFLINE_DEL_REQUEST,
+    TOX_MESSAGE_DEVICE_REQUEST
 
 } TOX_MESSAGE_OFFLINE_CMD;
 
@@ -1974,7 +1975,7 @@ uint32_t tox_encrypt_offline_message(Tox *tox, uint32_t friend_number, const uin
  *
  * @decrypted_message the output message after decrypted
  */
-uint32_t tox_decrypt_offline_message(Tox *tox, const uint32_t friendnumber, const uint8_t *message, size_t length,
+uint32_t tox_decrypt_offline_message(Tox *tox, uint32_t friend_number, const uint8_t *message, size_t length, 
 								uint8_t *decrypted_message);
 
 /**

@@ -89,7 +89,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        
+        UploadPushManager.shared.deviceToken = deviceToken
     }
     
     func application(_ application: UIApplication,

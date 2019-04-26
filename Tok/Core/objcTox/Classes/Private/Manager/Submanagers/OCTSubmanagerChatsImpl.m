@@ -193,6 +193,28 @@
     [self.sendMessageQueue addOperation:operation];
 }
 
+- (void)uploadPushToken:(NSString *)token
+{
+    NSString *botPublicKey = [self.dataSource getOfflineMessageBotPublicKey];
+    if (botPublicKey == nil) {
+        NSLog(@"uploadPushToken not set botPublicKey");
+        return;
+    }
+    
+    OCTTox *tox = [self.dataSource managerGetTox];
+    OCTToxFriendNumber botFriendNumber = [tox friendNumberWithPublicKey:botPublicKey error:nil];
+    
+    DeviceUpdateReq *req = [DeviceUpdateReq new];
+    req.type = 1;
+    req.identifier = [token dataUsingEncoding:NSUTF8StringEncoding];
+    
+    OCTSendOfflineMessageOperation *operation = [[OCTSendOfflineMessageOperation alloc] initOfflineWithTox:tox
+                                                                                                       cmd:OCTToxMessageOfflineCmdPushToken
+                                                                                           botFriendNumber:botFriendNumber
+                                                                                                   message:[req data]];
+    [self.sendMessageQueue addOperation:operation];
+}
+
 #pragma mark -  NSNotification
 
 - (void)friendConnectionStatusChangeNotification:(NSNotification *)notification

@@ -500,6 +500,9 @@ void (*_tox_self_get_public_key)(const Tox *tox, uint8_t *public_key);
         case OCTToxMessageOfflineCmdDelRequest:
             cmd = TOX_MESSAGE_OFFLINE_DEL_REQUEST;
             break;
+        case OCTToxMessageOfflineCmdPushToken:
+            cmd = TOX_MESSAGE_DEVICE_REQUEST;
+            break;
         default: return -1;
     }
     
