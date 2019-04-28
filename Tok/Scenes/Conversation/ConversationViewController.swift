@@ -359,6 +359,15 @@ class ConversationViewController: MessagesViewController {
             cell.bind(with: item as! FileMessageModel)
             
             return cell
+        case .custom(let item):
+            guard item is CallMessageItem else {
+                fallthrough
+            }
+            
+            let cell: CallMessageCell = collectionView.dequeueReusableCell(for: indexPath)
+            cell.configure(with: model, at: indexPath, and: collectionView as! MessagesCollectionView)
+            
+            return cell
         default:
             return super.collectionView(collectionView, cellForItemAt: indexPath)
         }
@@ -817,11 +826,6 @@ extension ConversationViewController: UIDocumentInteractionControllerDelegate {
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
 	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
-}
-
-extension NSNotification.Name {
-    static let StartVoiceCall = NSNotification.Name("StartVoiceCall")
-    static let StartVideoCall = NSNotification.Name("StartVideoCall")
 }
 
 let mediaDurationFormatter: DateComponentsFormatter = {

@@ -9,6 +9,11 @@
 import UIKit
 import HXPhotoPicker
 
+extension NSNotification.Name {
+    static let StartVoiceCall = NSNotification.Name("StartVoiceCall")
+    static let StartVideoCall = NSNotification.Name("StartVideoCall")
+}
+
 extension ConversationViewController {
     
     func setupSubviews(_ delegate: UITextViewDelegate) {
@@ -128,6 +133,10 @@ extension ConversationViewController: ChatShareMoreViewDelegate {
         vc.delegate = self
         vc.modalPresentationStyle = .formSheet
         present(vc, animated: true, completion: nil)
+    }
+    
+    func chatShareMoreViewAudioCallTaped() {
+        NotificationCenter.default.post(name: NSNotification.Name.StartVoiceCall, object: nil, userInfo: ["chat": self.dataSource.chat])
     }
 }
 

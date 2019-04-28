@@ -18,7 +18,7 @@ private let outgoingMediaMessagePadding = UIEdgeInsets(top: 0, left: 30, bottom:
 
 class ConversationCollectionViewFlowLayout: MessagesCollectionViewFlowLayout {
     lazy open var customePhotoMessageSizeCalculator = PhotoMessageSizeCalculator(layout: self)
-
+    lazy open var customMessageSizeCalculator = CustomMessageSizeCalculator(layout: self)
     lazy var customTextMessageSizeCalculator: TextMessageSizeCalculator = {
         let textMessageSizeCalculator = TextMessageSizeCalculator(layout: self)
         textMessageSizeCalculator.outgoingMessageLabelInsets = UIEdgeInsets(top: 7, left: 14, bottom: 7, right: 18 + 10)
@@ -50,6 +50,9 @@ class ConversationCollectionViewFlowLayout: MessagesCollectionViewFlowLayout {
         customePhotoMessageSizeCalculator.incomingAvatarPosition = avatarPosition
         customePhotoMessageSizeCalculator.outgoingAvatarPosition = avatarPosition
         
+        customMessageSizeCalculator.incomingAvatarPosition = avatarPosition
+        customMessageSizeCalculator.outgoingAvatarPosition = avatarPosition
+        
         customePhotoMessageSizeCalculator.incomingMessagePadding = incomingMediaMessagePadding
         customePhotoMessageSizeCalculator.outgoingMessagePadding = outgoingMediaMessagePadding
     }
@@ -64,7 +67,8 @@ class ConversationCollectionViewFlowLayout: MessagesCollectionViewFlowLayout {
     override func messageSizeCalculators() -> [MessageSizeCalculator] {
         var messageSizeCalculators = super.messageSizeCalculators()
         messageSizeCalculators.append(contentsOf: [customePhotoMessageSizeCalculator,
-                                                   customTextMessageSizeCalculator])
+                                                   customTextMessageSizeCalculator,
+                                                   customMessageSizeCalculator])
         return messageSizeCalculators
     }
     
@@ -82,6 +86,8 @@ class ConversationCollectionViewFlowLayout: MessagesCollectionViewFlowLayout {
             }
         case .photo, .video:
             return customePhotoMessageSizeCalculator
+        case .custom:
+            return customMessageSizeCalculator
         default:
             return super.cellSizeCalculatorForItem(at: indexPath)
         }
@@ -111,6 +117,22 @@ open class PhotoMessageSizeCalculator: MediaMessageSizeCalculator {
         } else {
             let width = max(min(size.width, maxPhotoValue), minPhotoValue)
             return CGSize(width: width, height: width)
+        }
+    }
+}
+
+open class CustomMessageSizeCalculator: MessageSizeCalculator {
+    open override func messageContainerSize(for message: MessageType) -> CGSize {
+        guard let message = message as? MessageModel else { return CGSize(width: 220, height: 70) }
+        switch message.kind {
+        case .custom(let item):
+            if item is CallMessageItem {
+                return CGSize(width: 180, height: 44)
+            }
+            
+            fallthrough
+        default:
+            return CGSize(width: 220, height: 70)
         }
     }
 }

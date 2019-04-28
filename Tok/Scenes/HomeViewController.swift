@@ -57,6 +57,8 @@ class HomeViewController: UITabBarController {
         }
         
         bindViewModel()
+        
+        viewModel.setupCallManager(presentingController: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {

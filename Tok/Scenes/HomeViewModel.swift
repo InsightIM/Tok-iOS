@@ -52,6 +52,25 @@ class HomeViewModel: NSObject {
         hasNewFeature.accept(userDefaultsManager.showNewFeatureOnMe ? "New" : nil)
     }
     
+    func setupCallManager(presentingController: UIViewController) {
+        callManager = CallManager(presentingController: presentingController, submanagerCalls: manager.calls, submanagerObjects: manager.objects)
+        callManager.delegate = self
+        
+        NotificationCenter.default.rx.notification(Notification.Name.StartVoiceCall)
+            .subscribe(onNext: { [weak self] noti in
+                guard let chat = noti.userInfo?["chat"] as? OCTChat else { return }
+                self?.callManager.callToChat(chat, enableVideo: false)
+            })
+            .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(Notification.Name.StartVideoCall)
+            .subscribe(onNext: { [weak self] noti in
+                guard let chat = noti.userInfo?["chat"] as? OCTChat else { return }
+                self?.callManager.callToChat(chat, enableVideo: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     func hideNewFeature() {
         userDefaultsManager.showNewFeatureOnMe = false
     }
@@ -69,5 +88,19 @@ extension HomeViewModel: OCTSubmanagerUserDelegate {
         if isOnline {
             UploadPushManager.shared.uploadPushTokenIfNeeded()
         }
+    }
+}
+
+extension HomeViewModel: CallCoordinatorDelegate {
+    func callCoordinator(_ coordinator: CallManager, notifyAboutBackgroundCallFrom caller: String, userInfo: String) {
+        notificationManager.showCallNotificationWithCaller(caller, userInfo: userInfo)
+    }
+    
+    func callCoordinatorDidStartCall(_ coordinator: CallManager) {
+        //        delegate?.activeSessionCoordinatorDidStartCall(self)
+    }
+    
+    func callCoordinatorDidFinishCall(_ coordinator: CallManager) {
+        //        delegate?.activeSessionCoordinatorDidFinishCall(self)
     }
 }

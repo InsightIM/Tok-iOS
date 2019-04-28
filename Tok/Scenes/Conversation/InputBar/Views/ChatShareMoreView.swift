@@ -18,6 +18,7 @@ class ChatShareMoreView: UIView {
     fileprivate let itemDataSouce: [(name: String, iconImage: UIImage)] = [
         (NSLocalizedString("Album", comment: ""), UIImage(named: "MenuAlbum")!),
         (NSLocalizedString("Camera", comment: ""), UIImage(named: "MenuCamera")!),
+        (NSLocalizedString("Audio Call", comment: ""), UIImage(named: "MenuAudioCall")!),
         (NSLocalizedString("File", comment: ""), UIImage(named: "MenuFile")!),
     ]
     fileprivate var groupDataSouce = [[(name: String, iconImage: UIImage)]]()
@@ -91,13 +92,13 @@ extension ChatShareMoreView: UICollectionViewDelegate {
             switch row {
             case 0: delegate.chatShareMoreViewPhotoTaped()
             case 1: delegate.chatShareMoreViewCameraTaped()
-            case 2: delegate.chatShareMoreViewFileTaped()
+            case 2: delegate.chatShareMoreViewAudioCallTaped()
+            case 3: delegate.chatShareMoreViewFileTaped()
             default: break
             }
         }
     }
 }
-
 
 // MARK: - @protocol UICollectionViewDataSource
 extension ChatShareMoreView: UICollectionViewDataSource {
@@ -136,7 +137,6 @@ extension ChatShareMoreView: UIScrollViewDelegate {
     }
 }
 
-
  // MARK: - @delgate ChatShareMoreViewDelegate
 protocol ChatShareMoreViewDelegate: class {
     
@@ -145,9 +145,6 @@ protocol ChatShareMoreViewDelegate: class {
     func chatShareMoreViewCameraTaped()
     
     func chatShareMoreViewFileTaped()
+    
+    func chatShareMoreViewAudioCallTaped()
 }
-
-
-
-
-
