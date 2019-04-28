@@ -174,6 +174,6 @@ fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgrou
 
 public func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
     #if DEBUG
-//    swiftLog(file, function, line, message, color, false)
+    swiftLog(file, function, line, message, color, false)
     #endif
 }
