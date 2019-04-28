@@ -53,7 +53,7 @@ class CallButton: UIButton {
 
     init(type: CallButtonType, buttonSize: ButtonSize) {
         self.buttonSize = buttonSize
-        self.normalTintColor = UIColor.tokBlue
+        self.normalTintColor = UIColor.white
 
         super.init(frame: CGRect.zero)
 
@@ -66,34 +66,34 @@ class CallButton: UIButton {
         layer.masksToBounds = true
 
         let imageName: String
-        let backgroundColor: UIColor
+        var backgroundColor: UIColor? = nil
         var selectedBackgroundColor: UIColor? = nil
 
         switch type {
             case .decline:
                 imageName = "end-call"
-                backgroundColor = UIColor.tokGray//theme.colorForType(.CallDeclineButtonBackground)
+                backgroundColor = UIColor.tokNotice
             case .answerAudio:
                 imageName = "start-call-30"
-                backgroundColor = UIColor.tokGray//theme.colorForType(.CallAnswerButtonBackground)
+                backgroundColor = UIColor.tokOnline
             case .answerVideo:
                 imageName = "video-call-30"
-                backgroundColor = UIColor.tokGray //theme.colorForType(.CallAnswerButtonBackground)
+                backgroundColor = UIColor.tokOnline
             case .mute:
                 imageName = "mute"
-                backgroundColor = UIColor.tokGray //theme.colorForType(.CallControlBackground)
-                selectedTintColor = UIColor.tokGray //theme.colorForType(.CallButtonSelectedIconColor)
-                selectedBackgroundColor = UIColor.tokGray //theme.colorForType(.CallControlSelectedBackground)
+                selectedTintColor = UIColor.black
+                selectedBackgroundColor = UIColor.white
+                addBlurEffect()
             case .speaker:
                 imageName = "speaker"
-                backgroundColor = UIColor.tokGray //theme.colorForType(.CallControlBackground)
-                selectedTintColor = UIColor.tokGray //theme.colorForType(.CallButtonSelectedIconColor)
-                selectedBackgroundColor = UIColor.tokGray //theme.colorForType(.CallControlSelectedBackground)
+                selectedTintColor = UIColor.black
+                selectedBackgroundColor = UIColor.white
+                addBlurEffect()
             case .video:
                 imageName = "video-call-30"
-                backgroundColor = UIColor.tokGray //theme.colorForType(.CallControlBackground)
-                selectedTintColor = UIColor.tokGray //theme.colorForType(.CallButtonSelectedIconColor)
-                selectedBackgroundColor = UIColor.tokGray //theme.colorForType(.CallControlSelectedBackground)
+                selectedTintColor = UIColor.black
+                selectedBackgroundColor = UIColor.white
+                addBlurEffect()
         }
 
         tintColor = normalTintColor
@@ -101,9 +101,10 @@ class CallButton: UIButton {
         let image = UIImage.templateNamed(imageName)
         setImage(image, for: .normal)
 
-        let backgroundImage = UIImage.imageWithColor(backgroundColor, size: CGSize(width: 1.0, height: 1.0))
-        setBackgroundImage(backgroundImage, for: .normal)
-
+        if let backgroundColor = backgroundColor {
+            let backgroundImage = UIImage.imageWithColor(backgroundColor, size: CGSize(width: 1.0, height: 1.0))
+            setBackgroundImage(backgroundImage, for: .normal)
+        }
         if let selected = selectedBackgroundColor {
             let backgroundImage = UIImage.imageWithColor(selected, size: CGSize(width: 1.0, height: 1.0))
             setBackgroundImage(backgroundImage, for: .selected)
@@ -120,6 +121,18 @@ class CallButton: UIButton {
                 return CGSize(width: Constants.SmallSize, height: Constants.SmallSize)
             case .big:
                 return CGSize(width: Constants.BigSize, height: Constants.BigSize)
+        }
+    }
+}
+
+fileprivate extension UIButton {
+    func addBlurEffect() {
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blur.frame = CGRect(origin: .zero, size: intrinsicContentSize)
+        blur.isUserInteractionEnabled = false
+        insertSubview(blur, at: 0)
+        if let imageView = self.imageView{
+            bringSubviewToFront(imageView)
         }
     }
 }

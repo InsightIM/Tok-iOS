@@ -1431,9 +1431,9 @@
 			isa = PBXGroup;
 			children = (
 				4EAC4961222E3055003D591C /* Views */,
-				4EAC495E222E3055003D591C /* CallActiveController.swift */,
 				4EAC495F222E3055003D591C /* CallBaseController.swift */,
 				4EAC4960222E3055003D591C /* CallIncomingController.swift */,
+				4EAC495E222E3055003D591C /* CallActiveController.swift */,
 			);
 			path = Call;
 			sourceTree = "<group>";

@@ -6,12 +6,11 @@ import UIKit
 import SnapKit
 
 private struct Constants {
-    static let AvatarSize: CGFloat = 140.0
+    
+    static let AvatarSize = 100.0
+    static let ButtonContainerBottomOffset = -20.0
 
-    static let ButtonContainerTopMinOffset = 10.0
-    static let ButtonContainerBottomOffset = -50.0
-
-    static let ButtonHorizontalOffset = 20.0
+    static let ButtonHorizontalOffset = 60.0
 }
 
 protocol CallIncomingControllerDelegate: class {
@@ -22,8 +21,6 @@ protocol CallIncomingControllerDelegate: class {
 
 class CallIncomingController: CallBaseController {
     weak var delegate: CallIncomingControllerDelegate?
-
-    fileprivate var avatarView: UIImageView!
 
     fileprivate var buttonContainer: UIView!
     fileprivate var declineButton: CallButton!
@@ -65,53 +62,46 @@ extension CallIncomingController {
 
 private extension CallIncomingController {
     func createViews() {
-//        let avatarManager = AvatarManager.shared
-
-        avatarView = UIImageView()
-//        avatarView.image = avatarManager.avatarFromString(callerName, diameter: Constants.AvatarSize, type: .Call)
-        view.addSubview(avatarView)
-
         buttonContainer = UIView()
         buttonContainer.backgroundColor = .clear
         view.addSubview(buttonContainer)
 
-        declineButton = CallButton(type: .decline, buttonSize: .small)
+        declineButton = CallButton(type: .decline, buttonSize: .big)
         declineButton.addTarget(self, action: #selector(CallIncomingController.declineButtonPressed), for: .touchUpInside)
         buttonContainer.addSubview(declineButton)
 
-        audioButton = CallButton(type: .answerAudio, buttonSize: .small)
+        audioButton = CallButton(type: .answerAudio, buttonSize: .big)
         audioButton.addTarget(self, action: #selector(CallIncomingController.audioButtonPressed), for: .touchUpInside)
         buttonContainer.addSubview(audioButton)
 
-        videoButton = CallButton(type: .answerVideo, buttonSize: .small)
+        videoButton = CallButton(type: .answerVideo, buttonSize: .big)
         videoButton.addTarget(self, action: #selector(CallIncomingController.videoButtonPressed), for: .touchUpInside)
         buttonContainer.addSubview(videoButton)
     }
 
     func installConstraints() {
-        avatarView.snp.makeConstraints {
-            $0.center.equalTo(view)
-        }
 
         buttonContainer.snp.makeConstraints {
-            $0.centerX.equalTo(view)
-            $0.top.greaterThanOrEqualTo(avatarView.snp.bottom).offset(Constants.ButtonContainerTopMinOffset)
-            $0.bottom.equalTo(view).offset(Constants.ButtonContainerBottomOffset).priority(250)
+            $0.bottom.equalTo(view.safeArea.bottom).offset(Constants.ButtonContainerBottomOffset)
+            $0.centerX.equalToSuperview()
         }
 
         declineButton.snp.makeConstraints {
-            $0.top.bottom.equalTo(buttonContainer)
+            $0.centerY.equalTo(buttonContainer)
             $0.leading.equalTo(buttonContainer)
-        }
-
-        audioButton.snp.makeConstraints {
-            $0.top.bottom.equalTo(buttonContainer)
-            $0.leading.equalTo(declineButton.snp.trailing).offset(Constants.ButtonHorizontalOffset)
+            $0.top.bottom.equalToSuperview()
         }
 
         videoButton.snp.makeConstraints {
-            $0.top.bottom.equalTo(buttonContainer)
-            $0.leading.equalTo(audioButton.snp.trailing).offset(Constants.ButtonHorizontalOffset)
+            $0.width.equalTo(declineButton)
+            $0.centerY.equalTo(buttonContainer)
+            $0.leading.equalTo(declineButton.snp.trailing).offset(Constants.ButtonHorizontalOffset)
+        }
+
+        audioButton.snp.makeConstraints {
+            $0.width.equalTo(declineButton)
+            $0.centerY.equalTo(buttonContainer)
+            $0.leading.equalTo(videoButton.snp.trailing).offset(Constants.ButtonHorizontalOffset)
             $0.trailing.equalTo(buttonContainer)
         }
     }

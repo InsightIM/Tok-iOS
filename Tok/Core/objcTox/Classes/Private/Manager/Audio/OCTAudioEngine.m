@@ -93,7 +93,10 @@
 #if TARGET_OS_IPHONE
     AVAudioSession *session = [AVAudioSession sharedInstance];
 
-    if (! ([session setCategory:AVAudioSessionCategoryPlayAndRecord error:error] &&
+    if (! ([session setCategory:AVAudioSessionCategoryPlayAndRecord
+                           mode:AVAudioSessionModeDefault
+                        options:AVAudioSessionCategoryOptionAllowBluetoothA2DP
+                          error:error] &&
            [session setPreferredSampleRate:kDefaultSampleRate error:error] &&
            [session setMode:AVAudioSessionModeVoiceChat error:error] &&
            [session setActive:YES error:error])) {

@@ -1,7 +1,7 @@
 import Foundation
 
 protocol CallCoordinatorDelegate: class {
-    func callCoordinator(_ coordinator: CallManager, notifyAboutBackgroundCallFrom caller: String, userInfo: String)
+    func callCoordinator(_ coordinator: CallManager, notifyAboutBackgroundCallFrom caller: OCTCall, userInfo: String)
     func callCoordinatorDidStartCall(_ coordinator: CallManager)
     func callCoordinatorDidFinishCall(_ coordinator: CallManager)
 }
@@ -63,13 +63,7 @@ class CallManager: NSObject {
     func callToChat(_ chat: OCTChat, enableVideo: Bool) {
         do {
             let call = try submanagerCalls.call(to: chat, enableAudio: true, enableVideo: enableVideo)
-            var nickname = NSLocalizedString("Deleted contact", comment: "")
-            
-            if let friend = chat.friends?.lastObject() as? OCTFriend {
-                nickname = friend.nickname
-            }
-            
-            let controller = CallActiveController(callerName: nickname)
+            let controller = CallActiveController(call: call)
             controller.delegate = self
             
             startActiveCallWithCall(call, controller: controller)
@@ -97,13 +91,11 @@ extension CallManager: OCTSubmanagerCallDelegate {
             return
         }
         
-        let nickname = call.caller?.nickname ?? ""
-        
         if !UIApplication.isActive {
-            delegate?.callCoordinator(self, notifyAboutBackgroundCallFrom: nickname, userInfo: call.uniqueIdentifier)
+            delegate?.callCoordinator(self, notifyAboutBackgroundCallFrom: call, userInfo: call.uniqueIdentifier)
         }
         
-        let controller = CallIncomingController(callerName: nickname)
+        let controller = CallIncomingController(call: call)
         controller.delegate = self
         
         startActiveCallWithCall(call, controller: controller)
@@ -288,8 +280,8 @@ private extension CallManager {
         var activeController = activeCall.navigation.topViewController as? CallActiveController
         
         if (activeController == nil) {
-            let nickname = activeCall.call.caller?.nickname ?? ""
-            activeController = CallActiveController(callerName: nickname)
+//            let nickname = activeCall.call.caller?.nickname ?? ""
+            activeController = CallActiveController(call: activeCall.call)
             activeController!.delegate = self
             
             activeCall.navigation.setViewControllers([activeController!], animated: false)

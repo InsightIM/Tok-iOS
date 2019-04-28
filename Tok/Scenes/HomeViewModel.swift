@@ -92,7 +92,7 @@ extension HomeViewModel: OCTSubmanagerUserDelegate {
 }
 
 extension HomeViewModel: CallCoordinatorDelegate {
-    func callCoordinator(_ coordinator: CallManager, notifyAboutBackgroundCallFrom caller: String, userInfo: String) {
+    func callCoordinator(_ coordinator: CallManager, notifyAboutBackgroundCallFrom caller: OCTCall, userInfo: String) {
         notificationManager.showCallNotificationWithCaller(caller, userInfo: userInfo)
     }
     

@@ -164,6 +164,12 @@ class ConversationViewController: MessagesViewController {
         willMove = false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        dataSource.markAllMessageAsRead()
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         FCAudioPlayer.shared().stop(withAudioSessionDeactivated: true)

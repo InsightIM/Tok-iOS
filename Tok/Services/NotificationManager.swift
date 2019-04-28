@@ -113,8 +113,8 @@ class NotificationManager: NSObject {
         return chats.count > 0
     }
     
-    func showCallNotificationWithCaller(_ caller: String, userInfo: String) {
-        let title = caller
+    func showCallNotificationWithCaller(_ caller: OCTCall, userInfo: String) {
+        let title = caller.caller?.nickname ?? "Friend"
         let body = NSLocalizedString("is calling", comment: "")
         send(identifier: userInfo, title: title, subtitle: "", body: body)
     }
