@@ -18,7 +18,7 @@ class ChatShareMoreView: UIView {
     fileprivate let itemDataSouce: [(name: String, iconImage: UIImage)] = [
         (NSLocalizedString("Album", comment: ""), UIImage(named: "MenuAlbum")!),
         (NSLocalizedString("Camera", comment: ""), UIImage(named: "MenuCamera")!),
-        (NSLocalizedString("Audio Call", comment: ""), UIImage(named: "MenuAudioCall")!),
+        (NSLocalizedString("Call", comment: ""), UIImage(named: "MenuCall")!),
         (NSLocalizedString("File", comment: ""), UIImage(named: "MenuFile")!),
     ]
     fileprivate var groupDataSouce = [[(name: String, iconImage: UIImage)]]()
