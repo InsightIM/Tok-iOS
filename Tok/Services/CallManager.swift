@@ -70,7 +70,7 @@ class CallManager: NSObject {
         }
         catch let error as NSError {
             print("\(error)")
-//            handleErrorWithType(.callToChat, error: error)
+            ProgressHUD.showTextHUD(withText: error.localizedFailureReason ?? error.localizedDescription, in: presentingController.view)
         }
     }
     
