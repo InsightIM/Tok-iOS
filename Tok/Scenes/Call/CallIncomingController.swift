@@ -66,15 +66,15 @@ private extension CallIncomingController {
         buttonContainer.backgroundColor = .clear
         view.addSubview(buttonContainer)
 
-        declineButton = CallButton(type: .decline, buttonSize: .big)
+        declineButton = CallButton(type: .decline, buttonSize: .small)
         declineButton.addTarget(self, action: #selector(CallIncomingController.declineButtonPressed), for: .touchUpInside)
         buttonContainer.addSubview(declineButton)
 
-        audioButton = CallButton(type: .answerAudio, buttonSize: .big)
+        audioButton = CallButton(type: .answerAudio, buttonSize: .small)
         audioButton.addTarget(self, action: #selector(CallIncomingController.audioButtonPressed), for: .touchUpInside)
         buttonContainer.addSubview(audioButton)
 
-        videoButton = CallButton(type: .answerVideo, buttonSize: .big)
+        videoButton = CallButton(type: .answerVideo, buttonSize: .small)
         videoButton.addTarget(self, action: #selector(CallIncomingController.videoButtonPressed), for: .touchUpInside)
         buttonContainer.addSubview(videoButton)
     }

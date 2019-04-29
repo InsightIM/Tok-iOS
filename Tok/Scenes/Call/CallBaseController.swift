@@ -61,15 +61,11 @@ class CallBaseController: UIViewController {
     }
 
     override func loadView() {
-        loadViewWithBackgroundColor(.clear)
+        loadViewWithBackgroundColor(.tokBlack)
 
         addBlurredBackground()
         createTopViews()
         installConstraints()
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
     }
 
     /**

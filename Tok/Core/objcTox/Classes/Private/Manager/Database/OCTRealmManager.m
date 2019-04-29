@@ -620,7 +620,7 @@ static NSString *kSettingsStorageObjectPrimaryKey = @"kSettingsStorageObjectPrim
     messageAbstract.messageFile = messageFile;
     messageAbstract.messageCall = messageCall;
     
-    if (messageAbstract.senderUniqueIdentifier == nil) {
+    if (messageAbstract.senderUniqueIdentifier == nil || messageCall != nil) {
         messageAbstract.readed = YES;
     }
     
