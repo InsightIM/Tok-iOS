@@ -639,6 +639,9 @@ extension ConversationViewController: MessageCellDelegate {
             if model.isOutgoing || (model.isOutgoing == false && model.status == .sent) {
                 openDocumentAction(filePath: item.path)
             }
+        case .custom(let item):
+            guard item is CallMessageItem else { return }
+            chatShareMoreViewAudioCallTaped()
         default:
             didTapBlankSpaceView()
         }
