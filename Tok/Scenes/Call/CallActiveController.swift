@@ -45,15 +45,18 @@ class CallActiveController: CallBaseController {
                 case .none:
                     infoLabel.text = nil
                     durationLabel.text = nil
+                    bigDurationLabel.text = nil
                 case .reaching:
                     infoLabel.text = NSLocalizedString("Reaching...", comment: "")
                     durationLabel.text = nil
+                    bigDurationLabel.text = nil
 
                     bigVideoButton?.isEnabled = false
                     smallVideoButton?.isEnabled = false
                 case .active(let duration):
                     infoLabel.text = nil
                     durationLabel.text = String(timeInterval: duration)
+                    bigDurationLabel.text = String(timeInterval: duration)
 
                     bigVideoButton?.isEnabled = true
                     smallVideoButton?.isEnabled = true
@@ -100,9 +103,9 @@ class CallActiveController: CallBaseController {
                 feed.snp.makeConstraints {
                     $0.edges.equalTo(view)
                 }
-
-                updateViewsWithTraitCollection(self.traitCollection)
             }
+            
+            updateViewsWithTraitCollection(self.traitCollection)
         }
     }
 
@@ -161,6 +164,14 @@ class CallActiveController: CallBaseController {
     fileprivate var smallDeclineButton: CallButton?
 
     lazy var durationLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18.0, weight: .light)
+        return label
+    }()
+    
+    lazy var bigDurationLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
         label.textAlignment = .center
@@ -276,6 +287,12 @@ private extension CallActiveController {
         bigCenterContainer = UIView()
         bigCenterContainer.backgroundColor = .clear
         bigContainerView.addSubview(bigCenterContainer)
+        
+        bigContainerView.addSubview(bigDurationLabel)
+        bigDurationLabel.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(bigCenterContainer.snp.top).offset(-10)
+        }
 
         bigMuteButton = addButtonWithType(.mute, buttonSize: .big, action: #selector(CallActiveController.muteButtonPressed(_:)), container: bigCenterContainer)
         bigSpeakerButton = addButtonWithType(.speaker, buttonSize: .big, action: #selector(CallActiveController.speakerButtonPressed(_:)), container: bigCenterContainer)
