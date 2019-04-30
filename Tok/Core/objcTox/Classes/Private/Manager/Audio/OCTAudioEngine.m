@@ -94,11 +94,10 @@
     AVAudioSession *session = [AVAudioSession sharedInstance];
 
     if (! ([session setCategory:AVAudioSessionCategoryPlayAndRecord
-                           mode:AVAudioSessionModeDefault
+                           mode:AVAudioSessionModeVoiceChat
                         options:AVAudioSessionCategoryOptionAllowBluetoothA2DP
                           error:error] &&
            [session setPreferredSampleRate:kDefaultSampleRate error:error] &&
-           [session setMode:AVAudioSessionModeVoiceChat error:error] &&
            [session setActive:YES error:error])) {
         return NO;
     }
