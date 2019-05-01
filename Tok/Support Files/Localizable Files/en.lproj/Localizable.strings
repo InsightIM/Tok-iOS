@@ -105,9 +105,6 @@
 "Delete this contact?\nYour chat history will be lost." = "Delete this contact?\nYour chat history will be lost.";
 
 /* No comment provided by engineer. */
-"Deleted contact" = "Deleted contact";
-
-/* No comment provided by engineer. */
 "Draft" = "Draft";
 
 /* No comment provided by engineer. */
@@ -532,3 +529,6 @@
 
 /* No comment provided by engineer. */
 "Delete this bot?\nYour offline messages will be lost." = "Delete this bot?\nYour offline messages will be lost.";
+
+/* No comment provided by engineer. */
+"Call" = "Call";

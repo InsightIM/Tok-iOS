@@ -108,9 +108,6 @@
 "Delete this contact?\nYour chat history will be lost." = "删除这个联系人\n你和他的聊天记录将全部丢失.";
 
 /* No comment provided by engineer. */
-"Deleted contact" = "删除联系人";
-
-/* No comment provided by engineer. */
 "Draft" = "草稿";
 
 /* No comment provided by engineer. */
@@ -141,10 +138,10 @@
 "Forward" = "转发";
 
 /* No comment provided by engineer. */
-"Hey there! I'm using Tok." = "你好，我们在 Tok 聊天吧.";
+"Hey there! I'm using Tok." = "Hey there! I'm using Tok.";
 
 /* No comment provided by engineer. */
-"Hi, i'm %@" = "你好, 我是 %@";
+"Hi, i'm %@" = "Hi, i'm %@";
 
 /* No comment provided by engineer. */
 "Hold to Talk" = "按住说话";
@@ -532,3 +529,6 @@
 
 /* No comment provided by engineer. */
 "Delete this bot?\nYour offline messages will be lost." = "确定删除离线机器人?\n你的离线消息将会丢失。";
+
+/* No comment provided by engineer. */
+"Call" = "通话";
