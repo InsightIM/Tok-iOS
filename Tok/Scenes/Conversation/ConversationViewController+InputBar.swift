@@ -99,35 +99,7 @@ extension ConversationViewController {
                 updateBlock()
             }
         } else {
-            guard let textView = self.chatActionBarView.inputTextView,
-                let lineHeight = textView.font?.lineHeight else {
-                    return
-            }
-            
-            let padding: CGFloat = 10
-            let textViewWidth = UIScreen.main.bounds.width - padding * 3 - 6 * 1 - 35 * 2
-            
-            let maxHeight = ceil(lineHeight * CGFloat(kChatActionBarMaxRows) + textView.textContainerInset.top + textView.textContainerInset.bottom)
-            let contentSize = textView.sizeThatFits(CGSize(width: textViewWidth, height: UIView.layoutFittingExpandedSize.height))
-            
-            textView.isScrollEnabled = contentSize.height > maxHeight
-            
-            let newHeight = min(contentSize.height, maxHeight)
-            let heightDifference = newHeight - textView.height
-            
-            if abs(heightDifference) > 0.1 || forceUpdate {
-                let keyboardIsShowing = forceHideKeyboard
-                    ? false
-                    : (actionBarPaddingBottomConstranit?.layoutConstraints[0].constant ?? 0) < 0.0
-                
-                let height = keyboardIsShowing ? newHeight + 12 * 2 : max(kChatActionBarOriginalHeight, kChatActionBarOriginalHeight + newHeight - 36)
-                self.chatActionBarView.snp.updateConstraints { (make) -> Void in
-                    make.height.equalTo(height)
-                    if forceHideKeyboard {
-                        make.bottom.equalToSuperview()
-                    }
-                }
-                
+            if updateTextViewHeight(forceHideKeyboard: forceHideKeyboard, forceUpdate: forceUpdate) {
                 if animation {
                     UIView.animate(withDuration: animationDuration, animations: updateBlock)
                 } else {
@@ -135,5 +107,41 @@ extension ConversationViewController {
                 }
             }
         }
+    }
+    
+    func updateTextViewHeight(forceHideKeyboard: Bool, forceUpdate: Bool) -> Bool {
+        guard let textView = self.chatActionBarView.inputTextView,
+            let lineHeight = textView.font?.lineHeight else {
+                return false
+        }
+        
+        let padding: CGFloat = 10
+        let textViewWidth = UIScreen.main.bounds.width - padding * 3 - 6 * 1 - 35 * 2
+        
+        let maxHeight = ceil(lineHeight * CGFloat(kChatActionBarMaxRows) + textView.textContainerInset.top + textView.textContainerInset.bottom)
+        let contentSize = textView.sizeThatFits(CGSize(width: textViewWidth, height: UIView.layoutFittingExpandedSize.height))
+        
+        textView.isScrollEnabled = contentSize.height > maxHeight
+        
+        let newHeight = min(contentSize.height, maxHeight)
+        let heightDifference = newHeight - textView.height
+        
+        if abs(heightDifference) > 0.1 || forceUpdate {
+            let keyboardIsShowing = forceHideKeyboard
+                ? false
+                : (actionBarPaddingBottomConstranit?.layoutConstraints[0].constant ?? 0) < 0.0
+            
+            let height = keyboardIsShowing ? newHeight + 12 * 2 : max(kChatActionBarOriginalHeight, kChatActionBarOriginalHeight + newHeight - 36)
+            self.chatActionBarView.snp.updateConstraints { (make) -> Void in
+                make.height.equalTo(height)
+                if forceHideKeyboard {
+                    make.bottom.equalToSuperview()
+                }
+            }
+            
+            return true
+        }
+        
+        return false
     }
 }

@@ -159,14 +159,11 @@ class ConversationViewController: MessagesViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        initViewLayout()
         willMove = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         dataSource.markAllMessageAsRead()
     }
     
@@ -185,23 +182,41 @@ class ConversationViewController: MessagesViewController {
         willMove = false
     }
     
-    // MARK: - Private
-    
-    private var didInitViewLayout = false
-    
-    private func initViewLayout() {
-        if !didInitViewLayout {
-            didInitViewLayout = true
-            
-            controlExpandableInputView(showExpandable: true, forceUpdate: false, animation: false, scrollToBottom: false)
-            initScrollToBottom()
+    public private(set) var isFirstLayout: Bool = true
+    override open func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if self.isFirstLayout {
+            isFirstLayout = false
+            let needUpdate = updateTextViewHeight(forceHideKeyboard: false, forceUpdate: false)
+            let offsetY = messagesCollectionView.collectionViewLayout.collectionViewContentSize.height - messagesCollectionView.bounds.height
+            if needUpdate, offsetY > 0 {
+                view.layoutIfNeeded()
+            }
+            scrollToBottom()
         }
     }
     
-    private func initScrollToBottom() {
-        let navigateBarHeight: CGFloat = 44
-        let bottomOffset = CGPoint(x: 0.0, y: max(0.0, messagesCollectionView.contentSize.height - messagesCollectionView.height + UIApplication.safeAreaInsets.top + navigateBarHeight))
-        messagesCollectionView.setContentOffset(bottomOffset, animated: false)
+    // MARK: - Private
+    
+    private func scrollToBottom(animated: Bool = false) {
+        let collectionView = messagesCollectionView
+        // Cancel current scrolling
+        collectionView.setContentOffset(collectionView.contentOffset, animated: false)
+        
+        // Note that we don't rely on collectionView's contentSize. This is because it won't be valid after performBatchUpdates or reloadData
+        // After reload data, collectionViewLayout.collectionViewContentSize won't be even valid, so you may want to refresh the layout manually
+        let offsetY = max(-collectionView.contentInset.top, collectionView.collectionViewLayout.collectionViewContentSize.height - collectionView.bounds.height + collectionView.contentInset.bottom)
+        
+        // Don't use setContentOffset(:animated). If animated, contentOffset property will be updated along with the animation for each frame update
+        // If a message is inserted while scrolling is happening (as in very fast typing), we want to take the "final" content offset (not the "real time" one) to check if we should scroll to bottom again
+        if animated {
+            UIView.animate(withDuration: 0.33, animations: { () -> Void in
+                collectionView.contentOffset = CGPoint(x: 0, y: offsetY)
+            })
+        } else {
+            collectionView.contentOffset = CGPoint(x: 0, y: offsetY)
+        }
     }
     
     private func bindDataSource() {
