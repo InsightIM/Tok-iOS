@@ -26,6 +26,8 @@ class ChatsViewController: BaseViewController {
     fileprivate let friends: Results<OCTFriend>
     fileprivate var friendsToken: RLMNotificationToken?
     
+    fileprivate var updating: Bool = false
+    
     lazy var addButton: UIBarButtonItem = {
         let button = UIButton(type: .system)
         button.frame = CGRect(0, 0, 30, 30)
@@ -232,16 +234,29 @@ private extension ChatsViewController {
             case .update(let results, let deletions, let insertions, let modifications):
                 guard let results = results else { return }
                 
-                let deletes = deletions.map { IndexPath(row: $0, section: 0) }
-                let inserts = insertions.map { IndexPath(row: $0, section: 0) }
-                let updates = modifications.map { IndexPath(row: $0, section: 0) }
-
-                UIView.performWithoutAnimation {
-                    self.tableView.beginUpdates()
-                    self.tableView.deleteRows(at: deletes, with: .none)
-                    self.tableView.insertRows(at: inserts, with: .none)
-                    self.tableView.reloadRows(at: updates, with: .none)
-                    self.tableView.endUpdates()
+                if self.updating {
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                            self.updating = false
+                        }
+                    }
+                } else {
+                    self.updating = true
+                    
+                    let deletes = deletions.map { IndexPath(row: $0, section: 0) }
+                    let inserts = insertions.map { IndexPath(row: $0, section: 0) }
+                    let updates = modifications.map { IndexPath(row: $0, section: 0) }
+                    
+                    UIView.performWithoutAnimation {
+                        self.tableView.beginUpdates()
+                        self.tableView.deleteRows(at: deletes, with: .none)
+                        self.tableView.insertRows(at: inserts, with: .none)
+                        self.tableView.reloadRows(at: updates, with: .none)
+                        self.tableView.endUpdates()
+                        
+                        self.updating = false
+                    }
                 }
                 
                 self.setupEmptyView(isShow: results.count == 0)
