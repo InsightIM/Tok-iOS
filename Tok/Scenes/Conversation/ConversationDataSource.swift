@@ -64,7 +64,8 @@ class ConversationDataSource {
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
             NSPredicate(format: "chatUniqueIdentifier == %@", chat.uniqueIdentifier),
             NSCompoundPredicate(orPredicateWithSubpredicates: [
-                NSPredicate(format: "senderUniqueIdentifier != nil AND messageText.status != 0"),
+                NSPredicate(format: "senderUniqueIdentifier != nil AND messageText != nil AND messageText.status == 1"),
+                NSPredicate(format: "senderUniqueIdentifier != nil AND messageText == nil"),
                 NSPredicate(format: "senderUniqueIdentifier == nil"),
                 ]),
             ])

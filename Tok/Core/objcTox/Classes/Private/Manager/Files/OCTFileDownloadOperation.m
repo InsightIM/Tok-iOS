@@ -91,7 +91,7 @@
     }
 
     NSError *error;
-    NSLog(@"【fileSendControl】FileNumber: %d,  friendNumber: %d", self.fileNumber, self.friendNumber);
+    NSLog(@"[fileSendControl] FileNumber: %d,  friendNumber: %d", self.fileNumber, self.friendNumber);
     if (! [self.tox fileSendControlForFileNumber:self.fileNumber
                                     friendNumber:self.friendNumber
                                          control:OCTToxFileControlResume

@@ -2071,6 +2071,9 @@ void offlineMessageCallback(Tox *cTox,
         case TOX_MESSAGE_OFFLINE_DEL_REQUEST:
             cmd = OCTToxMessageOfflineCmdDelRequest;
             break;
+        case TOX_MESSAGE_DEVICE_REQUEST:
+            cmd = OCTToxMessageOfflineCmdPushToken;
+            break;
     }
     
     NSData *message = [NSData dataWithBytes:cMessage length:length];

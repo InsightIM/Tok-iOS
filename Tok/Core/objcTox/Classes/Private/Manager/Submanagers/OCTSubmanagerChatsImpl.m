@@ -438,7 +438,6 @@
     OCTTox *tox = [self.dataSource managerGetTox];
     OCTToxMessageId messageId = [tox generateMessageId];
     NSData *cryptoMessage = [tox encryptOfflineMessage:friendNumber message:text];
-    NSLog(@"cryptoMessage len: %d", cryptoMessage.length);
     
     OfflineMessageReq *model = [OfflineMessageReq new];
     model.localMsgId = messageId;
@@ -446,7 +445,6 @@
     model.cryptoMessage = cryptoMessage;
     
     NSData *messageData = [model data];
-    NSLog(@"messageData len: %d", messageData.length);
     
     OCTSendOfflineMessageOperation *operation = [[OCTSendOfflineMessageOperation alloc] initOfflineWithTox:tox
                                                                                                        cmd:OCTToxMessageOfflineCmdSend

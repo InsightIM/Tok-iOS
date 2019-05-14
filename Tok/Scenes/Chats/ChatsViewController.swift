@@ -291,13 +291,29 @@ private extension ChatsViewController {
 }
 
 extension OCTChat {
+    
+    func lastMessageAbstract() -> OCTMessageAbstract? {
+        
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            NSPredicate(format: "chatUniqueIdentifier == %@", uniqueIdentifier),
+            NSCompoundPredicate(orPredicateWithSubpredicates: [
+                NSPredicate(format: "senderUniqueIdentifier != nil AND messageText != nil AND messageText.status == 1"),
+                NSPredicate(format: "senderUniqueIdentifier != nil AND messageText == nil"),
+                NSPredicate(format: "senderUniqueIdentifier == nil")
+                ]),
+            ])
+        
+        let messageAbstracts = UserService.shared.toxMananger!.objects.messages(predicate: predicate).sortedResultsUsingProperty("dateInterval", ascending: false)
+        return messageAbstracts.firstObject
+    }
+    
     func lastMessageText() -> (Bool, String?, String) {
         if let enteredText = enteredText, enteredText.isNotEmpty {
             return (true, nil, enteredText)
         }
         
         let hasDraft = false
-        guard let message = lastMessage else {
+        guard let message = lastMessageAbstract() else {
             return (hasDraft, nil, "")
         }
         
@@ -325,7 +341,14 @@ extension OCTChat {
     }
     
     func unreadMessagesCount() -> Int {
-        let predicate = NSPredicate(format: "senderUniqueIdentifier != nil AND chatUniqueIdentifier == %@ AND readed == NO", uniqueIdentifier)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            NSPredicate(format: "senderUniqueIdentifier != nil AND chatUniqueIdentifier == %@ AND readed == NO", uniqueIdentifier),
+            NSCompoundPredicate(orPredicateWithSubpredicates: [
+                NSPredicate(format: "senderUniqueIdentifier != nil AND messageText != nil AND messageText.status == 1"),
+                NSPredicate(format: "senderUniqueIdentifier != nil AND messageText == nil"),
+                ]),
+            ])
+        
         let messageAbstracts = UserService.shared.toxMananger!.objects.messages(predicate: predicate)
         return messageAbstracts.count
     }
