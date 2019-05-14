@@ -153,6 +153,7 @@ class ConversationViewController: MessagesViewController {
         bindDataSource()
         
         chatActionBarView.inputTextView.text = dataSource.chat.enteredText ?? ""
+        updateTextViewHeight(forceHideKeyboard: false, forceUpdate: false)
         
         dataSource.markAllMessageAsRead()
     }
@@ -188,11 +189,6 @@ class ConversationViewController: MessagesViewController {
         
         if self.isFirstLayout {
             isFirstLayout = false
-            let needUpdate = updateTextViewHeight(forceHideKeyboard: false, forceUpdate: false)
-            let offsetY = messagesCollectionView.collectionViewLayout.collectionViewContentSize.height - messagesCollectionView.bounds.height
-            if needUpdate, offsetY > 0 {
-                view.layoutIfNeeded()
-            }
             scrollToBottom()
         }
     }

@@ -109,6 +109,7 @@ extension ConversationViewController {
         }
     }
     
+    @discardableResult
     func updateTextViewHeight(forceHideKeyboard: Bool, forceUpdate: Bool) -> Bool {
         guard let textView = self.chatActionBarView.inputTextView,
             let lineHeight = textView.font?.lineHeight else {
