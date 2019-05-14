@@ -203,7 +203,13 @@ class ChatsCell: UITableViewCell {
     fileprivate var unreadMessages: Results<OCTMessageAbstract>?
     
     func addNotificationBlocks(chat: OCTChat) {
-        let predicate = NSPredicate(format: "senderUniqueIdentifier != nil AND chatUniqueIdentifier == %@ AND readed == NO", chat.uniqueIdentifier)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            NSPredicate(format: "senderUniqueIdentifier != nil AND chatUniqueIdentifier == %@ AND readed == NO", chat.uniqueIdentifier),
+            NSCompoundPredicate(orPredicateWithSubpredicates: [
+                NSPredicate(format: "senderUniqueIdentifier != nil AND messageText != nil AND messageText.status == 1"),
+                NSPredicate(format: "senderUniqueIdentifier != nil AND messageText == nil"),
+                ]),
+            ])
         unreadMessages = UserService.shared.toxMananger!.objects.messages(predicate: predicate)
         unreadMessagesToken = unreadMessages?.addNotificationBlock { [weak self] change in
             guard let self = self else { return }
