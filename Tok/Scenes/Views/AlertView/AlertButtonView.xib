@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AlertButtonView" customModule="FChat" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="160"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ybe-dU-St4">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="160"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4gJ-k9-CYn">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="95"/>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xT-y4-ph7">
+                            <rect key="frame" x="0.0" y="105" width="600" height="55"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="55" id="rWO-eI-Nke"/>
+                            </constraints>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="doI-fe-u1N"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="8xT-y4-ph7" firstAttribute="top" secondItem="4gJ-k9-CYn" secondAttribute="bottom" constant="10" id="BF5-Ak-GGg"/>
+                        <constraint firstItem="8xT-y4-ph7" firstAttribute="leading" secondItem="Ybe-dU-St4" secondAttribute="leading" id="IF6-N6-cGz"/>
+                        <constraint firstItem="4gJ-k9-CYn" firstAttribute="top" secondItem="Ybe-dU-St4" secondAttribute="top" id="RKW-fd-o9R"/>
+                        <constraint firstAttribute="trailing" secondItem="8xT-y4-ph7" secondAttribute="trailing" id="a5E-0g-6Nn"/>
+                        <constraint firstAttribute="bottom" secondItem="8xT-y4-ph7" secondAttribute="bottom" id="hDh-4z-6zG"/>
+                        <constraint firstAttribute="trailing" secondItem="4gJ-k9-CYn" secondAttribute="trailing" id="qaL-fm-qlJ"/>
+                        <constraint firstItem="4gJ-k9-CYn" firstAttribute="leading" secondItem="Ybe-dU-St4" secondAttribute="leading" id="u9Q-EL-Pku"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Ybe-dU-St4" secondAttribute="trailing" id="DMd-YE-V20"/>
+                <constraint firstItem="Ybe-dU-St4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Nb1-re-0wv"/>
+                <constraint firstItem="Ybe-dU-St4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="f0k-2J-VeN"/>
+                <constraint firstItem="qQf-cJ-KcI" firstAttribute="bottom" secondItem="Ybe-dU-St4" secondAttribute="bottom" id="gqd-DT-ubI"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="qQf-cJ-KcI"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="bounceAnimationOffset">
+                    <real key="value" value="5"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="topLayoutMarginAddition">
+                    <real key="value" value="20"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="leftLayoutMarginAddition">
+                    <real key="value" value="20"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="bottomLayoutMarginAddition">
+                    <real key="value" value="20"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="rightLayoutMarginAddition">
+                    <real key="value" value="20"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="collapseLayoutMarginAdditions" value="NO"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="cancelButton" destination="8xT-y4-ph7" id="ImR-1I-BJu"/>
+                <outlet property="stackView" destination="4gJ-k9-CYn" id="IrS-Oc-R5H"/>
+            </connections>
+            <point key="canvasLocation" x="360" y="376.91154422788611"/>
+        </view>
+    </objects>
+</document>
